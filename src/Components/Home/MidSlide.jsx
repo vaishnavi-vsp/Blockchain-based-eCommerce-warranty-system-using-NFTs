@@ -37,9 +37,7 @@ const MidSlide = ({ products }) => {
                     multi={true} 
                 />
             </Box>
-            <Box className={classes.rightComponent}>
-                <img src={adURL} style={{width: 232}} alt="" />
-            </Box>
+           
         </Box>
     )
 }

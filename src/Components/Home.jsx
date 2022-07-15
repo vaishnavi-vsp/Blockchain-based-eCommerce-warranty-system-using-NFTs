@@ -4,7 +4,7 @@ import Banner from './Home/Banner';
 import MidSlide from './Home/MidSlide';
 import MidSection from './Home/MidSection';
 import Slide from './Home/Slide';
-import React,  { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'; // hooks
 import { productData } from '../assets/products'
 
@@ -20,35 +20,39 @@ const Home = () => {
     const  products = productData;
 
     return (
-        <> 
+        <>
             <NavBar />
             <Box className={classes.component}>
                 <Banner />
-                <MidSlide products={products} />
-                <MidSection />
                 <Slide
-                    data={products} 
+                    data={products}
+                    title='Deals of the Day'
+                    timer={true}
+                    multi={true}
+                />
+                <Slide
+                    data={products}
                     title='Discounts for You'
-                    timer={false} 
-                    multi={true} 
+                    timer={false}
+                    multi={true}
                 />
                 <Slide
-                    data={products} 
+                    data={products}
                     title='Suggested Items'
-                    timer={false} 
-                    multi={true} 
+                    timer={false}
+                    multi={true}
                 />
                 <Slide
-                    data={products} 
+                    data={products}
                     title='Top Selection'
-                    timer={false} 
-                    multi={true} 
+                    timer={false}
+                    multi={true}
                 />
                 <Slide
-                    data={products} 
+                    data={products}
                     title='Recommended Items'
-                    timer={false} 
-                    multi={true} 
+                    timer={false}
+                    multi={true}
                 />
             </Box>
         </>

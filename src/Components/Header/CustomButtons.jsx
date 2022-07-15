@@ -65,7 +65,7 @@ const CustomButtons = () => {
     }
 
     return (
-        <Box className={classes.wrapper}>
+        <Box className={classes.wrapper} >
             {
                 account ? <Profile account={account} setAccount={setAccount} /> : 
                 <Link>

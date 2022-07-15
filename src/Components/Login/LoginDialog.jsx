@@ -9,7 +9,7 @@ const useStyle = makeStyles({
         maxWidth: 'unset !important'
     },
     image: {
-        backgroundImage: `url(${'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png'})`,
+        backgroundImage: `url(${'https://images.pexels.com/photos/5632382/pexels-photo-5632382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'})`,
         background: '#2874f0',
         backgroundPosition: 'center 85%',
         backgroundRepeat: 'no-repeat',
@@ -25,6 +25,7 @@ const useStyle = makeStyles({
         padding: '25px 35px',
         display: 'flex',
         flex: 1,
+        color: '#c9184a',
         flexDirection: 'column',
         '& > *': {
             marginTop: 20
@@ -32,7 +33,7 @@ const useStyle = makeStyles({
     },
     loginbtn: {
         textTransform: 'none',
-        background: '#FB641B',
+        background: '#c9184a',
         color: '#fff',
         height: 48,
         borderRadius: 2
@@ -40,13 +41,13 @@ const useStyle = makeStyles({
     requestbtn: {
         textTransform: 'none',
         background: '#fff',
-        color: '#2874f0',
+        color: '#c9184a',
         height: 48,
         borderRadius: 2,
         boxShadow: '0 2px 4px 0 rgb(0 0 0 / 20%)'
     },
     text: {
-        color: '#878787',
+        color: '#c9184a',
         fontSize: 12
     },
     createText: {
@@ -95,10 +96,10 @@ const accountInitialValues = {
 
 const LoginDialog = ({ open, setOpen, setAccount }) => {
     const classes = useStyle();
-    const [ login, setLogin ] = useState(loginInitialValues);
-    const [ signup, setSignup ] = useState(signupInitialValues);
-    const [ error, showError] = useState(false);
-    const [ account, toggleAccount ] = useState(accountInitialValues.login);
+    const [login, setLogin] = useState(loginInitialValues);
+    const [signup, setSignup] = useState(signupInitialValues);
+    const [error, showError] = useState(false);
+    const [account, toggleAccount] = useState(accountInitialValues.login);
 
     useEffect(() => {
         showError(false);
@@ -112,9 +113,9 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
         setSignup({ ...signup, [e.target.name]: e.target.value });
     }
 
-    const loginUser = async() => {
+    const loginUser = async () => {
         let response = await authenticateLogin(login);
-        if(!response) 
+        if (!response)
             showError(true);
         else {
             showError(false);
@@ -123,13 +124,13 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
         }
     }
 
-    const signupUser = async() => {
+    const signupUser = async () => {
         let response = await authenticateSignup(signup);
-        if(!response) return;
+        if (!response) return;
         handleClose();
         setAccount(signup.username);
     }
-    
+
     const toggleSignup = () => {
         toggleAccount(accountInitialValues.signup);
     }
@@ -142,32 +143,32 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
     return (
         <Dialog open={open} onClose={handleClose}>
             <DialogContent className={classes.component} >
-                <Box style={{display: 'flex'}}>
+                <Box style={{ display: 'flex' }}>
                     <Box className={classes.image}>
                         <Typography variant="h5">{account.heading}</Typography>
-                        <Typography style={{marginTop: 20}}>{account.subHeading}</Typography>
+                        <Typography style={{ marginTop: 20 }}>{account.subHeading}</Typography>
                     </Box>
                     {
-                        account.view === 'login' ? 
-                        <Box className={classes.login}>
-                            <TextField onChange={(e) => onValueChange(e)} name='email' label='Enter Email/Mobile number' />
-                            { error && <Typography className={classes.error}>Please enter valid Email ID/Mobile number</Typography> }
-                            <TextField onChange={(e) => onValueChange(e)} name='password' label='Enter Password' />
-                            <Typography className={classes.text}>By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.</Typography>
-                            <Button className={classes.loginbtn} onClick={() => loginUser()} >Login</Button>
-                            <Typography className={classes.text} style={{textAlign:'center'}}>OR</Typography>
-                            <Button className={classes.requestbtn}>Request OTP</Button>
-                            <Typography className={classes.createText} onClick={() => toggleSignup()}>New to Flipkart? Create an account</Typography>
-                        </Box> : 
-                        <Box className={classes.login}>
-                            <TextField onChange={(e) => onInputChange(e)} name='firstname' label='Enter Firstname' />
-                            <TextField onChange={(e) => onInputChange(e)} name='lastname' label='Enter Lastname' />
-                            <TextField onChange={(e) => onInputChange(e)} name='username' label='Enter Username' />
-                            <TextField onChange={(e) => onInputChange(e)} name='email' label='Enter Email' />
-                            <TextField onChange={(e) => onInputChange(e)} name='password' label='Enter Password' />
-                            <TextField onChange={(e) => onInputChange(e)} name='phone' label='Enter Phone' />
-                            <Button className={classes.loginbtn} onClick={() => signupUser()} >Continue</Button>
-                        </Box>
+                        account.view === 'login' ?
+                            <Box className={classes.login}>
+                                <TextField onChange={(e) => onValueChange(e)} name='email' label='Enter Email/Mobile number' />
+                                {error && <Typography className={classes.error}>Please enter valid Email ID/Mobile number</Typography>}
+                                <TextField onChange={(e) => onValueChange(e)} name='password' label='Enter Password' />
+                                <Typography className={classes.text}>By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.</Typography>
+                                <Button className={classes.loginbtn} onClick={() => loginUser()} >Login</Button>
+                                <Typography className={classes.text} style={{ textAlign: 'center' }}>OR</Typography>
+                                <Button className={classes.requestbtn}>Request OTP</Button>
+                                <Typography className={classes.createText} onClick={() => toggleSignup()}>New to Flipkart? Create an account</Typography>
+                            </Box> :
+                            <Box className={classes.login}>
+                                <TextField onChange={(e) => onInputChange(e)} name='firstname' label='Enter Firstname' />
+                                <TextField onChange={(e) => onInputChange(e)} name='lastname' label='Enter Lastname' />
+                                <TextField onChange={(e) => onInputChange(e)} name='username' label='Enter Username' />
+                                <TextField onChange={(e) => onInputChange(e)} name='email' label='Enter Email' />
+                                <TextField onChange={(e) => onInputChange(e)} name='password' label='Enter Password' />
+                                <TextField onChange={(e) => onInputChange(e)} name='phone' label='Enter Phone' />
+                                <Button className={classes.loginbtn} onClick={() => signupUser()} >Continue</Button>
+                            </Box>
                     }
                 </Box>
             </DialogContent>

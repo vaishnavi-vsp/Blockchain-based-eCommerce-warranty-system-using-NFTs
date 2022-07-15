@@ -84,7 +84,9 @@ const MultiSlide = ({ data, timer, title }) => {
                 }
                 <Button variant="contained" color="primary" className={classes.button}>View All</Button>
             </Box>
+
             <Divider />
+
             <Carousel
                 swipeable={false}
                 draggable={false}
