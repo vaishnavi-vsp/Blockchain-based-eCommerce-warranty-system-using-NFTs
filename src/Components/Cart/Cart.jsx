@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '../../redux/actions/cartActions';
 import TotalView from './TotalView';
 import EmptyCart from './EmptyCart';
-import { loadRazorpay } from '../../razorpay/loadPayment';
 
 
 const useStyle = makeStyles(theme => ({
@@ -64,7 +63,7 @@ const Cart = ({ match, history }) => {
     }
 
     const buyNow = async () => {
-        loadRazorpay(500);
+        console.log("Buying Now")
     }
 
     return (

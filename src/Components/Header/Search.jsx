@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles, InputBase, List, ListItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux'; // hooks
-import { getProducts as listProducts } from '../../redux/actions/productActions';
+import {productData} from '../../assets/products';
 import { Link } from 'react-router-dom';
 
 const useStyle = makeStyles(theme => ({
@@ -45,14 +45,8 @@ const Search = () => {
         setOpen(false)
     }
 
-    const getProducts = useSelector(state => state.getProducts);
-    const { products } = getProducts;
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(listProducts())
-    }, [dispatch])
+    const  products  = productData;
 
     return (
         <div className={classes.search}>
