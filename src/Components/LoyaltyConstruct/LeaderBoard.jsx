@@ -1,6 +1,6 @@
 import { Box, makeStyles, Typography, Button, Grid } from '@material-ui/core';
 
-const LeaderBoard = ({ match, history }) => {
+const LeaderBoard = () => {
     return (
         <>
         <h2>Hello from leaderboard</h2>
