@@ -5,6 +5,7 @@ import DetailView from './Components/ItemDetails/DetailView';
 import TemplateProvider from './templates/TemplateProvider';
 import ContextProvider from './context/ContextProvider';
 import Cart from './Components/Cart/Cart';
+import LeaderBoard from './Components/LoyaltyConstruct/LeaderBoard'
 import { Box } from '@material-ui/core'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
               <Route exact path= '/cart' component={Cart} />
               {/* <Route exact path= '/product/:id' component={Product} /> */}
               <Route exact path= '/product/:id' component={DetailView} />
+              <Route exact path= '/leaderboard' component={LeaderBoard} />
               <Route component={NotFound} />
             </Switch>
           </Box>

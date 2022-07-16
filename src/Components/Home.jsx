@@ -2,10 +2,9 @@ import { Box, makeStyles } from '@material-ui/core';
 import NavBar from './Home/NarBar';
 import Slide from './Home/Slide';
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'; // hooks
-import { getProducts as listProducts } from '../redux/actions/productActions';
 import SliderHome from "./Slider";
 import "./Home.css";
+import { productData } from '../assets/products'
 
 const useStyle = makeStyles({
     component: {
@@ -16,15 +15,7 @@ const useStyle = makeStyles({
 
 const Home = () => {
     const classes = useStyle();
-
-    const getProducts = useSelector(state => state.getProducts);
-    const { products } = getProducts;
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(listProducts())
-    }, [dispatch])
+    const  products = productData;
 
     return (
         <>

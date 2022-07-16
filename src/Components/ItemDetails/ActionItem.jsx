@@ -7,7 +7,7 @@ import { LoginContext } from '../../context/ContextProvider';
 // import { initialState, reducer } from '../../reducers/reducer';
 import { addToCart } from '../../redux/actions/cartActions';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadRazorpay } from '../../razorpay/loadPayment';
+
 
 
 const useStyle = makeStyles(theme => ({
@@ -49,7 +49,7 @@ const ActionItem = ({ product }) => {
     const dispatch = useDispatch();
 
     const buyNow = async () => {
-       loadRazorpay(600);
+       console.log("Buy Nwow clicked")
     }
 
     const addItemToCart = () => {

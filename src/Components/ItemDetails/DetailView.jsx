@@ -4,10 +4,7 @@ import ProductDetail from './ProductDetail';
 import ActionItem from './ActionItem';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
-import { getProductById } from '../../service/api';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { getProductDetails } from '../../redux/actions/productActions';
+import { FanDetails } from '../../assets/fan_details';
 
 const useStyles = makeStyles(theme => ({
     component: {
@@ -65,23 +62,10 @@ const DetailView = ({ history, match }) => {
     const { id } = useParams();
 
     const [ quantity, setQuantity ] = useState(1);
-
-    const productDetails = useSelector(state => state.getProductDetails);
-    // const { loading, product } = productDetails;
-
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        if(product && match.params.id !== product.id)   
-            dispatch(getProductDetails(match.params.id));
-    }, [dispatch, product, match, loading]);
-
    
     const getProductValues = async () => {
         setLoading(true);
-        const response = await getProductById(id);
-        console.log(response.data);
-        setProduct(response.data);
+        setProduct(FanDetails);
         setLoading(false);
     }
     useEffect(() => {
