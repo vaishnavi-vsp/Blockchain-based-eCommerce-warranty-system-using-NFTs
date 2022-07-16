@@ -84,7 +84,7 @@ const signupInitialValues = {
 const accountInitialValues = {
     login: {
         view: 'login',
-        heading: 'Login',
+        heading: '',
         subHeading: 'Get access to your Orders, Wishlist and Recommendations'
     },
     signup: {

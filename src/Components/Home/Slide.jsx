@@ -54,7 +54,7 @@ const useStyle = makeStyles(theme => ({
     },
     button: {
         marginLeft: 'auto',
-        backgroundColor: '#2874f0',
+        backgroundColor: '#c9184a',
         borderRadius: 2,
         fontSize: 13
     },
