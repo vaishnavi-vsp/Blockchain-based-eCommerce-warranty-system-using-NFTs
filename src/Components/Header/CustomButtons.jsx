@@ -36,7 +36,7 @@ const useStyle = makeStyles(theme => ({
         }   
     },
     login: {
-        color: '#2874f0',
+        color: '#c9184a',
         background: '#FFFFFF',
         textTransform: 'none',
         fontWeight: 600,

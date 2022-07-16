@@ -1,0 +1,29 @@
+.homeSlide h1 {
+  font-size: 45px !important;
+  line-height: 55px !important;
+  margin: 50px 0 20px 0 !important;
+}
+.homeSlide p {
+  margin: 20px 0 !important;
+}
+.homeSlide ul {
+  position: absolute !important;
+  bottom: 20px !important;
+}
+.homeSlide ul li {
+  border: 2px solid #b8b7b7 !important; 
+  border-radius: 50% !important;
+  padding: 10px !important;
+}
+.homeSlide ul li button {
+  background: transparent !important;
+  color: transparent !important;
+}
+.homeSlide ul li button::before {
+  font-size: 15px !important;
+  color: #0f3460 !important;
+  position: absolute !important;
+  top: 2px !important;
+  left: 0 !important;
+  margin: auto !important;
+}
