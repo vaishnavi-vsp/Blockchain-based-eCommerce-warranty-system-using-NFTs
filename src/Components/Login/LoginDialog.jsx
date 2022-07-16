@@ -17,7 +17,8 @@ const useStyle = makeStyles({
         width: '40%',
         padding: '45px 35px',
         '& > *': {
-            color: '#FFFFFF',
+            color: '#c9184a',
+            textShadowColor: 'rgba(0, 0, 0, 0.9)',
             fontWeight: 600
         }
     },
@@ -146,7 +147,7 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
                 <Box style={{ display: 'flex' }}>
                     <Box className={classes.image}>
                         <Typography variant="h5">{account.heading}</Typography>
-                        <Typography style={{ marginTop: 20 }}>{account.subHeading}</Typography>
+                        <Typography variant="h5" style={{ marginTop: 20 }}>{account.subHeading}</Typography>
                     </Box>
                     {
                         account.view === 'login' ?
