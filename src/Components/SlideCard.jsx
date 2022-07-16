@@ -1,5 +1,5 @@
 import React from "react"
-import Sdata from "./Sdata"
+import SliderData from "../assets/slider-data"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -19,7 +19,7 @@ const SlideCard = () => {
   return (
     <>
       <Slider {...settings}>
-        {Sdata.map((value, index) => {
+        {SliderData.map((value, index) => {
           return (
             <>
               <div className='box d_flex top' key={index}>
@@ -29,7 +29,7 @@ const SlideCard = () => {
                   <button className='btn-primary'>Visit Collections</button>
                 </div>
                 <div className='right'>
-                <img src={require(`${value.cover}`)} />
+                <img src={value.cover} width=""  height="" alt="" />
                 </div>
               </div>
             </>

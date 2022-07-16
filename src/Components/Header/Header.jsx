@@ -23,8 +23,9 @@ const useStyle = makeStyles(theme => ({
         display: 'flex',
     },
     subHeading: {
-        fontSize: 10,
-        fontStyle: 'italic'
+        fontSize: 16,
+        fontStyle: 'italic',
+        fontWeight: 800
     },
     subURL: {
         width: 10,
