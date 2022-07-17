@@ -8,7 +8,7 @@
 npm install
 npx hardhat node
 npx hardhat compile
-npx hardhat deploy (or) npx hardhat run scripts/deployContract.js --network local
+npx hardhat deploy (or) npx hardhat run scripts/deployContract.js --network polygonTest
 npx hardhat test
 ```
 2. Copy deployed contract address and replace contract address in ```client/src/blockchain.js``` with newly deployed address and then run react app in ```client``` directory
