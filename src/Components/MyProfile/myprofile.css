@@ -1,0 +1,23 @@
+.myprofile {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.container {
+    text-align: center;
+}
+
+
+.c_flex2>button {
+    margin: 10px 10px auto auto;
+    border: 1px solid #cac8c8;
+    padding: .5em 2em;
+    border-radius: 50px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.c_flex2>button:hover {
+    background-color: #cac8c8;
+    color: #070707;
+}
