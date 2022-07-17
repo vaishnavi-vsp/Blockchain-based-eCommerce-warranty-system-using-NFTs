@@ -16,6 +16,12 @@ contract dMarket is ERC721URIStorage {
         uint256 price;
         address payable owner;
         bool isForSale;
+
+        address issuer;
+        uint256 order_serial_number;
+        string issue_time;
+        uint256 duration;
+        // warranty to be stored in mongodb
     }
     event CreateNFT(
         uint256 indexed _tokenId,
@@ -39,11 +45,11 @@ contract dMarket is ERC721URIStorage {
         owner = payable(msg.sender);
     }
 
-    function createNFT(string memory _tokenURI, uint256 _price) public payable {
+    function createNFT(string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer) public payable {
         require(msg.value == listingPrice, "You must pay the listing price");
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, _tokenURI);
-        nfts[tokenId] = NFT(tokenId, _price, payable(msg.sender), false);
+        nfts[tokenId] = NFT(tokenId, _price, payable(msg.sender), false,_issuer,_serialNo,_issueTime,_duration);
         owner.transfer(msg.value);
         tokenId++;
         emit CreateNFT(tokenId - 1, _tokenURI, msg.sender, _price);
@@ -77,6 +83,7 @@ contract dMarket is ERC721URIStorage {
         nfts[_tokenId].isForSale = true;
     }
 
+
     function transferNFT(address _to, uint256 _tokenId) public {
         require(
             nfts[_tokenId].owner == msg.sender,
@@ -85,6 +92,22 @@ contract dMarket is ERC721URIStorage {
         _transfer(nfts[_tokenId].owner, _to, _tokenId);
         nfts[_tokenId].owner = payable(_to);
         emit TransferNFT(msg.sender, _to, _tokenId);
+    }
+
+    function getNFTMetaData(uint256 _tokenId) public view returns( uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer) {
+    //     struct NFT {
+    //     uint256 tokenId;
+    //     uint256 price;
+    //     address payable owner;
+    //     bool isForSale;
+
+    //     address issuer;
+    //     uint256 order_serial_number;
+    //     string issue_time;
+    //     uint256 duration;
+    //     // warranty to be stored in mongodb
+    // }
+        return (nfts[_tokenId].price,nfts[_tokenId].issue_time,nfts[_tokenId].duration,nfts[_tokenId].order_serial_number,nfts[_tokenId].issuer);
     }
 
     function getNFTCount() public view returns (uint256) {

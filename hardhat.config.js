@@ -51,7 +51,10 @@ module.exports = {
       url: "https://rpc-mumbai.maticvigil.com/", // rpc providers: polygon, infura, alchemy
       accounts: [
         "31869b69eb5c106013612bf3c62fe4bf60f8a06982214973365922d62de9f7c9",
+        "df91dd14206c25cc102dcc5a5f61c0656828c6d5e23a2ff380dd9c0dcbe8fbee",
       ],
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
     polygonMain: {
       url: "https://rpc-mainnet.maticvigil.com", // rpc providers: infura,polygon, alchemy
