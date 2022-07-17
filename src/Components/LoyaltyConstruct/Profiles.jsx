@@ -1,4 +1,5 @@
 import React from 'react'
+import gold from '../../assets/icons/gold.png';
 
 export default function profiles({ Leaderboard }) {
   return (
@@ -26,7 +27,9 @@ function Item(data){
                         </div>
                         <div className="item">
                             <span>{value.score}</span>
+                            <img src={value.badge} width="35" className='reward_icon'/>
                         </div>
+                        
                     </div>
                     )
                 )

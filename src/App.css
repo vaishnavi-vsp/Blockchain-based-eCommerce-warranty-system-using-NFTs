@@ -27,10 +27,17 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 2px;
 }
 .f_flex {
   display: flex;
 }
+.a_block {
+  display: block;
+  align-items: center;
+  text-align: center;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -246,4 +253,25 @@ button {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
+}
+.coins {
+  display: flex;
+  align-items: center;
+}
+.mr-5 {
+  margin-right:5px;
+}
+.reward_icon {
+  margin: 5px;
+}
+.c_flex > button {
+  border: 1px solid #cac8c8;
+  padding: .5em 2em;
+  border-radius: 50px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.c_flex > button:hover{
+  background-color: #cac8c8;
+  color: #070707;
 }
