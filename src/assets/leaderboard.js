@@ -17,7 +17,7 @@ export const Leaderboard = [
     },
     {
         name: "Bessie Hickle",
-        location: "Chaina",
+        location: "China",
         score : 350,
         img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
         dt: "2021-08-17",
