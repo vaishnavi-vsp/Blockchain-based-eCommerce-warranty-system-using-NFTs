@@ -7,9 +7,14 @@
     text-align: center;
 }
 
+.d_flex2 {
+    display: flex;
+    justify-content: center;
+}
+
 
 .c_flex2>button {
-    margin: 10px 10px auto auto;
+    margin: 10px 15px auto auto;
     border: 1px solid #cac8c8;
     padding: .5em 2em;
     border-radius: 50px;
@@ -20,4 +25,52 @@
 .c_flex2>button:hover {
     background-color: #cac8c8;
     color: #070707;
+}
+
+.sliderbox {
+    box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
+    background-color: #fff;
+    width: 99%;
+    height: 80px;
+    padding: 15px 0;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.profile-icon {
+    width: 10%;
+}
+
+.rowA {
+    display: flex;
+    justify-content: 'center' !important;
+    align-items: 'center' !important;
+}
+
+.card {
+    border-radius: 18px;
+    width: 40%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: inline-flex;
+    margin: 10px 10px 10px 10px;
+    padding: 20px 25px 20px 30px;
+}
+
+.card:hover {
+    cursor: pointer;
+    background-color: #e94560;
+    color: #fff;
+}
+
+.content {
+    display: flex;
+}
+
+.middle {
+    display: inline;
+}
+
+.av2 {
+    align-items: center;
+    justify-content: center;
 }
