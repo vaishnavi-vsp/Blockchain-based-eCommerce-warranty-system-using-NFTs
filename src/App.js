@@ -7,6 +7,7 @@ import ContextProvider from './context/ContextProvider';
 import Cart from './Components/Cart/Cart';
 import LeaderBoard from './Components/LoyaltyConstruct/LeaderBoard'
 import ChallengeBoard from './Components/Challenge-Board/challenge_board'
+import MyProfile from './Components/MyProfile/MyProfile'
 import { Box } from '@material-ui/core'
 
 function App() {
@@ -15,14 +16,15 @@ function App() {
       <ContextProvider>
         <BrowserRouter>
           <Header />
-          <Box style={{marginTop: 54}}>
+          <Box style={{ marginTop: 54 }}>
             <Switch>
-              <Route exact path= '/' component={Home} />
-              <Route exact path= '/cart' component={Cart} />
+              <Route exact path='/' component={Home} />
+              <Route exact path='/cart' component={Cart} />
               {/* <Route exact path= '/product/:id' component={Product} /> */}
               <Route exact path= '/product/:id' component={DetailView} />
               <Route exact path= '/leaderboard' component={LeaderBoard} />
               <Route exact path = "/challengeboard" component ={ChallengeBoard} />
+              <Route exact path='/myprofile' component={MyProfile} />
               <Route component={NotFound} />
             </Switch>
           </Box>

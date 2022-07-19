@@ -6,28 +6,28 @@ export default function Board() {
 
     const [period, setPeriod] = useState(0);
 
-  const handleClick = (e) => {
-     
-    setPeriod(e.target.dataset.id)
-  }
+    const handleClick = (e) => {
 
-  return (
-    <div className="board">
-        <div className="duration">
-            <button onClick={handleClick} data-id='7'>7 Days</button>
-            <button onClick={handleClick} data-id='30'>30 Days</button>
-            <button onClick={handleClick} data-id='0'>All-Time</button>
+        setPeriod(e.target.dataset.id)
+    }
+
+    return (
+        <div className="board">
+            <div className="duration">
+                <button onClick={handleClick} data-id='7'>7 Days</button>
+                <button onClick={handleClick} data-id='30'>30 Days</button>
+                <button onClick={handleClick} data-id='0'>All-Time</button>
+            </div>
+
+            <Profiles Leaderboard={between(Leaderboard, period)}></Profiles>
+
         </div>
-
-        <Profiles Leaderboard={between(Leaderboard, period)}></Profiles>
-
-    </div>
-  )
+    )
 }
 
 
 
-function between(data, between){
+function between(data, between) {
     const today = new Date();
     const previous = new Date(today);
     previous.setDate(previous.getDate() - (between + 1));
@@ -40,9 +40,9 @@ function between(data, between){
 
     // sort with asending order
     return filter.sort((a, b) => {
-        if ( a.score === b.score){
+        if (a.score === b.score) {
             return b.score - a.score;
-        } else{
+        } else {
             return b.score - a.score;
         }
     })
