@@ -25,7 +25,7 @@ function Item(data){
                                 <span>{value.location}</span>
                             </div>                
                         </div>
-                        <div className="item">
+                        <div className="item score_info">
                             <span>{value.score}</span>
                             <img src={value.badge} width="35" className='reward_icon'/>
                         </div>

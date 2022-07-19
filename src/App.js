@@ -6,6 +6,7 @@ import TemplateProvider from './templates/TemplateProvider';
 import ContextProvider from './context/ContextProvider';
 import Cart from './Components/Cart/Cart';
 import LeaderBoard from './Components/LoyaltyConstruct/LeaderBoard'
+import ChallengeBoard from './Components/Challenge-Board/challenge_board'
 import { Box } from '@material-ui/core'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
               {/* <Route exact path= '/product/:id' component={Product} /> */}
               <Route exact path= '/product/:id' component={DetailView} />
               <Route exact path= '/leaderboard' component={LeaderBoard} />
+              <Route exact path = "/challengeboard" component ={ChallengeBoard} />
               <Route component={NotFound} />
             </Switch>
           </Box>
