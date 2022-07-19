@@ -44,25 +44,26 @@ const MyProfile = () => {
           <div className='middle'>
             <button className='card'>
               <div className='content'>
-                <img src={purchase} width='45'></img>
+                <img src={purchase} width='45' />
                 <h2 style={{ marginLeft: '5px', marginTop: '5px' }}>My Purchases</h2>
               </div>
             </button>
             <button className='card'>
               <div className='content'>
-                <img src={earn} width='45'></img>
+                <img src={earn} width='45' />
                 <h2 style={{ marginLeft: '5px', marginTop: '5px' }}>Earn and Win!</h2>
               </div>
             </button>
             <button className='card'>
               <div className='content'>
-                <img src={redeem} width='45'></img>
+                <img src={redeem} width='45' />
                 <h2 style={{ marginLeft: '5px', marginTop: '5px' }}>Redeem your rewards!</h2>
               </div>
             </button>
             <button className='card'>
               <div className='content'>
-                <img src={refer} width='45'>Refer a Friend!</img>
+                <img src={refer} width='45' />
+                <h2 style={{ marginLeft: '5px', marginTop: '5px' }}>Refer a friend!</h2>
               </div>
             </button>
 
