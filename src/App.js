@@ -6,7 +6,7 @@ import TemplateProvider from './templates/TemplateProvider';
 import ContextProvider from './context/ContextProvider';
 import Cart from './Components/Cart/Cart';
 import LeaderBoard from './Components/LoyaltyConstruct/LeaderBoard'
-import ChallengeBoard from './Components/Challenge-Board/challenge_board'
+import ChallengeBoard from './Components/Challenge-Board/Board'
 import MyProfile from './Components/MyProfile/MyProfile'
 import { Box } from '@material-ui/core'
 

@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
+*>* {
+    font-family: "Poppins", cursive;
+    margin: 0;
+}
+
+
+:root {
+    --color-dark: #2C3131;
+    --color-light: #F3F3F2;
+    --color-table-border: #e6e6e1;
+}
+
+.leaderboard {
+    display: flex;
+    justify-content:space-between;
+    text-align: center;
+    margin: 2.5em;
+    margin-top: 5.5em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 1.7em;
+}
+.center_title {
+    display: flex;
+    justify-content:flex-end;
+    align-items:center;
+}
+.center_title > span {
+    margin:0.3em;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.coins {
+    display: flex;
+    align-items: center;
+    margin-right:5px;
+}
+.mr-5 {
+    margin-right:5px;
+}
+.reward_icon {
+    margin: 5px;
+}
+.c_flex {
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2px;
+}
+.c_flex > button {
+    border: 1px solid #cac8c8;
+    padding: .1em 0.5em;
+    border-radius: 50px;
+    background-color: transparent;
+    cursor: pointer;
+}
+.c_flex > button:hover{
+    background-color: #cac8c8;
+    color: #070707;
+}
+.TitleBar {
+    padding :0.4em;
+    text-align:initial;
+}
+.TitleBar > h1 {
+    font-size : 30px;
+    font-weight:bolder;
+    color:#2C3131;
+    margin: 3px;
+}
+.TitleBar > p {
+    color:#3d3f3f;
+}
+
+/* For challenges */
+.mr-5 {
+    margin: 2.5em;
+}
