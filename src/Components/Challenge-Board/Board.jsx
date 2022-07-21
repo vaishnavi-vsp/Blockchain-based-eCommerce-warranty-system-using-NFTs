@@ -1,10 +1,11 @@
 import Challenges from './challenges'
 import './styles/custom.css'
-import { makeStyles } from '@material-ui/core'
+import EarnPoints from './earnPoints'
+import Badges from './badges'
 import coins from '../../assets/icons/coin.webp';
 import gold from '../../assets/icons/gold.png';
-import avatar from '../../assets/avatar-icons/avatar1.jpg';
-import Avatar from '@mui/material/Avatar';
+
+import Sidebar from './sidebar'
 
 const ChallengeBoard = () => {
     return (
@@ -33,7 +34,15 @@ const ChallengeBoard = () => {
                 </button>
                 </div>
             </div>
-            <Challenges />
+            <div className="app__page">
+                <Sidebar />
+                <div className="content_page mr-5">
+                    <Challenges />
+                    <EarnPoints/>
+                    <Badges />
+                </div>
+            </div>
+            
         </div>
     );
 }

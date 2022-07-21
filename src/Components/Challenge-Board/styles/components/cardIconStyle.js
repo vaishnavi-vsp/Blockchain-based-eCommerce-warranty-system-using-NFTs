@@ -6,6 +6,7 @@ import {
   primaryCardHeader,
   roseCardHeader,
   grayColor,
+  lightColor
 } from "../material-dashboard-react.js";
 
 const cardIconStyle = {
@@ -25,6 +26,7 @@ const cardIconStyle = {
   infoCardHeader,
   primaryCardHeader,
   roseCardHeader,
+  lightColor
 };
 
 export default cardIconStyle;

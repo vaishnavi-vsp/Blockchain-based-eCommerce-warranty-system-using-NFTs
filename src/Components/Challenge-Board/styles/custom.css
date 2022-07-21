@@ -16,7 +16,8 @@
     display: flex;
     justify-content:space-between;
     text-align: center;
-    margin: 2.5em;
+    margin-left: 2.5em;
+    margin-right: 2.5em;
     margin-top: 5.5em;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     padding: 1.7em;
@@ -75,5 +76,37 @@
 
 /* For challenges */
 .mr-5 {
-    margin: 2.5em;
+    margin: 2.5rem;
 }
+.secondary_banner {
+    display: flex;
+    justify-content:space-evenly;
+    text-align: center;
+    padding: 1.7em;
+    background-color:aqua;
+}
+.app__page{
+    display:flex;
+}
+.sidebar {
+    flex:0.2;
+    height: fit-content;
+    position:sticky;
+    margin:0.6rem;
+    margin-left:2.5rem;
+    box-shadow: 0 0 6px hsl(210 14% 90%);
+    z-index: 1000;
+}
+.content_page {
+    flex: 0.8;
+}
+.link{
+    align-items: cover;
+    cursor: pointer;
+}
+.link:hover{
+    background-color:#e0eaf5;
+    color: #0a0a0a;
+    transition: color 100ms ease-out;
+  }
+  
