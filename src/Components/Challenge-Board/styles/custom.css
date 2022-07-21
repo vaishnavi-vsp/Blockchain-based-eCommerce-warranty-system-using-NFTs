@@ -22,6 +22,16 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     padding: 1.7em;
 }
+.center__align__board {
+    display: flex;
+    justify-content:space-between;
+    text-align: center;
+    margin-top:1.8em;
+    margin-bottom:1.8em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 1em;
+    width:fit-content;
+}
 .center_title {
     display: flex;
     justify-content:flex-end;
@@ -96,6 +106,8 @@
     margin-left:2.5rem;
     box-shadow: 0 0 6px hsl(210 14% 90%);
     z-index: 1000;
+    top:4rem;
+
 }
 .content_page {
     flex: 0.8;
@@ -108,5 +120,18 @@
     background-color:#e0eaf5;
     color: #0a0a0a;
     transition: color 100ms ease-out;
-  }
-  
+}
+.list_item {
+    border: 1px solid rgb(185, 183, 183);
+    margin-bottom:10px;
+}
+.mr-4 {
+    margin-right:5px;
+}
+.mr-6 {
+    margin-right: 12px;
+}
+.badges {
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}

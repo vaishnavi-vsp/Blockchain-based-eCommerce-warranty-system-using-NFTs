@@ -24,7 +24,7 @@ import task2 from '../../assets/icons/task2.png'
 import task3 from '../../assets/icons/task3.png'
 import task4 from '../../assets/icons/task4.png'
 import task5 from '../../assets/icons/task5.png'
-import task6 from '../../assets/icons/task6.png'
+import task6 from '../../assets/icons/task9.png'
 import task8 from '../../assets/icons/task8.png'
 import { makeStyles } from '@material-ui/core'
 
