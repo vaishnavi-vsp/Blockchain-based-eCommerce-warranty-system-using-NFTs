@@ -23,8 +23,8 @@ const EarnPoints = () => {
         <ListItemAvatar className="mr-4">
           <img src={share} width="80"/>
         </ListItemAvatar>
-        <ListItemText
-          primary="Brunch this weekend?"
+        <ListItemText className="earn_points_margins"
+          primary="Friend Referrals"
           secondary={
             <React.Fragment>
               <Typography
@@ -33,9 +33,9 @@ const EarnPoints = () => {
                 variant="body2"
                 color="text.primary"
               >
-                Ali Connors
+                Send Referral
               </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
+              {" to your friends and invite them to join the challengeBoard"}
             </React.Fragment>
           }
         />
@@ -45,8 +45,8 @@ const EarnPoints = () => {
         <ListItemAvatar className="mr-6">
         <img src={socialMedia} width="70"/>
         </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
+        <ListItemText className="earn_points_margins"
+          primary="Tag Us on Social Media"
           secondary={
             <React.Fragment>
               <Typography
@@ -55,9 +55,9 @@ const EarnPoints = () => {
                 variant="body2"
                 color="text.primary"
               >
-                to Scott, Alex, Jennifer
+                Share Photos and Tag Us
               </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
+              {" on Social Media platforms and earn points"}
             </React.Fragment>
           }
         />
@@ -67,8 +67,8 @@ const EarnPoints = () => {
         <ListItemAvatar className="mr-6">
             <img src={review} width="70"/>
         </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
+        <ListItemText className="earn_points_margins"
+          primary="Review our trending products"
           secondary={
             <React.Fragment>
               <Typography
@@ -77,9 +77,9 @@ const EarnPoints = () => {
                 variant="body2"
                 color="text.primary"
               >
-                Sandra Adams
+                Write Reviews
               </Typography>
-              {' — Do you have Paris recommendations? Have you ever…'}
+              {' earn exciting rewards and make your way to leaderboard'}
             </React.Fragment>
           }
         />

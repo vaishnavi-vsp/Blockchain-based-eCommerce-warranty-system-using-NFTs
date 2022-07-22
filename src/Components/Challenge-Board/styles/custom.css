@@ -135,3 +135,12 @@
     border-radius: 3px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
+.custom_button {
+    display:grid;
+    align-self: center;
+    width:fit-content;
+    height: 30px;
+}
+.earn_points_margins {
+    margin-top:15px
+}
