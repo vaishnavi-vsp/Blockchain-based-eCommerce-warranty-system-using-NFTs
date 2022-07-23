@@ -8,6 +8,7 @@ import Cart from './Components/Cart/Cart';
 import LeaderBoard from './Components/LoyaltyConstruct/LeaderBoard'
 import ChallengeBoard from './Components/Challenge-Board/Board'
 import MyProfile from './Components/MyProfile/MyProfile'
+import Checkout from './Components/AdminPanel/Checkout'
 import { Box } from '@material-ui/core'
 
 function App() {
@@ -21,10 +22,11 @@ function App() {
               <Route exact path='/' component={Home} />
               <Route exact path='/cart' component={Cart} />
               {/* <Route exact path= '/product/:id' component={Product} /> */}
-              <Route exact path= '/product/:id' component={DetailView} />
-              <Route exact path= '/leaderboard' component={LeaderBoard} />
-              <Route exact path = "/challengeboard" component ={ChallengeBoard} />
+              <Route exact path='/product/:id' component={DetailView} />
+              <Route exact path='/leaderboard' component={LeaderBoard} />
+              <Route exact path="/challengeboard" component={ChallengeBoard} />
               <Route exact path='/myprofile' component={MyProfile} />
+              <Route exact path='/checkout' component={Checkout} />
               <Route component={NotFound} />
             </Switch>
           </Box>
