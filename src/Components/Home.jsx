@@ -3,8 +3,13 @@ import NavBar from './Home/NarBar';
 import Slide from './Home/Slide';
 import React, { useEffect } from 'react';
 import SliderHome from "./Slider";
+import  FlashDeals from '../Components/Home/subcomponents/flashDeals/FlashDeals'
+import TopCategory from '../Components/Home/subcomponents/top/TopCate';
+import NewArrivals from '../Components/Home/subcomponents/newarrivals/NewArrivals';
+import Discount from '../Components/Home/subcomponents/discount/Discount'; 
 import "./Home.css";
 import { productData } from '../assets/products'
+import Data from '../assets/ProductData';
 
 const useStyle = makeStyles({
     component: {
@@ -16,6 +21,7 @@ const useStyle = makeStyles({
 const Home = () => {
     const classes = useStyle();
     const  products = productData;
+    const { productItems } = Data
 
     return (
         <>
@@ -29,30 +35,10 @@ const Home = () => {
                     timer={true}
                     multi={true}
                 />
-                <Slide
-                    data={products}
-                    title='Discounts for You'
-                    timer={false}
-                    multi={true}
-                />
-                <Slide
-                    data={products}
-                    title='Suggested Items'
-                    timer={false}
-                    multi={true}
-                />
-                <Slide
-                    data={products}
-                    title='Top Selection'
-                    timer={false}
-                    multi={true}
-                />
-                <Slide
-                    data={products}
-                    title='Recommended Items'
-                    timer={false}
-                    multi={true}
-                />
+                <FlashDeals productItems={productItems}/>
+                <TopCategory />
+                <NewArrivals />
+                <Discount />
             </Box>
         </>
     )

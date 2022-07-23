@@ -13,10 +13,10 @@ body {
 }
 .background {
   background: #f6f9fc;
-  padding: 50px 0;
+  padding: 20px 0;
 }
 .container {
-  max-width: 90%;
+  max-width: 98%;
   margin: auto;
 }
 .d_flex {
