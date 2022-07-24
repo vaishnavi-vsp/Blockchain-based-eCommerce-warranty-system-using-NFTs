@@ -25,15 +25,3 @@ export const getProductById = async (id) => {
         console.log('Error while getting product by id response', error);
     }
 }
-
-export  const payUsingPaytm = async (data) => {
-    try {
-        console.log('payment api');
-        let response = await axios.post(`${url}/payment`, data);
-        console.log(response.data);
-        return response.data;
-    } catch (error) {
-        console.log('error', error);
-    }
-}
-

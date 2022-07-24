@@ -163,7 +163,7 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
                             <Box className={classes.login}>
                                 <TextField onChange={(e) => onValueChange(e)} name='email' label='Enter Email/Mobile number' />
                                 {error && <Typography className={classes.error}>Please enter valid Email ID/Mobile number</Typography>}
-                                <TextField onChange={(e) => onValueChange(e)} name='password' label='Enter Password' />
+                                <TextField onChange={(e) => onValueChange(e)} name='password' label='Enter Password' type="password" />
                                 <Typography className={classes.text}>By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.</Typography>
                                 <Button className={classes.loginbtn} onClick={() => loginUser()} >Login</Button>
                                 <Typography className={classes.text} style={{ textAlign: 'center' }}>OR</Typography>
@@ -173,7 +173,7 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
                             <Box className={classes.login}>
                                 <TextField onChange={(e) => onInputChange(e)} name='username' label='Enter Full Name' />
                                 <TextField onChange={(e) => onInputChange(e)} name='email' label='Enter Email' />
-                                <TextField onChange={(e) => onInputChange(e)} name='password' label='Enter Password' />
+                                <TextField onChange={(e) => onInputChange(e)} name='password' type="password" label='Enter Password' />
                                 <TextField onChange={(e) => onInputChange(e)} name='phone' label='Enter Phone' />
                                 <Button className={classes.loginbtn} onClick={() => signupUser()} >Continue</Button>
 
