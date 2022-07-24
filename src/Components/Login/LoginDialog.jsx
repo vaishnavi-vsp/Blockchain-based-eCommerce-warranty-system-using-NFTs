@@ -9,7 +9,7 @@ const useStyle = makeStyles({
         maxWidth: 'unset !important'
     },
     image: {
-        backgroundImage: `url(${'https://images.pexels.com/photos/5632382/pexels-photo-5632382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'})`,
+        backgroundImage: `url(${'https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'})`,
         background: '#2874f0',
         backgroundPosition: 'center 85%',
         backgroundRepeat: 'no-repeat',
