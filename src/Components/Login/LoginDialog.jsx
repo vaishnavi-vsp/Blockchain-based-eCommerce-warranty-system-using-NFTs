@@ -4,20 +4,23 @@ import { authenticateLogin, authenticateSignup } from '../../service/api';
 
 const useStyle = makeStyles({
     component: {
-        height: '70vh',
-        width: '100vh',
+        height: '69vh',
+        width: '130vh',
         maxWidth: 'unset !important'
     },
     image: {
-        backgroundImage: `url(${'https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'})`,
+        backgroundImage: `url(${'https://i.postimg.cc/nL8dcr7H/Capture1.png'})`,
+        backgroundSize: 'cover',
         background: '#2874f0',
         backgroundPosition: 'center 85%',
         backgroundRepeat: 'no-repeat',
         height: 'auto',
-        width: '40%',
-        padding: '45px 35px',
+        width: '45%',
+        padding: '25px 25px',
         '& > *': {
-            color: '#c9184a',
+            marginLeft: 'auto',
+            fontSize: 22,
+            color: '#fff',
             textShadowColor: 'rgba(0, 0, 0, 0.9)',
             fontWeight: 600
         }
@@ -40,8 +43,8 @@ const useStyle = makeStyles({
         borderRadius: 2,
         '&:hover': {
             color: '#000',
-            border: '1px solid'  
-          }
+            border: '1px solid'
+        }
     },
 
     requestbtn: {
@@ -93,7 +96,7 @@ const accountInitialValues = {
     },
     signup: {
         view: 'signup',
-        heading: "Looks like you're new here",
+        heading: "Looks like you're new here!",
         subHeading: 'Signup to get started'
     }
 }
@@ -153,7 +156,7 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
                 <Box style={{ display: 'flex' }}>
                     <Box className={classes.image}>
                         <Typography variant="h5">{account.heading}</Typography>
-                        <Typography variant="h6" style={{ marginTop: 20 }}>{account.subHeading}</Typography>
+                        <Typography variant="h6" style={{ marginTop: 5 }}>{account.subHeading}</Typography>
                     </Box>
                     {
                         account.view === 'login' ?
