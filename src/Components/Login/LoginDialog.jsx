@@ -4,20 +4,23 @@ import { authenticateLogin, authenticateSignup } from '../../service/api';
 
 const useStyle = makeStyles({
     component: {
-        height: '70vh',
-        width: '100vh',
+        height: '85vh',
+        width: '130vh',
         maxWidth: 'unset !important'
     },
     image: {
-        backgroundImage: `url(${'https://images.pexels.com/photos/5632382/pexels-photo-5632382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'})`,
+        backgroundImage: `url(${'https://wallpapercave.com/wp/wp2252568.jpg'})`,
         background: '#2874f0',
         backgroundPosition: 'center 85%',
         backgroundRepeat: 'no-repeat',
-        height: 'auto',
-        width: '40%',
+        height: '85vh',
+        width: '45%',
         padding: '45px 35px',
         '& > *': {
-            color: '#c9184a',
+            marginTop: '430px',
+            marginLeft: '50px',
+            fontSize: 28,
+            color: '#fff',
             textShadowColor: 'rgba(0, 0, 0, 0.9)',
             fontWeight: 600
         }
@@ -40,8 +43,8 @@ const useStyle = makeStyles({
         borderRadius: 2,
         '&:hover': {
             color: '#000',
-            border: '1px solid'  
-          }
+            border: '1px solid'
+        }
     },
 
     requestbtn: {
@@ -93,7 +96,7 @@ const accountInitialValues = {
     },
     signup: {
         view: 'signup',
-        heading: "Looks like you're new here",
+        heading: "Looks like you're new here!",
         subHeading: 'Signup to get started'
     }
 }
