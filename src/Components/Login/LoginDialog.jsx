@@ -5,7 +5,7 @@ import { authenticateLogin, authenticateSignup } from '../../service/api';
 const useStyle = makeStyles({
     component: {
         height: '70vh',
-        width: '90vh',
+        width: '100vh',
         maxWidth: 'unset !important'
     },
     image: {
@@ -13,7 +13,7 @@ const useStyle = makeStyles({
         background: '#2874f0',
         backgroundPosition: 'center 85%',
         backgroundRepeat: 'no-repeat',
-        height: '70vh',
+        height: 'auto',
         width: '40%',
         padding: '45px 35px',
         '& > *': {
@@ -37,8 +37,13 @@ const useStyle = makeStyles({
         background: '#c9184a',
         color: '#fff',
         height: 48,
-        borderRadius: 2
+        borderRadius: 2,
+        '&:hover': {
+            color: '#000',
+            border: '1px solid'  
+          }
     },
+
     requestbtn: {
         textTransform: 'none',
         background: '#fff',
@@ -49,13 +54,13 @@ const useStyle = makeStyles({
     },
     text: {
         color: '#c9184a',
-        fontSize: 12
+        fontSize: 11
     },
     createText: {
-        margin: 'auto 0 5px 0',
+        margin: '10px 0 5px 0',
         textAlign: 'center',
         color: '#2874f0',
-        fontWeight: 600,
+        fontWeight: 500,
         fontSize: 14,
         cursor: 'pointer'
     },
@@ -74,8 +79,6 @@ const loginInitialValues = {
 };
 
 const signupInitialValues = {
-    firstname: '',
-    lastname: '',
     username: '',
     email: '',
     password: '',
@@ -135,6 +138,9 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
     const toggleSignup = () => {
         toggleAccount(accountInitialValues.signup);
     }
+    const toggleLogin = () => {
+        toggleAccount(accountInitialValues.login)
+    }
 
     const handleClose = () => {
         setOpen(false);
@@ -142,12 +148,12 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
     }
 
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose} className={classes.dialog_container}>
             <DialogContent className={classes.component} >
                 <Box style={{ display: 'flex' }}>
                     <Box className={classes.image}>
                         <Typography variant="h5">{account.heading}</Typography>
-                        <Typography variant="h5" style={{ marginTop: 20 }}>{account.subHeading}</Typography>
+                        <Typography variant="h6" style={{ marginTop: 20 }}>{account.subHeading}</Typography>
                     </Box>
                     {
                         account.view === 'login' ?
@@ -162,13 +168,13 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
                                 <Typography className={classes.createText} onClick={() => toggleSignup()}>New to Flipkart? Create an account</Typography>
                             </Box> :
                             <Box className={classes.login}>
-                                <TextField onChange={(e) => onInputChange(e)} name='firstname' label='Enter Firstname' />
-                                <TextField onChange={(e) => onInputChange(e)} name='lastname' label='Enter Lastname' />
-                                <TextField onChange={(e) => onInputChange(e)} name='username' label='Enter Username' />
+                                <TextField onChange={(e) => onInputChange(e)} name='username' label='Enter Full Name' />
                                 <TextField onChange={(e) => onInputChange(e)} name='email' label='Enter Email' />
                                 <TextField onChange={(e) => onInputChange(e)} name='password' label='Enter Password' />
                                 <TextField onChange={(e) => onInputChange(e)} name='phone' label='Enter Phone' />
                                 <Button className={classes.loginbtn} onClick={() => signupUser()} >Continue</Button>
+
+                                <Typography className={classes.createText} onClick={() => toggleLogin()}>Already have account? Login here</Typography>
                             </Box>
                     }
                 </Box>
