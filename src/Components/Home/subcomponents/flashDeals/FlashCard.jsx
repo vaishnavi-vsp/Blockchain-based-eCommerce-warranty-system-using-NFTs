@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { Link } from 'react-router-dom';
 
 const SampleNextArrow = (props) => {
   const { onClick } = props
@@ -43,6 +44,7 @@ const FlashCard = ({ productItems}) => {
       <Slider {...settings}>
         {productItems.map((productItems) => {
           return (
+            <Link to={`product/${productItems._id}`} style={{textDecoration: 'none'}} key={productItems._id}>
             <div className='box'>
               <div className='product mtop'>
                 <div className='img'>
@@ -54,7 +56,7 @@ const FlashCard = ({ productItems}) => {
                   </div>
                 </div>
                 <div className='product-details'>
-                  <h3>{productItems.name}</h3>
+                  <h3>{productItems.shortTitle}</h3>
                   <div className='rate'>
                     <i className='fa fa-star'></i>
                     <i className='fa fa-star'></i>
@@ -74,6 +76,7 @@ const FlashCard = ({ productItems}) => {
                 </div>
               </div>
             </div>
+            </Link>
           )
         })}
       </Slider>

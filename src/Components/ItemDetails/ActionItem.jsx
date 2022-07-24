@@ -43,23 +43,23 @@ const ActionItem = ({ product }) => {
     const classes = useStyle();
     const history = useHistory();
     const { account } = useContext(LoginContext);
-    const { id, price, detailUrl, title } = product;
+    const { id, price, cover, title } = product;
         
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
 
     const buyNow = async () => {
-       console.log("Buy Nwow clicked")
+       console.log("Buy now clicked")
     }
 
     const addItemToCart = () => {
-        dispatch(addToCart(id, quantity));
+        dispatch(addToCart(product._id, quantity));
         history.push('/cart');
     }
 
     return (
         <Box className={classes.leftContainer}>
-            <img src={product.detailUrl} className={classes.productImage} alt="" /><br />
+            <img src={product.cover} className={classes.productImage} alt="" /><br />
             <Button onClick={() => addItemToCart()} className={clsx(classes.button, classes.addToCart)} style={{marginRight: 10}} variant="contained"><Cart />Add to Cart</Button>
             <Button onClick={() => buyNow()} className={clsx(classes.button, classes.buyNow)} variant="contained"><Flash /> Buy Now</Button>
         </Box>

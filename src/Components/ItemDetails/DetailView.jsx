@@ -5,6 +5,10 @@ import ActionItem from './ActionItem';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import { FanDetails } from '../../assets/fan_details';
+import { getProductById } from '../../service/api';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getProductDetails } from '../../redux/actions/productActions';
 
 const useStyles = makeStyles(theme => ({
     component: {
@@ -36,41 +40,49 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const data = { 
-    id: '',
-    url: '', 
-    detailUrl: '',
-    title: {
-        shortTitle: '',
-        longTitle: '',
-    }, 
-    price: {
-        mrp: 0,
-        cost: 0,
-        discount: ''
-    },
+const data = {
+    created_at: '',
+    _id: '',
+    cover: '',
+    shortTitle: '',
+    longTitle: '',
+    price: '',
+    discount: '',
     description: '',
-    discount: '', 
-    tagline: '' 
-};
+    tagline: '',
+    hasWarranty:'',
+    warranty_details:'',
+    category:'',
+    mrp: ''
+}
+
 
 const DetailView = ({ history, match }) => {
     const classes = useStyles();
     const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png'
     const [ product, setProduct ] = useState(data);
-    const [ loading, setLoading ] = useState(false);
+    const [ loading, setLoading ] = useState(true);
     const { id } = useParams();
 
-    const [ quantity, setQuantity ] = useState(1);
+
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        if(product && match.params.id !== product._id && product._id=='') 
+            dispatch(getProductDetails(match.params.id));
+    }, [dispatch, product, match, loading]);
+
    
     const getProductValues = async () => {
         setLoading(true);
-        setProduct(FanDetails);
+        const response = await getProductById(id);
+        console.log(response.data);
+        setProduct(response.data);
         setLoading(false);
     }
     useEffect(() => {
         getProductValues();
-    }, [getProductValues]);
+    }, []);
 
     return (
         <Box className={classes.component}>
@@ -81,15 +93,15 @@ const DetailView = ({ history, match }) => {
                         <ActionItem product={product} />
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12} className={classes.rightContainer}>
-                        <Typography>{product.title.longTitle}</Typography>
+                        <Typography>{product.longTitle}</Typography>
                         <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{marginTop: 5}}>
                             8 Ratings & 1 Reviews
-                            <span><img src={fassured} style={{width: 77, marginLeft: 20}} alt="" /></span>
+                            <span><img src={fassured} style={{width: 77, marginLeft: 20}} alt='' /></span>
                         </Typography>
                         <Typography>
-                            <span className={classes.price}>₹{product.price.cost}</span>&nbsp;&nbsp;&nbsp; 
-                            <span className={classes.greyTextColor}><strike>₹{product.price.mrp}</strike></span>&nbsp;&nbsp;&nbsp;
-                            <span style={{color: '#388E3C'}}>{product.price.discount} off</span>
+                            <span className={classes.price}>₹{product.price}</span>&nbsp;&nbsp;&nbsp; 
+                            <span className={classes.greyTextColor}><strike>₹{product.mrp}</strike></span>&nbsp;&nbsp;&nbsp;
+                            <span style={{color: '#388E3C'}}>{product.discount} off</span>
                         </Typography>
                         <ProductDetail product={product} />
                     </Grid>
@@ -98,5 +110,6 @@ const DetailView = ({ history, match }) => {
         </Box>
     )
 }
+
 
 export default DetailView;

@@ -26,7 +26,7 @@ export const addProduct = async(req,res) =>{
 
 export const getProductById = async (request, response) => {
     try {
-        const products = await Product.findOne({ 'id': request.params.id });
+        const products = await Product.findOne({ '_id': request.params.id });
         response.json(products);
     }catch (error) {
 
