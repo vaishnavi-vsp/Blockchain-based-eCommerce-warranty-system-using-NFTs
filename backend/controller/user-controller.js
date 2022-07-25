@@ -7,7 +7,9 @@ export const userLogIn = async (request, response) => {
         console.log(user);
         const validPassword = await bcrypt.compare(request.body.password, user.password);
         if (validPassword) {
-            return response.status(200).json({username:user.username});
+            return response.status(200).json({username:user.username,
+                                                user:user
+            });
         } else {
             return response.status(400).json('Invalid Login');
         }
@@ -35,7 +37,9 @@ export const userSignUp = async (request, response) => {
         }
         const newUser = new User(user);
         await newUser.save();
-        response.status(200).json(`${user.username} has been successfully registered`);
+        response.status(200).send({message:`${user.username} has been successfully registered`,
+        user: newUser}
+        );
         
     } catch (error) {
         response.json('Error: ', error.message);

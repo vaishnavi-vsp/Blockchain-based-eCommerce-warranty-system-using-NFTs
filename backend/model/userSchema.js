@@ -25,7 +25,26 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String
-    }
+    },
+    points: {
+        type:Number
+    },
+    badge:{
+        type:String
+    },
+    challenges:[
+        {
+            challenge:{
+                type:String,
+            },
+            completed: {
+                type: Boolean
+            },
+            mark:{
+                type: Number
+            }
+        }
+    ]
 });
 
 const user = mongoose.model('user', userSchema);
