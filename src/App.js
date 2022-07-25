@@ -7,6 +7,7 @@ import ContextProvider from './context/ContextProvider';
 import Cart from './Components/Cart/Cart';
 import LeaderBoard from './Components/LoyaltyConstruct/LeaderBoard'
 import ChallengeBoard from './Components/Challenge-Board/Board'
+import AddProduct from './Components/AdminPanel/addProduct'
 import MyProfile from './Components/MyProfile/MyProfile'
 import Checkout from './Components/AdminPanel/Checkout'
 import { Box } from '@material-ui/core'
@@ -27,6 +28,7 @@ function App() {
               <Route exact path="/challengeboard" component={ChallengeBoard} />
               <Route exact path='/myprofile' component={MyProfile} />
               <Route exact path='/checkout' component={Checkout} />
+              <Route exact path='/admin/addProduct' component={AddProduct}/>
               <Route component={NotFound} />
             </Switch>
           </Box>

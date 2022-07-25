@@ -1,0 +1,19 @@
+.list_in_row{
+    display: block;
+    justify-content: center;
+}
+.list_in_column {
+    display: flex;
+    justify-content: center;
+}
+.textInput {
+    margin: 1em !important;
+    width: 50%;
+}
+.main_container {
+    margin-top: 1em;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.file_upload {
+    display:inline-grid;
+}

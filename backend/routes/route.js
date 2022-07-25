@@ -2,7 +2,12 @@ import express from  'express';
 import { userSignUp, userLogIn } from '../controller/user-controller.js';
 import { addItemInCart } from '../controller/cart-controller.js';
 import { getProductById, getProductsByCategory, addProduct } from '../controller/product-controller.js';
+import multer from 'multer';
+import storage from "../utils/CloudinaryUtils.js"; 
+
+
 const router = express.Router();
+const upload = multer({ storage });
 
 //login & signup
 router.post('/signup', userSignUp);
