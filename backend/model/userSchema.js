@@ -27,10 +27,12 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     points: {
-        type:Number
+        type:Number,
+        default:0,
     },
     badge:{
-        type:String
+        type:String,
+        default: 'https://i.postimg.cc/g0mqG4t3/bronze.png'
     },
     challenges:[
         {

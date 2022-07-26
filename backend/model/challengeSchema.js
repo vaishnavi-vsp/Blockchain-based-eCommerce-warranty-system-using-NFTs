@@ -11,6 +11,10 @@ const challengeSchema = new mongoose.Schema({
         type:Date,
         default:new Date()
     },
+    status: {
+        type:Boolean,
+        default: true
+    },
     condition: Number
 });
 
