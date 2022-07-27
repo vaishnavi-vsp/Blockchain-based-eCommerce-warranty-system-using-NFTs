@@ -23,12 +23,9 @@
     "axios": "^0.21.4",
     "chart.js": "^3.8.0",
     "clsx": "^1.1.1",
-<<<<<<< HEAD
     "ethers": "^5.6.9",
     "ipfs-http-client": "^57.0.3",
-=======
     "nprogress": "^0.2.0",
->>>>>>> 77188c586ee3600f58d4f5f512a11047de797ee3
     "perfect-scrollbar": "1.5.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.4.0",
