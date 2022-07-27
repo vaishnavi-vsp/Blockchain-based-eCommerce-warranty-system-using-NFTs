@@ -15,6 +15,7 @@ import { ethers, Contract } from "ethers";
 import Web3Modal from "web3modal";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import AddProduct from "./Components/AdminPanel/addProduct";
 
 function App() {
   const [contract, setContract] = useState(null);
@@ -34,7 +35,7 @@ function App() {
         reject("Wrong network. Please switch to Polygon Mumbai Test network");
       const signer = provider.getSigner();
       const contract = new Contract(
-        "0xD000D8780423eCC14E0f7cbE04F502AF8D101BA8",
+        "0x24824A7cbc2D51E3F7BE00a32b2aC47BC83c8395",
         abi,
         signer,
       );
@@ -78,9 +79,9 @@ function App() {
               <Route exact path="/product/:id" component={DetailView} />
               <Route exact path="/leaderboard" component={LeaderBoard} />
               <Route exact path="/challengeboard" component={ChallengeBoard} />
-              <Route exact path='/myprofile' component={MyProfile} />
-              <Route exact path='/checkout' component={Checkout} />
-              <Route exact path='/admin/addProduct' component={AddProduct}/>
+              <Route exact path="/myprofile" component={MyProfile} />
+              <Route exact path="/checkout" component={Checkout} />
+              <Route exact path="/admin/addProduct" component={AddProduct} />
               <Route component={NotFound} />
             </Switch>
           </Box>
