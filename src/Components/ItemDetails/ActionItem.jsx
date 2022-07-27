@@ -7,7 +7,8 @@ import { LoginContext } from '../../context/ContextProvider';
 // import { initialState, reducer } from '../../reducers/reducer';
 import { addToCart } from '../../redux/actions/cartActions';
 import { useSelector, useDispatch } from 'react-redux';
-
+import Modal from '@material-ui/core/Modal';
+import './style.css';
 
 
 const useStyle = makeStyles(theme => ({
@@ -44,25 +45,61 @@ const ActionItem = ({ product }) => {
     const history = useHistory();
     const { account } = useContext(LoginContext);
     const { id, price, cover, title } = product;
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
         
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
 
     const buyNow = async () => {
-       console.log("Buy now clicked")
+       handleOpen();
     }
 
     const addItemToCart = () => {
         dispatch(addToCart(product._id, quantity));
         history.push('/cart');
     }
+    
+    const placeOrder = () => {
+        console.log("Plscing order")
+    }
 
     return (
+        <div>
+             <Modal
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={open}
+                onClose={handleClose}
+            >
+               <div className="container_modal" >
+               <div className="confirmation-text">
+                    Do you confirm the order ?
+                    </div>
+                    <div className="button-container">
+                    <button 
+                        className="cancel-button" onClick={handleClose}>
+                        Cancel
+                    </button>
+                    <button 
+                        className="confirmation-button" onClick={placeOrder}>
+                        Confirm
+                        </button>
+                    </div>
+                </div>
+            </Modal>
+
         <Box className={classes.leftContainer}>
             <img src={product.cover} className={classes.productImage} alt="" /><br />
             <Button onClick={() => addItemToCart()} className={clsx(classes.button, classes.addToCart)} style={{marginRight: 10}} variant="contained"><Cart />Add to Cart</Button>
             <Button onClick={() => buyNow()} className={clsx(classes.button, classes.buyNow)} variant="contained"><Flash /> Buy Now</Button>
         </Box>
+        </div>
     )
 }
 
