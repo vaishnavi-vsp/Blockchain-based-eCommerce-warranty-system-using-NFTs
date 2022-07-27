@@ -78,8 +78,9 @@ function App() {
               <Route exact path="/product/:id" component={DetailView} />
               <Route exact path="/leaderboard" component={LeaderBoard} />
               <Route exact path="/challengeboard" component={ChallengeBoard} />
-              <Route exact path="/myprofile" component={MyProfile} />
-              <Route exact path="/checkout" component={Checkout} />
+              <Route exact path='/myprofile' component={MyProfile} />
+              <Route exact path='/checkout' component={Checkout} />
+              <Route exact path='/admin/addProduct' component={AddProduct}/>
               <Route component={NotFound} />
             </Switch>
           </Box>

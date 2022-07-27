@@ -6,6 +6,7 @@ const productSchema = new mongoose.Schema({
     shortTitle: String,
     longTitle: String,
     price: Number,
+    mrp:Number,
     discount: String,
     description: String,
     discount: String,
@@ -13,6 +14,13 @@ const productSchema = new mongoose.Schema({
     category: String,
     hasWarranty: Boolean,
     warranty_details: String,
+    created_by: String,
+    challenges: [
+        {
+        challenge:{
+            type:String,
+        }}
+    ],
     created_at :{
         type:Date,
         default:new Date()

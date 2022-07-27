@@ -10,8 +10,7 @@ import NewArrivals from '../Components/Home/subcomponents/newarrivals/NewArrival
 import Discount from '../Components/Home/subcomponents/discount/Discount'; 
 import "./Home.css";
 import axios from 'axios';
-import { productData } from '../assets/products'
-import Data from '../assets/ProductData';
+
 
 const useStyle = makeStyles({
     component: {

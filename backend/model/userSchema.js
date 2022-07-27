@@ -1,20 +1,6 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    firstname: {
-        type: String,
-        required: true,
-        trim: true,
-        min: 5,
-        max: 20
-    },
-    lastname: {
-        type: String,
-        required: true,
-        trim: true,
-        min: 5,
-        max: 20
-    },
     username: {
         type: String,
         required: true,
@@ -36,7 +22,31 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String
-    }
+    },
+    role: {
+        type: String
+    },
+    points: {
+        type:Number,
+        default:0,
+    },
+    badge:{
+        type:String,
+        default: 'https://i.postimg.cc/g0mqG4t3/bronze.png'
+    },
+    challenges:[
+        {
+            challenge:{
+                type:String,
+            },
+            completed: {
+                type: Boolean
+            },
+            mark:{
+                type: Number
+            }
+        }
+    ]
 });
 
 const user = mongoose.model('user', userSchema);
