@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { textAlign } from "@mui/system";
 
 export default function AllProducts() {
     return (
@@ -13,7 +14,7 @@ export default function AllProducts() {
 
             <div className="productsDiv" style={{ display: "flex" }}>
 
-                <Card sx={{ maxWidth: 345, margin: '30px 20px 30px auto' }}>
+                <Card sx={{ maxWidth: 345, marginRight: '30px' }}>
                     <CardMedia
                         component="img"
                         height="140"
@@ -33,7 +34,7 @@ export default function AllProducts() {
                         <Button size="big">Learn More</Button>
                     </CardActions>
                 </Card>
-                <Card sx={{ maxWidth: 345, margin: '30px 20px 30px auto' }}>
+                <Card sx={{ maxWidth: 345, marginRight: '30px' }}>
                     <CardMedia
                         component="img"
                         height="140"
@@ -53,7 +54,7 @@ export default function AllProducts() {
                         <Button size="big">Learn More</Button>
                     </CardActions>
                 </Card>
-                <Card sx={{ maxWidth: 345, margin: '30px 20px 30px auto' }}>
+                <Card sx={{ maxWidth: 345, marginRight: '30px' }}>
                     <CardMedia
                         component="img"
                         height="140"
@@ -73,7 +74,7 @@ export default function AllProducts() {
                         <Button size="big">Learn More</Button>
                     </CardActions>
                 </Card>
-                <Card sx={{ maxWidth: 345, margin: '30px 20px 30px auto' }}>
+                <Card sx={{ maxWidth: 345, marginRight: '30px' }}>
                     <CardMedia
                         component="img"
                         height="140"
