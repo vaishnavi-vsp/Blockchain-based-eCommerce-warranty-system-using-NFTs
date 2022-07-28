@@ -1,15 +1,16 @@
 import { Box, makeStyles, Typography, Button, Grid } from '@material-ui/core';
 import CartItem from './CartItem';
-import { useEffect } from 'react';
 import EmptyOrderList from './EmptyOrder';
 import axios from 'axios';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import React, { useEffect, useState } from 'react';
 
 
 const useStyle = makeStyles(theme => ({
   component: {
       // marginTop: 55,
-      padding: '30px 135px',
+      padding: '30px 80px',
+
       display: 'flex',
       [theme.breakpoints.down('sm')]: {
           padding: '15px 0'
@@ -18,6 +19,7 @@ const useStyle = makeStyles(theme => ({
   leftComponent: {
       // width: '67%',
       paddingRight: 15,
+      margin: 'auto',
       [theme.breakpoints.down('sm')]: {
           marginBottom: 15
       }
@@ -46,16 +48,17 @@ const useStyle = makeStyles(theme => ({
 
 const MyOrders = () => {
   const classes = useStyle();
-  const [cartItems,setcartItems] = useState(null);
+  const [cartItems,setcartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.post(
-          `http://localhost:8000/allProduct`,{"category":"DayDeals"}
+        const response = await axios.get(
+          `http://localhost:8000/order/62d182d74c0e810ba0a71ed6`
         );
-        setcartItems(response.data);
+        console.log(response.data.data)
+        setcartItems(response.data.data);
        
       } catch (err) {
         setcartItems(null);
@@ -75,12 +78,13 @@ const MyOrders = () => {
         </> :<>
         { cartItems.length ? 
             <Grid container className={classes.component}>
-                <Grid item lg={9} md={9} sm={12} xs={12} className={classes.leftComponent}>
+              
+                <Grid item lg={8} md={8} sm={8} xs={8} className={classes.leftComponent}>
                     <Box className={classes.header}>
-                        <Typography style={{fontWeight: 600, fontSize: 18}}>My Cart ({cartItems?.length})</Typography>
+                        <Typography style={{fontWeight: 600, fontSize: 18}}>My Orders ({cartItems?.length})</Typography>
                     </Box>
                         {   cartItems.map(item => (
-                                <CartItem item={item} removeItemFromCart={removeItemFromCart}/>
+                                <CartItem item={item}/>
                             ))
                         }
                 </Grid>

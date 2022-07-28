@@ -1,11 +1,12 @@
 import Product from '../model/productSchema.js';
 import order from '../model/orderSchema.js';
+import user from '../model/userSchema.js';
 
 
 export const addOrder = async(req,res) =>{
     try {
-        const order =  req.body;
-        const newOrder = new order(order);
+        const order1 =  req.body;
+        const newOrder = new order(order1);
         await newOrder.save();
         console.log("Created Order successfully");
         res.send({
@@ -28,14 +29,31 @@ export const getOrdersOfUser = async (request, response) => {
             let product = await Product.findOne({ '_id': product_id });
             let data = orders[i]._doc;
             send_data.push({
-                ...data,
-                ...product
+                "order":data,
+                ...product._doc
             });
         }
-        return res.status(200).json({data:send_data});
+        return response.status(200).json({data:send_data});
         
     }catch (error) {
         console.log(error);
-        res.status(500).json({message:error.message});
+        response.status(500).json({message:error.message});
+    }
+}
+
+export const getOrderbyId = async(req,res) => {
+    try {
+        var orderId = req.params.id;
+        const myorder = await order.findOne({ '_id': orderId });
+        const issuer = await user.findOne({'_id':myorder.user_id});
+        const product = await Product.findOne({'_id':myorder.product_id});
+        
+        res.json({
+            order:myorder,
+            issuer: issuer,
+            product: product
+        });
+    } catch (error) {
+        console.log(error);
     }
 }

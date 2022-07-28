@@ -3,6 +3,8 @@ import { userSignUp, userLogIn } from '../controller/user-controller.js';
 import { addItemInCart } from '../controller/cart-controller.js';
 import { getProductById, getProductsByCategory, addProduct,getAdminProducts} from '../controller/product-controller.js';
 import { addChallenge, getChallenges, getUserChallenges, UserattemptChallenge,UserChallengeUpdate} from '../controller/challenge-controller.js';
+import { addOrder, getOrdersOfUser,getOrderbyId } from '../controller/order-controller.js';
+
 import multer from 'multer';
 import storage from "../utils/CloudinaryUtils.js"; 
 
@@ -25,4 +27,9 @@ router.get('/challenge/all',getChallenges);
 router.post('/challenge/user',getUserChallenges);
 router.post('/challenge/attempt',UserattemptChallenge);
 router.post('/challenge/update',UserChallengeUpdate);
+
+router.post('/order/add',addOrder);
+router.get('/order/:id',getOrdersOfUser);
+router.get('/order/get/:id',getOrderbyId)
+
 export default router;
