@@ -12,6 +12,7 @@ import AddProduct from './Components/AdminPanel/addProduct'
 import MyProfile from './Components/MyProfile/MyProfile'
 import Checkout from './Components/AdminPanel/Checkout'
 import Warrantydetails from './Components/Orders/warranty'
+import AllProducts from './Components/AdminPanel/AllProducts'
 import { Box } from '@material-ui/core'
 
 function App() {
@@ -30,9 +31,14 @@ function App() {
               <Route exact path="/challengeboard" component={ChallengeBoard} />
               <Route exact path='/myprofile' component={MyProfile} />
               <Route exact path='/checkout' component={Checkout} />
+<<<<<<< HEAD
               <Route exact path='/admin/addProduct' component={AddProduct}/>
               <Route exact path='/myorders' component={MyOrders} />
               <Route exact path='/warranty/:id' component={Warrantydetails} />
+=======
+              <Route exact path='/admin/addProduct' component={AddProduct} />
+              <Route exact path='/admin/allProducts' component={AllProducts} />
+>>>>>>> 1db334a8710e355a2b834a0db1c2d09fba6d18d4
               <Route component={NotFound} />
             </Switch>
           </Box>
