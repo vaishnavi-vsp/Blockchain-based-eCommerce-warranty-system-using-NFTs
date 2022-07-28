@@ -10,6 +10,7 @@ import ChallengeBoard from './Components/Challenge-Board/Board'
 import AddProduct from './Components/AdminPanel/addProduct'
 import MyProfile from './Components/MyProfile/MyProfile'
 import Checkout from './Components/AdminPanel/Checkout'
+import AllProducts from './Components/AdminPanel/AllProducts'
 import { Box } from '@material-ui/core'
 
 function App() {
@@ -28,7 +29,8 @@ function App() {
               <Route exact path="/challengeboard" component={ChallengeBoard} />
               <Route exact path='/myprofile' component={MyProfile} />
               <Route exact path='/checkout' component={Checkout} />
-              <Route exact path='/admin/addProduct' component={AddProduct}/>
+              <Route exact path='/admin/addProduct' component={AddProduct} />
+              <Route exact path='/admin/allProducts' component={AllProducts} />
               <Route component={NotFound} />
             </Switch>
           </Box>
