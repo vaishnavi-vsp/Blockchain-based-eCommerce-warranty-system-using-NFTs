@@ -16,6 +16,10 @@ import Stack from '@mui/material/Stack';
 import { showNotification } from '@mantine/notifications';
 import axios from 'axios';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import './style.css';
 import "./nprogress.css";
 
@@ -23,7 +27,7 @@ const theme = createTheme();
 
 export default function AddProduct() {
     const [file, setFile] = useState(); 
-    const [checked, setChecked] = React.useState(true);
+    const [checked, setChecked] = React.useState(false);
     const [title,setTitle] = useState('');
     const [longTitle,setlongTitle] = useState('');
     const [desc,setDesc] = useState('');
@@ -32,6 +36,11 @@ export default function AddProduct() {
     const [tag,setTag] = useState('');
     const [cat,setCat] = useState('');
     const [ details,setDetails] = useState('');
+    const [radiovalue, setradioValue] = React.useState('soulbound');
+
+    const handleRadioChange = (event) => {
+        setradioValue(event.target.value);
+    };
 
     const handleCheckbox = (event) => {
         setChecked(event.target.checked);
@@ -173,11 +182,34 @@ export default function AddProduct() {
                     </Select>
                     </div>
                     <FormControlLabel control={<Checkbox checked={checked} onChange={handleCheckbox}/>} label="Product has warranty" className="textInput"/>
-                    {checked? 
-                        <TextField id="filled-basic" required label="Warranty Details URL" variant="filled" className="textInput" onChange={deatilsChangeHandler}/>
+                    {checked?
+                    <div> 
+                        <TextField id="filled-basic" required label="Warranty Details URL" variant="filled" className="textInput" onChange={deatilsChangeHandler}></TextField>
+                        <FormControl className="textInput">
+                        <FormLabel id="demo-row-radio-buttons-group-label">Type of Warranty</FormLabel>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                            value={radiovalue}
+                            onChange={handleRadioChange}
+                            width={100}
+                        >
+                            <FormControlLabel value="soulbound" control={<Radio />} label="Soulbound" />
+                            <FormControlLabel value="transferable" control={<Radio />} label="Transferable" />
+                            
+                        </RadioGroup>
+                        </FormControl>
+                        {radiovalue=="soulbound" ?<>
+                        <TextField id="filled-basic" disabled label="Number of Transfer" variant="filled" className="textInput" defaultValue="0"></TextField>
+                        </>:<>
+                        <TextField id="filled-basic" required label="Number of Transfer" variant="filled" className="textInput" defaultValue="0"></TextField>
+                        </>}
+                        </div>
                         :
                         <></>
                     }
+                    
                     <br />
                     <div className="file_upload textInput">
                         <img src={file} />

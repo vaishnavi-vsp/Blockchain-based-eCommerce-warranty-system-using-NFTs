@@ -77,6 +77,7 @@ const CustomButtons = () => {
             <Link>
                 <Typography style={{ marginTop: 2 }}>More</Typography>
             </Link>
+            {(JSON.parse(localStorage.getItem("user"))).role =="user" ? <>
             <Link to='/cart' className={classes.container}>
                 <Badge badgeContent={cartItems?.length} color="secondary">
                     <ShoppingCart />
@@ -88,6 +89,18 @@ const CustomButtons = () => {
                 </Link>
                 </Badge>
             </Link>
+            </> :<>
+            <Link to='/admin/addProduct' className={classes.container}>
+                
+                <Typography style={{ marginLeft: 10 }}>Add Product</Typography>
+                <Badge color="secondary" style={{marginLeft:25}}>
+                <Link to='#' style={{color:'white'}}>
+                    <AddTaskIcon style={{color:'white'}} />
+                </Link>
+                </Badge>
+            </Link>
+            </>}
+            
             
             <LoginDialog open={open} setOpen={setOpen} setAccount={setAccount} />
         </Box>
