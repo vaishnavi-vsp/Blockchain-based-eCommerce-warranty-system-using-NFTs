@@ -12,13 +12,18 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import StarsIcon from '@mui/icons-material/Stars';
 import RedeemIcon from '@mui/icons-material/Redeem';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import './styles/custom.css'
+import { WindowSharp } from '@mui/icons-material';
 export default function Sidebar() {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const handleListItemClick = (event, index) => {
       setSelectedIndex(index);
+      if(index ==1){
+        window.location.href="/leaderboard"
+      }
     };
   
     return(
@@ -38,14 +43,23 @@ export default function Sidebar() {
             <ListItemButton selected={selectedIndex === 1}
           onClick={(event) => handleListItemClick(event, 1)}>
               <ListItemIcon>
+                <EmojiEventsIcon />
+              </ListItemIcon>
+              <ListItemText primary="LeaderBoard" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding className="link">
+            <ListItemButton selected={selectedIndex === 2}
+          onClick={(event) => handleListItemClick(event, 2)}>
+              <ListItemIcon>
                 <MilitaryTechIcon />
               </ListItemIcon>
               <ListItemText primary="My Badges" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding className="link">
-            <ListItemButton selected={selectedIndex === 2}
-          onClick={(event) => handleListItemClick(event, 2)}>
+            <ListItemButton selected={selectedIndex === 3}
+          onClick={(event) => handleListItemClick(event, 3)}>
               <ListItemIcon>
                 <StarsIcon />
               </ListItemIcon>
@@ -54,8 +68,8 @@ export default function Sidebar() {
           </ListItem>
           <Divider />
           <ListItem disablePadding className="link">
-            <ListItemButton selected={selectedIndex === 3}
-          onClick={(event) => handleListItemClick(event, 3)}>
+            <ListItemButton selected={selectedIndex === 4}
+          onClick={(event) => handleListItemClick(event, 4)}>
               <ListItemIcon>
                 <RedeemIcon />
               </ListItemIcon>

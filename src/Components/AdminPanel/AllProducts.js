@@ -11,7 +11,6 @@ export default function AllProducts() {
     return (
         <div>
             <div style={{ textAlign: 'center', marginTop: '40px' }}><h1>All Products</h1></div>
-
             <div className="productsDiv" style={{ display: "flex" }}>
 
                 <Card sx={{ maxWidth: 345, marginRight: '30px' }}>

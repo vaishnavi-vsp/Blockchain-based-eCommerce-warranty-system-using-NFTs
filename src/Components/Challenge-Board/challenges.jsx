@@ -31,7 +31,7 @@ const useStyles = makeStyles(styles);
 function LinearProgressWithLabel(props) {
     return (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}>
+        <Box sx={{ width: '80%', mr: 1 }}>
           <LinearProgress variant="determinate" {...props} />
         </Box>
         <Box sx={{ minWidth: 35 }}>

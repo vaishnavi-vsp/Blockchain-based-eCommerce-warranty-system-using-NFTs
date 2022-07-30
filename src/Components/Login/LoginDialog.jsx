@@ -85,7 +85,8 @@ const signupInitialValues = {
     username: '',
     email: '',
     password: '',
-    phone: ''
+    phone: '',
+    referralCode: ''
 };
 
 const accountInitialValues = {
@@ -175,6 +176,7 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
                                 <TextField onChange={(e) => onInputChange(e)} name='email' label='Enter Email' />
                                 <TextField onChange={(e) => onInputChange(e)} name='password' type="password" label='Enter Password' />
                                 <TextField onChange={(e) => onInputChange(e)} name='phone' label='Enter Phone' />
+                                <TextField onChange={(e) => onInputChange(e)} name='referralCode' label='Enter Refferal Code 😊' />
                                 <Button className={classes.loginbtn} onClick={() => signupUser()} >Continue</Button>
 
                                 <Typography className={classes.createText} onClick={() => toggleLogin()}>Already have account? Login here</Typography>

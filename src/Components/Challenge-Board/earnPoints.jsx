@@ -20,7 +20,7 @@ import './styles/custom.css'
 
 const SendReferral = (e) => {
   e.preventDefault();
-  let message = 'Hello, Krutika here'
+  let message = 'Hi there!! Krutika Bhatt have invited you to Flipkart Unstop - A blockchain based eccomerce chain.Enjoy exciting offers and win rewards by completing challenged.\n\n*Referral Code:A78F9GH3*\n\nHoping to see you there soon😊'
   let url = `https://web.whatsapp.com/send?`;
   url += `text=${encodeURI(message)}&app_absent=0`
   window.open(url);

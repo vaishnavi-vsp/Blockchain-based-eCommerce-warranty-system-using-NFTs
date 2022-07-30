@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { makeStyles, Box, Typography, Badge, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from '@material-ui/icons';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 import LoginDialog from '../Login/LoginDialog';
 import { LoginContext } from '../../context/ContextProvider';
 import { useSelector } from 'react-redux';
@@ -15,7 +16,8 @@ const useStyle = makeStyles(theme => ({
         }
     },
     wrapper: {
-        margin: '0 5% 0 auto', 
+        margin: '0 5% 0 auto',
+        marginRight: 0, 
         display: 'flex',    
         '& > *': {
             marginRight: 50,
@@ -80,7 +82,13 @@ const CustomButtons = () => {
                     <ShoppingCart />
                 </Badge>
                 <Typography style={{ marginLeft: 10 }}>Cart</Typography>
+                <Badge color="secondary" style={{marginLeft:25}}>
+                <Link to='/challengeboard'>
+                    <AddTaskIcon style={{color:'white'}} />
+                </Link>
+                </Badge>
             </Link>
+            
             <LoginDialog open={open} setOpen={setOpen} setAccount={setAccount} />
         </Box>
     )
