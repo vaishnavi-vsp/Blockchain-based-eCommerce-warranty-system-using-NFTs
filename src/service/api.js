@@ -4,7 +4,10 @@ const url = 'http://localhost:8000';
 
 export const authenticateLogin = async (user) => {
     try {
-        return  await axios.post(`${url}/login`, user) 
+        const saveuser =  await axios.post(`${url}/login`, user);
+        localStorage.setItem('user', JSON.stringify(saveuser.data.user));
+        console.log("Saving user",saveuser.data.user)
+        return saveuser;
     } catch (error) {
         console.log('error while calling login API: ', error);
     }

@@ -75,7 +75,7 @@ export const UserattemptChallenge = async(req,res) => {
     }
     let updateChallenge = user.challenges
     updateChallenge.push(challenge_obj);
-
+    console.log("Added the challenge")
     const newTask = await User.findByIdAndUpdate({_id:user_id},{challenges : updateChallenge},{new:true});
     return res.status(200).json({message: "Updated successfully",updated:newTask});
 }
@@ -90,18 +90,22 @@ export const UserChallengeUpdate = async(req,res) => {
     let updateChallenge = user.challenges;
     let productChallenge = product.challenges;
 
+    console.log(updateChallenge,productChallenge)
+
     for(let i=0;i<productChallenge.length;i++){
         let product_challenge_id = productChallenge[i].challenge;
         for(let j=0;j<updateChallenge.length;j++){
+            console.log(product_challenge_id,updateChallenge[j].challenge)
             if(product_challenge_id == updateChallenge[j].challenge){
+                console.log("True")
                 let challenge = await Challenges.findById(product_challenge_id);
                 if(mark >= challenge.condition){
-                    updateChallenge[j].mark = mark;
+                    updateChallenge[j].mark += mark;
                     updateChallenge[j].completed = true;
                     user.points += challenge.points;
                 }
                 else{
-                    updateChallenge[j].mark = mark;
+                    updateChallenge[j].mark += mark;
                 }
             }
         }

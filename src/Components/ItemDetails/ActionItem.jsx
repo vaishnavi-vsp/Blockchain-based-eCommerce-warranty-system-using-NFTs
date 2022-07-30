@@ -9,6 +9,8 @@ import { addToCart } from '../../redux/actions/cartActions';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import './style.css';
+import axios from 'axios'
+import won from '../../assets/icons/won.gif'
 
 
 const useStyle = makeStyles(theme => ({
@@ -44,7 +46,7 @@ const ActionItem = ({ product }) => {
     const classes = useStyle();
     const history = useHistory();
     const { account } = useContext(LoginContext);
-    const { id, price, cover, title } = product;
+    const [points,setPoints] = useState(0);
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -52,21 +54,52 @@ const ActionItem = ({ product }) => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const [openNot, setOpenNot] = useState(false);
+    const handleOpenNotification = () => {
+        setOpenNot(true);
+    };
+    const handleCloseNotification = () => {
+        setOpenNot(false);
+    };
         
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
 
     const buyNow = async () => {
        handleOpen();
+       
     }
 
     const addItemToCart = () => {
         dispatch(addToCart(product._id, quantity));
         history.push('/cart');
     }
-    
-    const placeOrder = () => {
-        console.log("Plscing order")
+    const NavtoOrders = () => {
+        window.location.href="/myorders";
+    }
+    const placeOrder = async() => {
+        handleClose();
+        handleOpenNotification();
+  
+        let current_user = JSON.parse(localStorage.getItem('user'));
+        const data = {
+            "product_id": product._id,
+            "sold_by":product.created_by,
+            "user_id" :current_user._id,
+            "view_warranty": true,
+            "nft_image":product.default_nft
+        };
+        const points = {
+            "id":current_user._id,
+            "product_id":product._id,
+            "mark":1
+        }
+        const resp = await axios.post('http://localhost:8000/order/add',data);
+        const resp2 = await axios.post('http://localhost:8000/challenge/update',points);
+        setPoints(resp2.data.points);
+        console.log(resp,resp2);
+        
     }
 
     return (
@@ -91,6 +124,17 @@ const ActionItem = ({ product }) => {
                         Confirm
                         </button>
                     </div>
+                </div>
+            </Modal>
+            <Modal
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={openNot}
+                onClose={handleCloseNotification}
+            >
+               <div className="earned_points" onClick={NavtoOrders}>
+                    <h3>You earned Points!</h3>
+                <img src={won} width='250'/>
                 </div>
             </Modal>
 

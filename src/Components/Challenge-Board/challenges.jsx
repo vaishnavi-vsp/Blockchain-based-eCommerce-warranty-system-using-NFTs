@@ -6,7 +6,9 @@ import CardIcon from "./components/Card/CardIcon.js";
 import CardFooter from "./components/Card/CardFooter.js";
 import PropTypes from 'prop-types'
 import * as React from 'react';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 // @material-ui/icons
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
@@ -45,62 +47,69 @@ function LinearProgressWithLabel(props) {
 LinearProgressWithLabel.propTypes = {
     value: PropTypes.number.isRequired,
 };
+
+const attempt = async(challenge_id) =>{
+    const currentuser = JSON.parse(localStorage.getItem("user"))
+    const resp = await axios.post('http://localhost:8000/challenge/attempt',{id:currentuser._id,challenge_id:challenge_id});
+    window.location.reload()
+}
   
 const Challenges = () => {
     const classes = useStyles();
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getData = async () => {
+          try {
+            const currentuser = JSON.parse(localStorage.getItem("user"));
+            const response = await axios.post(
+              `http://localhost:8000/challenge/user`,{"id":currentuser._id}
+            );
+            setData(response.data.data);
+          } catch (err) {
+            setData(null);
+          } finally {
+            setLoading(false);
+          }
+        };
+        getData();
+      }, []);
+
     return (
         <div>
+            {loading?<>
+            <Box sx={{ display: 'flex' }} style={{margin:'40px',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
+                  <CircularProgress />
+                </Box>
+            </>:<>
             <GridContainer>
-                <GridItem xs={2} sm={4} md={4}>
-                <Card>
-                    <CardHeader color="warning" stats icon>
-                    <CardIcon color="warning" style={{padding:'5px'}}>
-                        <img src={task1} width="70"/>
-                    </CardIcon>
-                    <p className={classes.cardCategory}>Use 5-10 Daily Deals</p>
-                    <h3 className={classes.cardTitle}>
-                        200 <small>points</small>
-                    </h3>
-                    </CardHeader>
-                    <CardFooter stats>
-                    <Box sx={{ width: '100%' }}>
-                        <LinearProgressWithLabel value={40} />
-                    </Box>
-                    </CardFooter>
-                </Card>
-                </GridItem>
-                <GridItem xs={2} sm={4} md={4}>
-                <Card>
-                    <CardHeader color="success" stats icon>
-                    <CardIcon color="success" style={{padding:'5px'}}>
-                        <img src={task2} width="70"/>
-                    </CardIcon>
-                    <p className={classes.cardCategory}>My 1st Order</p>
-                    <h3 className={classes.cardTitle}>200 <small>points</small></h3>
-                    </CardHeader>
-                    <CardFooter stats>
-                    <Box sx={{ width: '100%' }} className="custom_button">
-                        <LinearProgressWithLabel value={0} />
-                    </Box>
-                    </CardFooter>
-                </Card>
-                </GridItem>
-                <GridItem xs={2} sm={4} md={4}>
-                <Card>
-                    <CardHeader color="rose" stats icon>
-                    <CardIcon color="rose" style={{padding:'5px'}}>
-                        <img src={task3} width="70"/>
-                    </CardIcon>
-                    <p className={classes.cardCategory}>Active for 60 days</p>
-                    <h3 className={classes.cardTitle}>100 <span>points</span></h3>
-                    </CardHeader>
-                    <CardFooter stats>
-                    <Box sx={{ width: '100%' }} className="custom_button">
-                        <Button variant="contained" size="small" >Start</Button>
-                    </Box>
-                    </CardFooter>
-                </Card>
-                </GridItem>
+                {data.map((item) =>
+                    <GridItem xs={2} sm={4} md={4}>
+                    <Card>
+                        <CardHeader color={item.color} stats icon>
+                        <CardIcon color={item.color} style={{padding:'5px'}}>
+                            <img src={item.cover} width="70"/>
+                        </CardIcon>
+                        <p className={classes.cardCategory}>{item.Title}</p>
+                        <h3 className={classes.cardTitle}>
+                            {item.points} <small>points</small>
+                        </h3>
+                        </CardHeader>
+                        <CardFooter stats>
+                        <Box sx={{ width: '100%' }}>
+                            {item.started ? <>
+                                <LinearProgressWithLabel value={item.progress} />
+                            </>:<>
+                                <Button variant="contained" size="small" onClick={() => attempt(item._id)}>Start</Button>
+                            </>}
+                            
+                        </Box>
+                        </CardFooter>
+                    </Card>
+                    </GridItem>
+                )}
+                
                 <GridItem xs={2} sm={4} md={4}>
                 <Card>
                     <CardHeader color="info" stats icon>
@@ -145,8 +154,8 @@ const Challenges = () => {
                     </h3>
                     </CardHeader>
                     <CardFooter stats>
-                    <Box sx={{ width: '100%' }} className="custom_button">
-                        <LinearProgressWithLabel value={0} />
+                    <Box className="custom_button">
+                        <Button variant="contained" size="small" >Start</Button>
                     </Box>
                     </CardFooter>
                 </Card>
@@ -163,13 +172,15 @@ const Challenges = () => {
                     </h3>
                     </CardHeader>
                     <CardFooter stats>
-                    <Box sx={{ width: '100%' }} className="custom_button">
+                    <Box  className="custom_button">
                         <Button variant="contained" size="small" >Start</Button>
                     </Box>
                     </CardFooter>
                 </Card>
                 </GridItem>
             </GridContainer>
+            </>}
+            
         </div>
     );
 }

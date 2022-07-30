@@ -1,0 +1,8 @@
+.nft-button{
+    border: 1px solid #cac8c8;
+    padding: .1em 0.5em;
+    border-radius: 50px;
+    background-color: gold;
+    margin: 20px;
+    font-size: 16px;
+}

@@ -1,5 +1,5 @@
 import express from  'express';
-import { userSignUp, userLogIn } from '../controller/user-controller.js';
+import { userSignUp, userLogIn,UserById } from '../controller/user-controller.js';
 import { addItemInCart } from '../controller/cart-controller.js';
 import { getProductById, getProductsByCategory, addProduct,getAdminProducts} from '../controller/product-controller.js';
 import { addChallenge, getChallenges, getUserChallenges, UserattemptChallenge,UserChallengeUpdate} from '../controller/challenge-controller.js';
@@ -16,6 +16,7 @@ const upload = multer({ storage });
 router.post('/signup', userSignUp);
 router.post('/login', userLogIn);
 router.post('/cart/add', addItemInCart);
+router.get('/user/:id',UserById);
 
 router.post('/allProduct', getProductsByCategory);
 router.get('/product/:id', getProductById);

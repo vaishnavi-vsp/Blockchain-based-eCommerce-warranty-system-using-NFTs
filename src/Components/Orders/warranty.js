@@ -134,7 +134,7 @@ const Warrantydetails = ({match}) => {
         const response = await axios.get(
           `http://localhost:8000/order/get/${match.params.id}`
         );
-      
+        console.log(response)
         SetDate(format(new Date(response.data.order.ordered_at), 'yyyy/MM/dd kk:mm:ss'));
         SetwarrantyPeriod(format(new Date(response.data.product.warranty_period), 'yyyy/MM/dd kk:mm:ss'))
         setOrder(response.data.order);
@@ -142,6 +142,8 @@ const Warrantydetails = ({match}) => {
         SetProduct(response.data.product);
       } catch (err) {
         setOrder(null);
+        SetIssue(null);
+        SetProduct(null);
       } finally {
         setLoading(false);
       }
@@ -177,7 +179,10 @@ const Warrantydetails = ({match}) => {
             <Typography style={{textAlign:'center'}} style={{marginTop: '30px'}}>Your NFT </Typography>
             <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{margin: '30px 0', fontFamily:'Monospace',display:'flex',width:320}}>Hash : &nbsp;<div className={classes.hash_value}>{order.nft_image}</div></Typography>
                 <img src = {`https://ipfs.infura.io/ipfs/${order.nft_image}`} className={classes.nft_image} alt="" />
+                {order.rare ? <> <button className='nft-button'>Rare NFT</button></> : <></>}
+                
             </Box>
+            
         </Card>
         <Card className={classes.purchasingHistory}>
           <div>

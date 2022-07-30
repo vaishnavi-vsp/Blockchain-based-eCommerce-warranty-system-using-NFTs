@@ -46,5 +46,15 @@ export const userSignUp = async (request, response) => {
     }
 }
 
+export const UserById = async(requsest,response) => {
+    try{
+        const user1 = await User.findOne({ '_id': requsest.params.id });
+        return response.status(200).json(user1);
+    }catch(error) {
+        console.log(error)
+        return response.status(500).json({'Error: ':error.message});
+    }
+}
+
 
 

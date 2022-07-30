@@ -38,6 +38,7 @@ const useStyle = makeStyles({
         "&:hover": {
             backgroundColor: "hsla(0,0%,78%,.2)",
             color: "#000",
+            border: '1px solid black'
         },
     }
 });
@@ -53,6 +54,7 @@ const CartItem = ({item}) => {
             </Box>
             <Box className={classes.mid}>
                 <Typography>{item.longTitle}</Typography>
+                <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Brought on : {}</Typography>
                 <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Seller:RetailNet
                     <span><img src={fassured} style={{ width: 50, marginLeft: 10 }} alt="" /></span>
                 </Typography>

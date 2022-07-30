@@ -79,7 +79,7 @@ const MyOrders = () => {
         { cartItems.length ? 
             <Grid container className={classes.component}>
               
-                <Grid item lg={8} md={8} sm={8} xs={8} className={classes.leftComponent}>
+                <Grid item lg={10} md={10} sm={10} xs={10} className={classes.leftComponent}>
                     <Box className={classes.header}>
                         <Typography style={{fontWeight: 600, fontSize: 18}}>My Orders ({cartItems?.length})</Typography>
                     </Box>
