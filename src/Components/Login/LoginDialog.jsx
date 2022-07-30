@@ -4,8 +4,7 @@ import { authenticateLogin, authenticateSignup } from '../../service/api';
 
 const useStyle = makeStyles({
     component: {
-        height: '69vh',
-        width: '130vh',
+        width: '110vh',
         maxWidth: 'unset !important'
     },
     image: {

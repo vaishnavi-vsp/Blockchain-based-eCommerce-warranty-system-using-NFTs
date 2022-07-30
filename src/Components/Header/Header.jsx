@@ -43,6 +43,7 @@ const useStyle = makeStyles(theme => ({
     },
     customButtons: {
         margin: '0 5% 0 auto', 
+        marginRight: 0,
         [theme.breakpoints.down('sm')]: {
             display: 'none'
         } 

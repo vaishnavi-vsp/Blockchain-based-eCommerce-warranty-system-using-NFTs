@@ -55,7 +55,7 @@ const MyOrders = () => {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/order/62d182d74c0e810ba0a71ed6`
+          `http://localhost:8000/order/62dd2b8111c9525364586018`
         );
         console.log(response.data.data)
         setcartItems(response.data.data);
