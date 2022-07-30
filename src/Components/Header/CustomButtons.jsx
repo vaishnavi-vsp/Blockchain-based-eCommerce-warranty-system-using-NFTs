@@ -74,21 +74,26 @@ const CustomButtons = () => {
                     <Button className={classes.login} variant="contained" onClick={() => openDialog() }>Login</Button>
                 </Link>
             }
-            <Link>
-                <Typography style={{ marginTop: 2 }}>More</Typography>
-            </Link>
+            
             { (JSON.parse(localStorage.getItem("user")) !=null) ? <>
             {JSON.parse(localStorage.getItem("user")).role=="admin"?<>
+            <Link to='/admin/allProducts'>
+                <Typography style={{ marginTop: 2 }}>Products</Typography>
+            </Link>
             <Link to='/admin/addProduct' className={classes.container}>
                 
-                <Typography style={{ marginLeft: 10 }}>Add Product</Typography>
+                <Typography style={{ marginLeft: 10 }}>Add </Typography>
                 <Badge color="secondary" style={{marginLeft:25}}>
                 <Link to='#' style={{color:'white'}}>
                     <AddTaskIcon style={{color:'white'}} />
                 </Link>
                 </Badge>
             </Link>
-            </>:<><Link to='/cart' className={classes.container}>
+            </>:<>
+            <Link >
+                <Typography style={{ marginTop: 2 }}>More</Typography>
+            </Link>
+            <Link to='/cart' className={classes.container}>
                 <Badge badgeContent={cartItems?.length} color="secondary">
                     <ShoppingCart />
                 </Badge>
