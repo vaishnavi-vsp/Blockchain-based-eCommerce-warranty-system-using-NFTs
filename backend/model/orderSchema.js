@@ -9,6 +9,10 @@ export const OrderSchema=mongoose.Schema({
     ordered_at: {
         type:Date,
         default:new Date()
+    },
+    warranty_period:{
+        type:Date,
+        default:new Date('2022-09-31T10:20:49.380+00:00')
     }
 })
 

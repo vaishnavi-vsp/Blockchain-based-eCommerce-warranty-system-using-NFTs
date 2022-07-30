@@ -101,6 +101,14 @@ const useStyle = makeStyles({
     backgroundColor: '#d6dbd6',
     
   },
+  warrantyStatusRed: {
+    fontWeight:450,
+    color: 'red',
+    border: '1px solid red',
+    borderRadius: 5,
+    padding: 5,
+    backgroundColor: '#d6dbd6',
+  },
   warrantyDeatils:{
     borderTop: '1px solid #f0f0f0',
     borderRadius: 0,
@@ -136,7 +144,7 @@ const Warrantydetails = ({match}) => {
         );
         console.log(response)
         SetDate(format(new Date(response.data.order.ordered_at), 'yyyy/MM/dd kk:mm:ss'));
-        SetwarrantyPeriod(format(new Date(response.data.product.warranty_period), 'yyyy/MM/dd kk:mm:ss'))
+        SetwarrantyPeriod(format(new Date(response.data.order.warranty_period), 'yyyy/MM/dd kk:mm:ss'))
         setOrder(response.data.order);
         SetIssue(response.data.issuer);
         SetProduct(response.data.product);
@@ -194,7 +202,12 @@ const Warrantydetails = ({match}) => {
           </div>
           <div>
             <Typography className={classes.mainTitle} style={{marginBottom:30}}>Warranty Card</Typography>
+            {order.status == 'ACTIVE' ?<>
             <Typography className={clsx(classes.purchasingText)} style={{margin: '20px 0',fontWeight:600,color:'rgb(56 54 54 / 87%)'}}>Warrant Status: <span className={classes.warrantyStatus}>ACTIVE</span></Typography>
+            </>:<>
+            <Typography className={clsx(classes.purchasingText)} style={{margin: '20px 0',fontWeight:600,color:'rgb(56 54 54 / 87%)'}}>Warrant Status: <span className={classes.warrantyStatusRed}>EXPIRED</span></Typography>
+            </>}
+            
             <Typography className={clsx(classes.purchasingText)} style={{margin: '20px 0',fontWeight:600,color:'rgb(56 54 54 / 87%)'}}>Warranty period: <span style={{fontWeight:450,color: '#878787'}}>{warrantyPeriod}</span></Typography>
             <Typography className={clsx(classes.purchasingText)} style={{margin: '20px 0',fontWeight:600,color:'rgb(56 54 54 / 87%)'}}>Number of transfers: <span style={{fontWeight:450,color: '#878787'}}>{product.transfers}</span></Typography>
             <Typography className={clsx(classes.purchasingText)} style={{margin: '20px 0',fontWeight:600,color:'rgb(56 54 54 / 87%)'}}>Warranty details: <Link to={`${product.warranty_details}`} style={{fontWeight:450,color: 'blue'}}>{product.warranty_details.substring(0, 25)}</Link></Typography>

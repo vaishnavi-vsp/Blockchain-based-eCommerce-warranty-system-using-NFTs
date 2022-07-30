@@ -77,19 +77,8 @@ const CustomButtons = () => {
             <Link>
                 <Typography style={{ marginTop: 2 }}>More</Typography>
             </Link>
-            {(JSON.parse(localStorage.getItem("user"))).role =="user" ? <>
-            <Link to='/cart' className={classes.container}>
-                <Badge badgeContent={cartItems?.length} color="secondary">
-                    <ShoppingCart />
-                </Badge>
-                <Typography style={{ marginLeft: 10 }}>Cart</Typography>
-                <Badge color="secondary" style={{marginLeft:25}}>
-                <Link to='/challengeboard'>
-                    <AddTaskIcon style={{color:'white'}} />
-                </Link>
-                </Badge>
-            </Link>
-            </> :<>
+            { (JSON.parse(localStorage.getItem("user")) !=null) ? <>
+            {JSON.parse(localStorage.getItem("user")).role=="admin"?<>
             <Link to='/admin/addProduct' className={classes.container}>
                 
                 <Typography style={{ marginLeft: 10 }}>Add Product</Typography>
@@ -99,6 +88,18 @@ const CustomButtons = () => {
                 </Link>
                 </Badge>
             </Link>
+            </>:<><Link to='/cart' className={classes.container}>
+                <Badge badgeContent={cartItems?.length} color="secondary">
+                    <ShoppingCart />
+                </Badge>
+                <Typography style={{ marginLeft: 10 }}>Cart</Typography>
+                <Badge color="secondary" style={{marginLeft:25}}>
+                <Link to='/challengeboard'>
+                    <AddTaskIcon style={{color:'white'}} />
+                </Link>
+                </Badge>
+            </Link></>}
+            </> :<>
             </>}
             
             
