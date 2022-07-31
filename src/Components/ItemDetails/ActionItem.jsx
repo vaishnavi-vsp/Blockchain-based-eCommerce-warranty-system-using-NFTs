@@ -88,7 +88,7 @@ const ActionItem = ({ product }) => {
             "sold_by":product.created_by,
             "user_id" :current_user._id,
             "view_warranty": true,
-            "nft_image":product.default_nft
+            "nft_image":product.default_nft,
         };
         const points = {
             "id":current_user._id,
