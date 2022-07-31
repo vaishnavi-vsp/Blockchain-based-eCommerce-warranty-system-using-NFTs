@@ -20,6 +20,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import toast, { Toaster } from 'react-hot-toast';
 import './style.css';
 import "./nprogress.css";
 
@@ -96,7 +97,8 @@ export default function AddProduct() {
             "category":cat,
             "hasWarranty":checked,
             "price":final_price,
-            "cover":file
+            "cover":file,
+            "created_by":"62dd2b8111c9525364586018"
         }
         if(checked){
             send_data['warranty_details'] = details;
@@ -113,6 +115,7 @@ export default function AddProduct() {
             title: 'Response notification',
             message: 'Form Submitted Successfully!',
           })
+          toast.success('Product Listed successfully!')
         }else{
           console.log('error');
         }
@@ -120,6 +123,7 @@ export default function AddProduct() {
 
     return (
         <ThemeProvider theme={theme}>
+            <Toaster/>
             <Container component="main" maxWidth="lg" sx={{mb: 12}}>
                 <Paper variant="outlined" sx={{ my: { xs: 6, md: 12 }, p: { xs: 3, md: 4 }, margin: 'auto',align:'center'}}>
                     <Typography component="h4" variant="h6" align="center" margin='10px'>
@@ -172,13 +176,13 @@ export default function AddProduct() {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         label="Categories"
-                        defaultValue={10}
+                        defaultValue={'DayDeals'}
                         onChange= {catChangeHandler}
                         required
                     >
-                        <MenuItem value={10}>Deals of the Day</MenuItem>
-                        <MenuItem value={20}>Flash Deals</MenuItem>
-                        <MenuItem value={30}>On Discounts</MenuItem>
+                        <MenuItem value={'DayDeals'}>Deals of the Day</MenuItem>
+                        <MenuItem value={'FlashDeals'}>Flash Deals</MenuItem>
+                        <MenuItem value={'Discounts'}>On Discounts</MenuItem>
                     </Select>
                     </div>
                     <FormControlLabel control={<Checkbox checked={checked} onChange={handleCheckbox}/>} label="Product has warranty" className="textInput"/>
