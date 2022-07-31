@@ -13,6 +13,14 @@ export const OrderSchema=mongoose.Schema({
     warranty_period:{
         type:Date,
         default:new Date('2022-09-31T10:20:49.380+00:00')
+    },
+    rare: {
+        type: Boolean,
+        default:false,
+    },
+    status: {
+        type: String,
+        default: "ACTIVE"
     }
 })
 
