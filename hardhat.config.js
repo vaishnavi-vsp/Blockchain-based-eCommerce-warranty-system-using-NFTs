@@ -6,6 +6,10 @@ require("@nomiclabs/hardhat-web3");
 // https://hardhat.org/guides/create-task.html
 task("hello", "Prints Hello World", () => console.log("Hello World!"));
 
+
+
+
+
 task("accounts", "Prints the list of accounts", async () => {
   const accounts = await ethers.getSigners();
 
