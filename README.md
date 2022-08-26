@@ -1,117 +1,47 @@
-# ECommerce warranty system using NFTs
-#### Submitted as a solution for Flipkart Grid 4.0 Software Development Challenge
 
-<div align="center">
-<img align="center" src="https://i.postimg.cc/qvRtwLnt/Cap1.png" width="700">
-<br/><br/>
-<img align="center" src="https://i.postimg.cc/KjW8nHJn/Capture1.png" width="700">
-</div>
-<br>
-The objective is to replace the physical warranty and have block chain based warranty using NFT which will ensure
-authenticity and security
+# Flipkar Clone MERN stack 
 
-Many consumer products such as Electronics,furniture,etc brought on Eccomerce websites come with basic warranties. But there are also issued warranties against manufacturing and regular-use defects. Warranties are only granted when sold through an authorized dealer or store and oftentimes are valid only for a specified time.
-
-Currently, the validity of the warranty is determined by some physical receipt or warranty card. This poses several issues:
-
-* The warranty document is easily falsifiable.
-* The warranty document is not necessarily standard among different sellers.
-* A bad acting authorized dealer could issue warranty cards for expired products "under the table".
-
-### Objectives :
-
-1. The blockchain smart contract should allow users to prove ownership
-2. Provide the purchasing history, warranty period, and other item information
-3. The warranty card should include the item’s serial number and upon purchase be sent to the customer’s smartphone.
-4. The NFTs should be decaying in nature, in that, after a certain period their use for the redemption of warranty benefits offered by the brand/retailer will expire
-5. GUI-based tool that doesn’t require knowledge of any Blockchain programming to use by Brands and Retailers.
-6. Usage of Soulbound NFTs
-7. Add any engagement/gamification construct to the loyalty program
-
-### Documentation :
-Please Find the documentation, use cases,limitations and future scope for our project <a href="https://github.com/vaishnavi-vsp/Flipkart-Unstop/blob/master/BitLords_Blockchain_MetaCommerce.pdf">here</a>
-
-### Proposed Solution 
-The issues mentioned above are all byproducts of maintaining warranties in the physical world. Tokenize the warranties and many of the problems related to the "real-world" disappear. Not only are the problems resolved, but new possibilities also emerge, such as tracking the exact ownership chain.
-<br>
-1. Retaiers and sellers will have ease to add product and warranty details related to that product.They can choose to create the warranty as soulbound NFT or transferable by setting the 'limit of transfers'
-2. Whenever the user buys a product, they are issued a new warranty NFT which icludes metadata such as `owner_address`,`owner details`,`validity_period`,`active_status`,`retailer_address`, and other purchasing history details. Generative NFTs are created with the image provided by retailers and a unique NFT artwork is assigned to user.
-3. These NFTs (if mentioned by seller) can be transfered.The number of warranty transfers of a product can be limited and controlled. Some warranties are non-transferable `Soulbound NFT` to new owners whereas others offer unlimited transfers. Tokenized warranties can accurately enforce these rules.
-4. A product's exact ownership chain can be traced
-5. Along with these, a gamification loyalty construct program is created for more interaction and retention of users to the website with the help of reward and challenge system.
+Sijeesh Miziha's Flipkart Clone is done with top-notch features for the entrepreneur startups like Flipkart it has RazorPay Integration and get money from anywhere. This Flipkart clone with the best features in mobile, web, and iOS platforms, Completely responsive design using Material UI.
+- 🧪 **Kindly Please Support Me**
+  - I can provide brand-free products and full technical support for 1 year along with 1-year free update support and moreover
+- 👁 **Well typed**
+  - Clean JavaScript code with good folder structure.,
+- 📄 **Well documented**
+  - I can provide full reference & installation documentation alongside detailed guides through my Youtube Channel Sijeesh Miziha feel free to subscribe 
+  - If You supporting me., then I can also create the full lecture video from the scratch..,you can learn React.js as beginer 
+- **Requirements to fork this repo**
+   - Strong knowledge of JavaScript
+   - React js, redux , redux-thunk , context
+   - Knowledge of Express js & MVC architecture
+   - Basic knowledge in MongoDB & Mongoose
+   
 
 
-## Tech Stack 💻
+![Screenshot from 2021-11-01 18-05-31](https://user-images.githubusercontent.com/91063960/139678469-c631005a-9c20-4321-8022-24f4573427b7.png)
+![Screenshot from 2021-11-01 18-05-52](https://user-images.githubusercontent.com/91063960/139678483-ca95e74e-44a5-422c-9cac-4bfe463215ef.png)
+![Screenshot from 2021-11-01 18-06-08](https://user-images.githubusercontent.com/91063960/139678489-03130e57-7e0b-4bb0-96f6-f4ec85b8efbe.png)
+![Screenshot from 2021-11-01 18-06-32](https://user-images.githubusercontent.com/91063960/139678548-e58c550e-51c5-4695-a0c3-d6563737548a.png)
+![Screenshot from 2021-11-01 18-07-35](https://user-images.githubusercontent.com/91063960/139678663-177aedd5-e622-4441-871b-e0af7be1e363.png)
+![Screenshot from 2021-11-01 18-08-34](https://user-images.githubusercontent.com/91063960/139678729-432bb265-9d98-4a2d-8c27-d66eb2f09b26.png)
+![Screenshot from 2021-11-01 18-08-40](https://user-images.githubusercontent.com/91063960/139678735-0ac4e3e8-591d-4652-8965-22c830fa94db.png)
+![Screenshot from 2021-11-01 18-09-33](https://user-images.githubusercontent.com/91063960/139678737-8d069f75-9d7f-44ff-8e37-4be34ebc95cd.png)
 
----
+  
+Flipkart is one of the best and trending eCommerce sites with a presence throughout India. The online shopping website is for Buying and Selling products online within the network.
 
-### WEB 3.0 :
+Sijeesh Miziha's Flipkart clone is a ready-made remarkable multi-vendor eCommerce site built-in compleatly JavaScript that helps Entrepreneurs can start their own business like Flipkart, which allows the vendors to add products & users to buy the products easily with just a click.
+## Tech Stack
 
-- Hardhat <img width="35px" src = "https://raw.githubusercontent.com/Spyware007/FlipVerse/main/readme_assets/hardhat.png">
-  </div>
-- Solidity <img width="15px" src = "https://raw.githubusercontent.com/Spyware007/FlipVerse/main/readme_assets/solidity.png">
-  </div>
-- Ethereum <img width="25px" src = "https://raw.githubusercontent.com/Spyware007/FlipVerse/main/readme_assets/ethereum.png">
-  </div>
+  - **MERN STACK** 
+  - **React js , Node js , MongoDB , Express js** 
+  - **Materiel UI**
+  - **RazorPay integration**  
 
-### Frontend :
 
-<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 
-### Backend :
+  
+## Installation
 
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) <img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"/>
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-
-### Designed On:
-
-![Figma](https://img.shields.io/badge/Figma-FbbE99?style=for-the-badge&logo=figma&logoColor=white)
-
-### Retailers/Sellers Fucntions
-The retailer address is recorded as a part of the smart contract's storage. An retailer has the right to create a new peoduct,issue a new warranty NFT with its respective metadata such as the product's serial number, the warranty's duration, etc. The administrator can also transfer their privileges to another administrator address.
-
-### User Functions
-A user of this smart contract can query the blockchain for the warranty NFTs under their possession. Additionally, a user may transfer any of their warranties that are not yet expired and still have remaining allowed transfers. A user can also delegate custody of a specified warranty NFT to another address. The delegate may then operate on the NFT as if they were the user with the original ownership.
-
-### Brownie Points 
-* Polygon Blockchain is used to deploy our final solution
-* NFTs are decaying in nature
-* Geneative NFT are created as a way to ease the function of retailers to generate NFT everytime a warranty is issued to customer
-* Usage of SoulBound NFT
-* Adding any engagement/gamification construct to the loyalty program 
-* Warranty card is sent to user's mobile via SMS (twilio) and Email Address (Nodemailer)
-### Installation Steps:
-
-1. Compile and deploy contract
-
-```shell
-npm install
-npx hardhat node
-npx hardhat compile
-npx hardhat deploy (or) npx hardhat run scripts/deployContract.js --network polygonTest
-npx hardhat test
-```
-2. Copy deployed contract address and replace contract address in ```client/src/blockchain.js``` with newly deployed address and then run react app in ```client``` directory
-
-```shell
-cd client
-npm install
-npm start
-```
-
-2. Start the React Frontend
-
-```shell
-cd web
-npm install
-npm start 
-```
-The web application can be viewed at http://localhost:3000/
-
-### Demo Video
-You can watch the project demonstration video uploaded <a href="https://drive.google.com/file/d/17yCQ-Ldqeu5kGN5Rtmpw3yPakunkQ2IT/view?usp=sharing">here</a>
-
-### Team Members 
-1. <a href="https://github.com/vaishnavi-vsp">Vaishanvi Patil</a>
-2. <a href="https://github.com/KrutikaBhatt">Krutika Bhatt </a>
-3. <a href="https://github.com/kamalrohra"> Kamal Rohra </a>
+  1. Clone/Download the repo.
+  2. Run npm install on client as well as server.
+  3. Run npm start both server and  client  to spin the up the local dev server port 8000,3000,(http://localhost:8000),(http://localhost:3000).
