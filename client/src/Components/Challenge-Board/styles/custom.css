@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
+*>* {
+    font-family: "Poppins", cursive;
+    margin: 0;
+}
+
+
+:root {
+    --color-dark: #2C3131;
+    --color-light: #F3F3F2;
+    --color-table-border: #e6e6e1;
+}
+
+.leaderboard {
+    display: flex;
+    justify-content:space-between;
+    text-align: center;
+    margin-left: 2.5em;
+    margin-right: 2.5em;
+    margin-top: 5.5em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 1.7em;
+}
+.center__align__board {
+    display: flex;
+    justify-content:space-between;
+    text-align: center;
+    margin-top:1.8em;
+    margin-bottom:1.8em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 1em;
+    width:fit-content;
+}
+.center_title {
+    display: flex;
+    justify-content:flex-end;
+    align-items:center;
+}
+.center_title > span {
+    margin:0.3em;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.coins {
+    display: flex;
+    align-items: center;
+    margin-right:5px;
+}
+.mr-5 {
+    margin-right:5px;
+}
+.reward_icon {
+    margin: 5px;
+}
+.c_flex {
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2px;
+}
+.c_flex > button {
+    border: 1px solid #cac8c8;
+    padding: .1em 0.5em;
+    border-radius: 50px;
+    background-color: transparent;
+    cursor: pointer;
+}
+.c_flex > button:hover{
+    background-color: #cac8c8;
+    color: #070707;
+}
+.TitleBar {
+    padding :0.4em;
+    text-align:initial;
+}
+.TitleBar > h1 {
+    font-size : 30px;
+    font-weight:bolder;
+    color:#2C3131;
+    margin: 3px;
+}
+.TitleBar > p {
+    color:#3d3f3f;
+}
+
+/* For challenges */
+.mr-5 {
+    margin: 2.5rem;
+}
+.secondary_banner {
+    display: flex;
+    justify-content:space-evenly;
+    text-align: center;
+    padding: 1.7em;
+    background-color:aqua;
+}
+.app__page{
+    display:flex;
+}
+.sidebar {
+    flex:0.2;
+    height: fit-content;
+    position:sticky;
+    margin:0.6rem;
+    margin-left:2.5rem;
+    box-shadow: 0 0 6px hsl(210 14% 90%);
+    z-index: 1000;
+    top:4rem;
+
+}
+.content_page {
+    flex: 0.8;
+}
+.link{
+    align-items: cover;
+    cursor: pointer;
+}
+.link:hover{
+    background-color:#e0eaf5;
+    color: #0a0a0a;
+    transition: color 100ms ease-out;
+}
+.list_item {
+    border: 1px solid rgb(185, 183, 183);
+    margin-bottom:10px;
+    cursor: pointer;
+}
+.list_item:hover{
+    background-color:#dadde0;
+    transition: color 100ms ease-out;
+}
+.mr-4 {
+    margin-right:5px;
+}
+.mr-6 {
+    margin-right: 12px;
+}
+.badges {
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.custom_button {
+    display:grid;
+    align-self: center;
+    width:fit-content;
+    height: 30px;
+}
+.earn_points_margins {
+    margin-top:15px
+}
+.modal {
+    width: 500px;
+    height: 200px;
+    margin:0 auto;
+    display:table;
+    position: absolute;
+    left: 0;
+    right:0;
+    top: 50%; 
+    padding:10px;
+    background-color: #ffffff;
+    -webkit-transform:translateY(-50%);
+    -moz-transform:translateY(-50%);
+    -ms-transform:translateY(-50%);
+    -o-transform:translateY(-50%);
+    transform:translateY(-50%);
+}
+.modal > h3 {
+    font-family: "Poppins", cursive;
+    color:#3d3f3f;
+}
+.modal > p {
+    font-size: 12px;
+    color:#595c5c;
+    margin-top:10px;
+    line-height: 1.7;
+
+}
+.modal > p  >span {
+    font-weight: 700;
+}
+.social_media_share {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.social_media_share >img {
+    cursor: pointer;
+}
