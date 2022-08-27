@@ -15,7 +15,11 @@ export const authenticateLogin = async (user) => {
 
 export const authenticateSignup = async (user) => {
     try {
-        return await axios.post(`${url}/signup`, user)
+
+        const saveuser =  await axios.post(`${url}/signup`, user)
+        localStorage.setItem('user', JSON.stringify(saveuser.data.user));
+        return saveuser;
+
     } catch (error) {
         console.log('error while calling Signup API: ', error);
     }

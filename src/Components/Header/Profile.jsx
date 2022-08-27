@@ -27,6 +27,8 @@ const Profile = ({ account, setAccount }) => {
 
     const logout = () => {
         setAccount('');
+        localStorage.removeItem("user");
+        window.location.href="/";
     }
     
     return (
@@ -38,10 +40,26 @@ const Profile = ({ account, setAccount }) => {
                 onClose={handleClose}
                 className={classes.component}
             >
+                <MenuItem>
+                    <Typography className={classes.logout}>{JSON.parse(localStorage.getItem("user")).email}</Typography>
+                </MenuItem>
+
+                <MenuItem>
+                    <Typography className={classes.logout}>{localStorage.getItem("address")}</Typography>
+                </MenuItem>
+
+                <MenuItem>
+                    <Typography className={classes.logout}>Network Type: {localStorage.getItem("networkType")}</Typography>
+                </MenuItem>
+                <MenuItem>
+                    <Typography className={classes.logout}>Balance :  {localStorage.getItem("balance")}</Typography>
+                </MenuItem>
+
                 <MenuItem onClick={() => { handleClose(); logout();}}>
                     <PowerSettingsNew fontSize='small' color='primary'/> 
                     <Typography className={classes.logout}>Logout</Typography>
                 </MenuItem>
+               
             </Menu>
         </>
     )    

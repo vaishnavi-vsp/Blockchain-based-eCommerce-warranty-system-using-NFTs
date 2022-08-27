@@ -15,7 +15,9 @@ import Warrantydetails from "./Components/Orders/warranty";
 import AllProducts from "./Components/AdminPanel/AllProducts";
 import { Box } from "@material-ui/core";
 import Web3Modal from "web3modal";
+import Web3 from "web3";
 import { useEffect } from "react";
+import { connect } from "react-redux";
 
 function App() {
   const initWeb3 = async () => {
@@ -25,6 +27,15 @@ function App() {
         cacheProvider: true,
       });
       const connection = await web3Modal.connect();
+      const web3 = new Web3(connection);
+      const accounts = await web3.eth.getAccounts();
+      const network = await web3.eth.net.getNetworkType();
+      let networkType = network.charAt(0).toUpperCase() + network.slice(1) + " Network";
+      let balance = await web3.eth.getBalance(accounts[0]);
+   
+      localStorage.setItem("address", accounts[0]);
+      localStorage.setItem("networkType",networkType);
+      localStorage.setItem("balance",balance);
     });
   };
   useEffect(() => {

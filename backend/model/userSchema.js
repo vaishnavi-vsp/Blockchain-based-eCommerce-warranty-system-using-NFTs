@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -46,7 +47,12 @@ const userSchema = new mongoose.Schema({
                 type: Number
             }
         }
-    ]
+    ],
+    referalCode:{
+        type:String,
+        default: uuidv4().substring(0, 8)
+    }
+
 });
 
 const user = mongoose.model('user', userSchema);

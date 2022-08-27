@@ -21,7 +21,10 @@ export const userLogIn = async (request, response) => {
 
 export const userSignUp = async (request, response) => {
     try {
+        console.log(request.body);
         const exist = await User.findOne({ username: request.body.username });
+        const refferalCode = request.body.referralCode;
+
         if(exist) {
             return response.status(401).messagejson({ message: 'Username already exist'});
         }
@@ -35,6 +38,15 @@ export const userSignUp = async (request, response) => {
         if(user.role == null || user.role == undefined){
             user.role = 'user'
         }
+        if(refferalCode != undefined && refferalCode!= null && refferalCode!=""){
+            const findSender = await User.findOne({ referalCode: refferalCode});
+            // Add some grace points to the Sender
+            if(findSender !=null){
+                const updatedUser = await User.findByIdAndUpdate({_id:findSender._id},{points:findSender.points+50},{new:true});
+                console.log("Updating the User")
+            }
+        }
+
         const newUser = new User(user);
         await newUser.save();
         response.status(200).send({message:`${user.username} has been successfully registered`,
@@ -55,6 +67,5 @@ export const UserById = async(requsest,response) => {
         return response.status(500).json({'Error: ':error.message});
     }
 }
-
 
 
