@@ -1,7 +1,7 @@
 import express from  'express';
 import { userSignUp, userLogIn,UserById } from '../controller/user-controller.js';
 import { addItemInCart } from '../controller/cart-controller.js';
-import { getProductById, getProductsByCategory, addProduct,getAdminProducts} from '../controller/product-controller.js';
+import { getProductById, getProductsByCategory, addProduct,getAdminProducts,updateProduct} from '../controller/product-controller.js';
 import { addChallenge, getChallenges, getUserChallenges, UserattemptChallenge,UserChallengeUpdate} from '../controller/challenge-controller.js';
 import { addOrder, getOrdersOfUser,getOrderbyId } from '../controller/order-controller.js';
 
@@ -22,6 +22,7 @@ router.post('/allProduct', getProductsByCategory);
 router.get('/product/:id', getProductById);
 router.post('/product',addProduct);
 router.get('/product/admin/:id',getAdminProducts);
+router.post('/updateProfile',updateProduct);
 
 router.post('/challenge/add',addChallenge);
 router.get('/challenge/all',getChallenges);
