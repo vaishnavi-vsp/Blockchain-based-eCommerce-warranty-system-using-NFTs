@@ -28,6 +28,9 @@ const Profile = ({ account, setAccount }) => {
     const logout = () => {
         setAccount('');
         localStorage.removeItem("user");
+        // localStorage.removeItem("address");
+        // localStorage.removeItem("networkType");
+        // localStorage.removeItem("balance");
         window.location.href="/";
     }
     

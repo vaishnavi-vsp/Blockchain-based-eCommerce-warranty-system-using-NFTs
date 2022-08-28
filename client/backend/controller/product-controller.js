@@ -48,3 +48,18 @@ export const getAdminProducts = async(req,res) => {
         res.status(500).json({message:error.message});
     }
 }
+
+export const updateProduct = async(req,res) =>{
+    try {
+        const updates ={
+            years:1,
+            months:0,
+            time:"00:00:00",
+        }
+        const newTask = await Product.findByIdAndUpdate({_id:req.body.id},{  warranty_period: updates},{new:true});
+        return res.status(200).json({message: "Updated successfully",updated:newTask});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:error.message});
+    }
+}

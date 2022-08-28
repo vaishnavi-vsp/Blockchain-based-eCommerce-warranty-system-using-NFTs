@@ -37,9 +37,6 @@ function App() {
       let networkType = network.charAt(0).toUpperCase() + network.slice(1) + " Network";
       let balance = await web3.eth.getBalance(accounts[0]);
       balance = web3.utils.fromWei(balance,'ether')
-      console.log("address", accounts[0])
-      console.log("networkType",networkType)
-      console.log("balance",balance)
       localStorage.setItem("address", accounts[0]);
       localStorage.setItem("networkType",networkType);
       localStorage.setItem("balance",balance);
@@ -57,13 +54,11 @@ function App() {
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       let balance = ethers.utils.formatEther((await provider.getBalance(accounts[0])))
       let network = (await provider.getNetwork()).name 
-      console.log(balance)
-      console.log(network)
+     
       const signer = provider.getSigner()
       localStorage.setItem("address",accounts[0]);
-      localStorage.setItem("networkType",network);
+      localStorage.setItem("networkType",network.toUpperCase());
       localStorage.setItem("balance",balance);
-      console.log(window.ethereum.networkVersion)
       
       window.ethereum.on('chainChanged', (chainId) => {
         window.location.reload();
