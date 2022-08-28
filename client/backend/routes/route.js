@@ -5,6 +5,7 @@ import { uploadFile } from '../controller/ipfs-uploads.js';
 import { getProductById, getProductsByCategory, addProduct,getAdminProducts,updateProduct} from '../controller/product-controller.js';
 import { addChallenge, getChallenges, getUserChallenges, UserattemptChallenge,UserChallengeUpdate} from '../controller/challenge-controller.js';
 import { addOrder, getOrdersOfUser,getOrderbyId } from '../controller/order-controller.js';
+import auth from '../middleware/auth.js'
 
 import multer from 'multer';
 import storage from "../utils/CloudinaryUtils.js"; 
@@ -12,6 +13,9 @@ import storage from "../utils/CloudinaryUtils.js";
 
 const router = express.Router();
 const upload = multer({ storage });
+
+// example to place middleware
+// router.post('/signup',auth, userSignUp);
 
 //login & signup
 router.post('/signup', userSignUp);

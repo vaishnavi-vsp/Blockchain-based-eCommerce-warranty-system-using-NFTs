@@ -1,5 +1,6 @@
 import User from '../model/userSchema.js';
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken'
 
 export const userLogIn = async (request, response) => {
     try {
@@ -7,10 +8,27 @@ export const userLogIn = async (request, response) => {
         console.log(user);
         const validPassword = await bcrypt.compare(request.body.password, user.password);
         if (validPassword) {
-            return response.status(200).json({username:user.username,
-                                                user:user
-            });
+            const payload = {
+                user: {
+                  username:user.username,
+                  user: user
+                },
+            };
+            jwt.sign(
+                payload,
+                "JwtSecret",
+                {
+                  expiresIn: 360000,
+                },
+                (err, token) => {
+                  if (err) throw err;
+                  console.log("Valid login")
+                  return response.status(200).json({ token,username:user.username,user:user});
+                },
+            );
+        
         } else {
+            console.log("Invalid login")
             return response.status(400).json('Invalid Login');
         }
         

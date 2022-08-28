@@ -19,11 +19,12 @@ import Web3 from "web3";
 import { useEffect,useState } from "react";
 import MarketplaceAddress from  './marketPlaceAddress.json'
 import MarketplaceAbi from './artifacts/contracts/dMarket.sol/dMarket.json'
-import { connect } from "react-redux";
 import { ethers } from "ethers"
+import AuthRoute from './service/authRoute.js'
 
 function App() {
   const [account, setAccount] = useState(null)
+  const [contract,setContract] = useState(null)
   const initWeb3 = async () => {
     return new Promise(async (resolve, reject) => {
       const web3Modal = new Web3Modal({
@@ -76,6 +77,7 @@ function App() {
   const loadContracts = async(signer)=>{
     const marketplace = new ethers.Contract(MarketplaceAddress.address,MarketplaceAbi.abi,signer)
     console.log(marketplace)
+    setContract(marketplace)
   }
   useEffect(() => {
     initWeb32();
@@ -91,12 +93,13 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/cart" component={Cart} />
               {/* <Route exact path= '/product/:id' component={Product} /> */}
-              <Route exact path="/product/:id" component={DetailView} />
+              <Route exact path="/product/:id" render={({match}) => (<DetailView match={match} contract={contract} />  )} />
+              {/* <Route exact path="/product/:id"  component={DetailView} /> */}
               <Route exact path="/leaderboard" component={LeaderBoard} />
-              <Route exact path="/challengeboard" component={ChallengeBoard} />
-              <Route exact path="/myprofile" component={MyProfile} />
+              <AuthRoute exact path="/challengeboard" component={ChallengeBoard} />
+              <AuthRoute exact path="/myprofile" component={MyProfile} />
               <Route exact path="/checkout" component={Checkout} />
-              <Route exact path="/myorders" component={MyOrders} />
+              <AuthRoute exact path="/myorders" component={MyOrders} />
               <Route exact path="/warranty/:id" component={Warrantydetails} />
               <Route exact path="/admin/addProduct" component={AddProduct} />
               <Route exact path="/admin/allProducts" component={AllProducts} />

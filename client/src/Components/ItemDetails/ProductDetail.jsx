@@ -23,7 +23,7 @@ const useStyle = makeStyles({
     }
 });
 
-const ProductDetail = ({ product }) => {
+const ProductDetail = ({ product}) => {
     const classes = useStyle();
     const adURL = 'https://rukminim1.flixcart.com/lockin/774/185/images/CCO__PP_2019-07-14.png?q=50';
     const date = new Date(new Date().getTime()+(5*24*60*60*1000));
