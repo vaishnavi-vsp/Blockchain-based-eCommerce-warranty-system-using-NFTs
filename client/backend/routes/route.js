@@ -1,6 +1,7 @@
 import express from  'express';
 import { userSignUp, userLogIn,UserById } from '../controller/user-controller.js';
 import { addItemInCart } from '../controller/cart-controller.js';
+import { uploadFile } from '../controller/ipfs-uploads.js';
 import { getProductById, getProductsByCategory, addProduct,getAdminProducts,updateProduct} from '../controller/product-controller.js';
 import { addChallenge, getChallenges, getUserChallenges, UserattemptChallenge,UserChallengeUpdate} from '../controller/challenge-controller.js';
 import { addOrder, getOrdersOfUser,getOrderbyId } from '../controller/order-controller.js';
@@ -33,5 +34,8 @@ router.post('/challenge/update',UserChallengeUpdate);
 router.post('/order/add',addOrder);
 router.get('/order/:id',getOrdersOfUser);
 router.get('/order/get/:id',getOrderbyId)
+
+// IPFS Uploads
+router.post('/ipfs/upload',uploadFile);
 
 export default router;

@@ -15,7 +15,7 @@ export const userLogIn = async (request, response) => {
         }
         
     } catch (error) {
-        respnsestatus(500).json('Error: ', error.message);        
+        response.status(500).json('Error: ', error.message);        
     }
 }
 

@@ -16,6 +16,12 @@ const productSchema = new mongoose.Schema({
     warranty_details: String,
     created_by: String,
     seller_name:String,
+    nfts: [
+        {
+            hash:String,
+            url: String,
+        }
+    ],
     warranty_period:{
             years:Number,
             months:Number,
