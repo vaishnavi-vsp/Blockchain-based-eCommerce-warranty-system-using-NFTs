@@ -58,7 +58,9 @@ const CustomButtons = () => {
     const classes = useStyle();
     const [ open, setOpen ] = useState(false);
     const { account, setAccount } = useContext(LoginContext);
-
+    console.log("This is the current account")
+    console.log(account)
+    
     const cartDetails = useSelector(state => state.cart);
     const { cartItems } = cartDetails;
 

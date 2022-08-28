@@ -42,12 +42,14 @@ const useStyle = makeStyles(theme => ({
     }
 }));
 
-const ActionItem = ({ product }) => {
+const ActionItem = ({ product,contract }) => {
     const classes = useStyle();
     const history = useHistory();
     const { account } = useContext(LoginContext);
     const [points,setPoints] = useState(0);
     const [open, setOpen] = useState(false);
+    console.log("This is from the contracts action")
+    console.log(contract)
     const handleOpen = () => {
         setOpen(true);
     };
@@ -81,7 +83,8 @@ const ActionItem = ({ product }) => {
     const placeOrder = async() => {
         handleClose();
         handleOpenNotification();
-  
+        // string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer
+        contract.createNFT("1",11,"1222",10,1,"0xa491637217782Ed121B78f333ae16aD94fC4f197",{value:"10000000000000000"})
         let current_user = JSON.parse(localStorage.getItem('user'));
         const data = {
             "product_id": product._id,
@@ -101,7 +104,7 @@ const ActionItem = ({ product }) => {
         console.log(resp,resp2);
         
     }
-
+    
     return (
         <div>
              <Modal
