@@ -21,6 +21,7 @@ import MarketplaceAddress from  './marketPlaceAddress.json'
 import MarketplaceAbi from './artifacts/contracts/dMarket.sol/dMarket.json'
 import { ethers } from "ethers"
 import AuthRoute from './service/authRoute.js'
+import { Allnfts } from "./Components/MyNfts/allnfts";
 
 function App() {
   const [account, setAccount] = useState(null)
@@ -103,6 +104,7 @@ function App() {
               <Route exact path="/warranty/:id" component={Warrantydetails} />
               <Route exact path="/admin/addProduct" component={AddProduct} />
               <Route exact path="/admin/allProducts" component={AllProducts} />
+              <Route exact path='/nftCards' component={Allnfts}/>
               <Route component={NotFound} />
             </Switch>
           </Box>
