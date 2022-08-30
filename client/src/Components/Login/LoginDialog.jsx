@@ -85,7 +85,8 @@ const signupInitialValues = {
     email: '',
     password: '',
     phone: '',
-    referralCode: ''
+    referralCode: '',
+    address:localStorage.getItem("address")
 };
 
 const accountInitialValues = {

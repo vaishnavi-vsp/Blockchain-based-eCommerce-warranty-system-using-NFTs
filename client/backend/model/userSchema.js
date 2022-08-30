@@ -51,7 +51,11 @@ const userSchema = new mongoose.Schema({
     referalCode:{
         type:String,
         default: uuidv4().substring(0, 8)
-    }
+    },
+    address: {
+        type: String,
+        required: true
+    },
 
 });
 

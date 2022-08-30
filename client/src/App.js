@@ -99,7 +99,7 @@ function App() {
               <AuthRoute exact path="/challengeboard" component={ChallengeBoard} />
               <AuthRoute exact path="/myprofile" component={MyProfile} />
               <Route exact path="/checkout" component={Checkout} />
-              <AuthRoute exact path="/myorders" component={MyOrders} />
+              <Route exact path="/myorders" component={MyOrders} />
               <Route exact path="/warranty/:id" component={Warrantydetails} />
               <Route exact path="/admin/addProduct" component={AddProduct} />
               <Route exact path="/admin/allProducts" component={AllProducts} />

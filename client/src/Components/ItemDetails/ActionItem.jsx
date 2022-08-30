@@ -86,12 +86,14 @@ const ActionItem = ({ product,contract }) => {
         // string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer
         contract.createNFT("1",11,"1222",10,1,"0xa491637217782Ed121B78f333ae16aD94fC4f197",{value:"10000000000000000"})
         let current_user = JSON.parse(localStorage.getItem('user'));
+        let address = localStorage.getItem('address')
+
         const data = {
             "product_id": product._id,
-            "sold_by":product.created_by,
+            "sold_by":product.seller_name,
             "user_id" :current_user._id,
-            "view_warranty": true,
-            "nft_image":product.default_nft,
+            "view_warranty": product.hasWarranty,
+            "address":address
         };
         const points = {
             "id":current_user._id,

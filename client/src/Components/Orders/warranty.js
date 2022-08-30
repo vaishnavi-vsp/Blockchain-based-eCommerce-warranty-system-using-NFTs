@@ -90,7 +90,7 @@ const useStyle = makeStyles({
     overflowX: 'scroll',
     fontFamily: 'Monospace',
     marginBottom: '10px',
-
+    marginRight:'20px'
   },
   warrantyStatus: {
     fontWeight: 450,
@@ -174,7 +174,7 @@ const Warrantydetails = ({ match }) => {
               <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ margin: '30px 0' }}>Serial Number: <span>{order._id}</span></Typography>
               <Typography className={classes.mainTitle}>{product.shortTitle}</Typography>
               <Typography >{product.longTitle}</Typography>
-              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Seller:RetailNet
+              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Seller:${product.sold_by}
                 <span><img src={fassured} style={{ width: 50, marginLeft: 10 }} alt="" /></span>
               </Typography>
               <Typography style={{ margin: '20px 0' }}>
@@ -185,8 +185,8 @@ const Warrantydetails = ({ match }) => {
             </Box>
             <Box className={classes.nft_component}>
               <Typography style={{ textAlign: 'center' }} style={{ marginTop: '30px' }}>Your NFT </Typography>
-              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ margin: '30px 0', fontFamily: 'Monospace', display: 'flex', width: 320 }}>Hash : &nbsp;<div className={classes.hash_value}>{order.nft_image}</div></Typography>
-              <img src={`https://ipfs.infura.io/ipfs/${order.nft_image}`} className={classes.nft_image} alt="" />
+              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ margin: '30px 0', fontFamily: 'Monospace', display: 'flex', width: 320 }}>Hash : &nbsp;<div className={classes.hash_value}>{order.hash}</div></Typography>
+              <img src={order.nft_image} className={classes.nft_image} alt="" />
               {order.rare ? <> <button className='nft-button'>Rare NFT</button></> : <></>}
 
             </Box>

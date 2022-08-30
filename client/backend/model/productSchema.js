@@ -25,6 +25,7 @@ const productSchema = new mongoose.Schema({
     warranty_period:{
             years:Number,
             months:Number,
+            days:Number,
             time:String,
     },
     soulbound:Boolean,
