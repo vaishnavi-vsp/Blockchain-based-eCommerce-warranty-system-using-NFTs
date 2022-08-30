@@ -57,6 +57,7 @@ export const addOrder = async(req,res) =>{
             success: true,
             message: "Product Order successfully!",
             newOrder,
+            product
         });
     } catch (error) {
         res.status(409).json({message:error.message});

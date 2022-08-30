@@ -103,7 +103,42 @@ const ActionItem = ({ product,contract }) => {
         const resp = await axios.post('http://localhost:8000/order/add',data);
         const resp2 = await axios.post('http://localhost:8000/challenge/update',points);
         setPoints(resp2.data.points);
-        console.log(resp,resp2);
+        
+        // Kamal's function - Save NFT metadata to blockchain
+        // We only save to blockchain If the product has warranty
+
+        if(product.hasWarranty){
+            // You can use the response generated from order add
+            // JSON object -> resp.data.newOrder
+            // resp.data.newOrder = 
+                // {
+                //     "ordered_at": "2022-08-30T11:02:36.000Z",
+                //     "warranty_period": "2023-08-30T11:06:17.000Z",
+                //     "rare": false,
+                //     "status": "ACTIVE",
+                //     "_id": "630def2982a61b11606e487f",
+                //     "product_id": "9",
+                //     "sold_by": "62dd2b8111c9525364586018",
+                //     "user_id": "62d182d74c0e810ba0a71ed6",
+                //     "view_warranty": true,
+                //     "nft_image": "https://i.postimg.cc/NGWyKzyV/5.png",
+                //     "hash": "94b623503a13ff98c09040e63555a0d16f32fec609db86d232d9d7f22a99e581",
+                //     "owner": "$2b$10$lFl2GaoQIxYY.czSkBBtReFFfzaps6EDmmpetvW.Hz0pO0Ma5vzti",
+                //     "__v": 0
+                // }
+            
+            const saving_nft = {
+                "owner_wallet_address" : address,
+                "nft_image" : resp.data.newOrder.nft_image,
+                "warranty_period" :resp.data.newOrder.warranty_period,
+                "product_id" : product._id,
+                "is_soulbound" :resp.data.product.soulbound,
+                "number_of_transfers" :resp.data.product.transfers
+            }  // Hopefully these are all the required fields
+
+            console.log(saving_nft);
+            
+        }
         
     }
     
