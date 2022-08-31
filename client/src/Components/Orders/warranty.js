@@ -24,7 +24,14 @@ const useStyle = makeStyles({
     marginTop: 0,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    padding: '20px 50px'
+  },
+  transferWarranty: {
+    borderTop: '1px solid #f0f0f0',
+    borderRadius: 0,
+    margin: 80,
+    marginTop: 0,
+    marginBottom:20,
     padding: '20px 50px'
   },
   leftComponent: {
@@ -190,8 +197,8 @@ const Warrantydetails = ({ match }) => {
               {order.rare ? <> <button className='nft-button'>Rare NFT</button></> : <></>}
 
             </Box>
-
           </Card>
+         
           <Card className={classes.purchasingHistory}>
             <div>
               <Typography className={classes.mainTitle} style={{ marginBottom: 30 }}>Purchasing Details</Typography>
@@ -210,6 +217,7 @@ const Warrantydetails = ({ match }) => {
               </>}
 
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warranty period: <span style={{ fontWeight: 450, color: '#878787' }}>{warrantyPeriod}</span></Typography>
+              <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Type of Warranty: <span style={{ fontWeight: 450, color: '#878787' }}>Transferrable</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Number of transfers: <span style={{ fontWeight: 450, color: '#878787' }}>{product.transfers}</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warranty details: <Link to={`${product.warranty_details}`} style={{ fontWeight: 450, color: 'blue' }}>{product.warranty_details.substring(0, 25)}</Link></Typography>
             </div>
