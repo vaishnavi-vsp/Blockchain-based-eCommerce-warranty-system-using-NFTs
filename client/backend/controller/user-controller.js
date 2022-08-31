@@ -89,7 +89,19 @@ export const UserById = async(requsest,response) => {
 export const TransferableUsers = async(req,res) => {
     try{
         const allUsers = await User.find({});
-        return res.status(200).json(allUsers);
+
+        const send_data =[]
+        for(let i=0;i<allUsers.length;i++){
+            if(allUsers[i].address && allUsers[i].role == 'user'){
+                send_data.push({
+                    "user_id" : allUsers[i]._id,
+                    "username" : allUsers[i].username,
+                    "wallet_address" : allUsers[i].address
+                });
+            }
+        }
+
+        return res.status(200).json(send_data);
 
     }catch(error) {
         console.log(error)
