@@ -1,5 +1,5 @@
 import express from  'express';
-import { userSignUp, userLogIn,UserById } from '../controller/user-controller.js';
+import { userSignUp, userLogIn,UserById,TransferableUsers } from '../controller/user-controller.js';
 import { addItemInCart } from '../controller/cart-controller.js';
 import { uploadFile } from '../controller/ipfs-uploads.js';
 import { getProductById, getProductsByCategory, addProduct,getAdminProducts,updateProduct} from '../controller/product-controller.js';
@@ -22,6 +22,7 @@ router.post('/signup', userSignUp);
 router.post('/login', userLogIn);
 router.post('/cart/add', addItemInCart);
 router.get('/user/:id',UserById);
+router.get('/user_address',TransferableUsers);
 
 router.post('/allProduct', getProductsByCategory);
 router.get('/product/:id', getProductById);

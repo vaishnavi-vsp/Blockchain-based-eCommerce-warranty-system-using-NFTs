@@ -20,6 +20,7 @@ const productSchema = new mongoose.Schema({
         {
             hash:String,
             url: String,
+            rare:Boolean
         }
     ],
     warranty_period:{

@@ -27,7 +27,7 @@ export const addOrder = async(req,res) =>{
                 }
             }
             console.log("Updated NFT :",updated_nfts);
-            const newProduct = await Product.findByIdAndUpdate({_id:product_id},{  nfts:updated_nfts},{new:true});
+            // const newProduct = await Product.findByIdAndUpdate({_id:product_id},{  nfts:updated_nfts},{new:true});
             const waranty_period = product.warranty_period;
 
             // Adding hh:mm:ss
