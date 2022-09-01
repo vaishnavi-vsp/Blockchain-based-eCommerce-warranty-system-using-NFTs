@@ -3,9 +3,16 @@ import { format } from 'date-fns'
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import SendIcon from '@mui/icons-material/Send';
+import Modal from '@material-ui/core/Modal';
 import './style.css';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
 
 const useStyle = makeStyles({
   component: {
@@ -130,6 +137,15 @@ const useStyle = makeStyles({
     textAlign: 'center',
     width: '-webkit-fill-available',
     height: 500,
+  },
+  button: {
+    width: '46%',
+    borderRadius: 2,
+    height: 50
+  },
+  buyNow:{
+      background: '#c9184a',
+      color: '#FFF'
   }
 });
 
@@ -143,13 +159,39 @@ const Warrantydetails = ({ match }) => {
   const [date, SetDate] = useState();
   const [warrantyPeriod, SetwarrantyPeriod] = useState();
   const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png';
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+      setOpen(true);
+  };
+  const handleClose = () => {
+      setOpen(false);
+  };
+
+  const [user, setUser] = useState();
+  const [options,setOptions] = useState([])
+  const handleChange = (event) => {
+    setUser(event.target.value);
+  };
+
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await axios.get(
           `http://localhost:8000/order/get/${match.params.id}`
         );
-        console.log(response)
+        const allValidUsers = await axios.get(`http://localhost:8000/user_address`);
+        console.log(allValidUsers);
+       
+        const new_options =[]
+        for(let i=0;i<allValidUsers.data.length;i++){
+          new_options.push({
+            'value' :allValidUsers.data[i].wallet_address,
+            'label' :allValidUsers.data[i].username
+          })
+          
+        }
+        setOptions(new_options);
+
         SetDate(format(new Date(response.data.order.ordered_at), 'yyyy/MM/dd kk:mm:ss'));
         SetwarrantyPeriod(format(new Date(response.data.order.warranty_period), 'yyyy/MM/dd kk:mm:ss'))
         setOrder(response.data.order);
@@ -198,6 +240,34 @@ const Warrantydetails = ({ match }) => {
 
             </Box>
           </Card>
+
+          {/* Modal */}
+          <Modal
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={open}
+                onClose={handleClose}
+            >
+                <div className="NFT-transfer-modal" >
+                <Typography component="h4" variant="h6" align="center" style={{margin:'15px'}}>Transfer NFT</Typography>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Sender User Name</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Sender Wallet Address"
+                    onChange={handleChange}
+                  >
+                    {options.map(({ value, label }, index) => <MenuItem value={value} >{label}</MenuItem>)}
+                  </Select>
+              </FormControl>
+              <InputLabel style={{marginTop:'15px',marginBottom:'5px'}}>Wallet Address</InputLabel>
+              <div className="display-wallet-address">
+                {user}
+              </div>
+              <Button variant="contained" color="primary" style={{marginTop:'20px',margin:'auto',position:'absolute', top:'75%',left:'42%'}}>Send</Button>
+              </div>
+          </Modal>
          
           <Card className={classes.purchasingHistory}>
             <div>
@@ -206,6 +276,7 @@ const Warrantydetails = ({ match }) => {
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Ordered at: <span style={{ fontWeight: 450, color: '#878787' }}>{date}</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Issuer Name: <span style={{ fontWeight: 450, color: '#878787' }}>{issue.firstname}  {issue.lastname}</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Issuer EmailID: <span style={{ fontWeight: 450, color: '#878787' }}>{issue.email}</span></Typography>
+              <Button onClick={handleOpen} className={clsx(classes.button, classes.buyNow)} variant="contained"><SendIcon style={{marginRight:'5px'}}/>Transfer</Button>
             </div>
             <div>
               <Typography className={classes.mainTitle} style={{ marginBottom: 30 }}>Warranty Card</Typography>
