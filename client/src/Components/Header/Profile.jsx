@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect,useHistory } from 'react-router-dom';
 import { Typography, Menu, MenuItem, makeStyles } from '@material-ui/core';
 import { PowerSettingsNew } from '@material-ui/icons';
 
@@ -15,7 +15,8 @@ const useStyle = makeStyles({
 
 const Profile = ({ account, setAccount }) => {
     const [open, setOpen] = useState(false);
-    const classes = useStyle();
+    const classes = useStyle(); 
+    const history = useHistory()
 
     const handleClick = (event) => {
         setOpen(event.currentTarget);
@@ -31,7 +32,11 @@ const Profile = ({ account, setAccount }) => {
         // localStorage.removeItem("address");
         // localStorage.removeItem("networkType");
         // localStorage.removeItem("balance");
-        window.location.href="/";
+        history.push('/')
+    }
+
+    const showOrders = ()=>{
+        history.push('/nftCards')
     }
     
     return (
@@ -57,7 +62,9 @@ const Profile = ({ account, setAccount }) => {
                 <MenuItem>
                     <Typography className={classes.logout}>Balance :  {localStorage.getItem("balance")} Matic</Typography>
                 </MenuItem>
-
+                <MenuItem onClick = {()=>{showOrders()}}>
+                    <Typography className={classes.logout}>My orders</Typography>
+                </MenuItem>
                 <MenuItem onClick={() => { handleClose(); logout();}}>
                     <PowerSettingsNew fontSize='small' color='primary'/> 
                     <Typography className={classes.logout}>Logout</Typography>

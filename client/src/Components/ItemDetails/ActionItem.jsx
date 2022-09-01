@@ -81,13 +81,13 @@ const ActionItem = ({ product,contract }) => {
         window.location.href="/myorders";
     }
     const placeOrder = async() => {
+       
         handleClose();
         handleOpenNotification();
         // string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer
-        contract.createNFT("1",11,"1222",10,1,"0xa491637217782Ed121B78f333ae16aD94fC4f197",{value:"10000000000000000"})
+        // contract.createNFT("1",11,"1222",10,1,"0xa491637217782Ed121B78f333ae16aD94fC4f197",{value:"10000000000000000"})
         let current_user = JSON.parse(localStorage.getItem('user'));
         let address = localStorage.getItem('address')
-
         const data = {
             "product_id": product._id,
             "sold_by":product.seller_name,
@@ -95,37 +95,52 @@ const ActionItem = ({ product,contract }) => {
             "view_warranty": product.hasWarranty,
             "address":address
         };
+        console.log(product)
+        console.log("This is the data")
+        console.log(data)
         const points = {
             "id":current_user._id,
             "product_id":product._id,
             "mark":1
         }
+        
         const resp = await axios.post('http://localhost:8000/order/add',data);
         const resp2 = await axios.post('http://localhost:8000/challenge/update',points);
-        setPoints(resp2.data.points);
-        
-        // Kamal's function - Save NFT metadata to blockchain
-        // We only save to blockchain If the product has warranty
-
         if(product.hasWarranty){
+            console.log("This product has warranty")
+            console.log(resp.data)
+            console.log(resp.data['newOrder']['ordered_at'])
+            contract.createNFT(
+                resp.data['newOrder']['nft_image'], // tokenUri
+                resp.data['product']['transfers'], // transfers
+                resp.data['newOrder']['ordered_at'].split("T")[0], // issue time
+               resp.data['newOrder']['warranty_period'].split("T")[0], // duration
+                parseInt(resp.data.newOrder['_id']), // serial no
+                "0xa491637217782Ed121B78f333ae16aD94fC4f197",//issuer
+                resp.data['product']['soulbound'] 
+                ,{value:"00000000000000000"}
+            )
+            // string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer
+           
+        
             // You can use the response generated from order add
             // JSON object -> resp.data.newOrder
             // resp.data.newOrder = 
-                // {
-                //     "ordered_at": "2022-08-30T11:02:36.000Z",
-                //     "warranty_period": "2023-08-30T11:06:17.000Z",
-                //     "rare": false,
-                //     "status": "ACTIVE",
-                //     "_id": "630def2982a61b11606e487f",
-                //     "product_id": "9",
-                //     "sold_by": "62dd2b8111c9525364586018",
-                //     "user_id": "62d182d74c0e810ba0a71ed6",
-                //     "view_warranty": true,
-                //     "nft_image": "https://i.postimg.cc/NGWyKzyV/5.png",
-                //     "hash": "94b623503a13ff98c09040e63555a0d16f32fec609db86d232d9d7f22a99e581",
-                //     "owner": "$2b$10$lFl2GaoQIxYY.czSkBBtReFFfzaps6EDmmpetvW.Hz0pO0Ma5vzti",
-                //     "__v": 0
-                // }
+            //     {
+            //         "ordered_at": "2022-08-30T11:02:36.000Z", (track)
+            //         "warranty_period": "2023-08-30T11:06:17.000Z",(track)
+            //         "rare": false,
+            //         "status": "ACTIVE",
+            //         "_id": "630def2982a61b11606e487f",
+            //         "product_id": "9",
+            //         "sold_by": "62dd2b8111c9525364586018",
+            //         "user_id": "62d182d74c0e810ba0a71ed6",
+            //         "view_warranty": true,
+            //         "nft_image": "https://i.postimg.cc/NGWyKzyV/5.png",
+            //         "hash": "94b623503a13ff98c09040e63555a0d16f32fec609db86d232d9d7f22a99e581",
+            //         "owner": "$2b$10$lFl2GaoQIxYY.czSkBBtReFFfzaps6EDmmpetvW.Hz0pO0Ma5vzti",
+            //         "__v": 0
+            //     }
             
             const saving_nft = {
                 "owner_wallet_address" : address,
@@ -139,6 +154,13 @@ const ActionItem = ({ product,contract }) => {
             console.log(saving_nft);
             
         }
+        setPoints(resp2.data.points);
+        
+        // Kamal's function - Save NFT metadata to blockchain
+        // We only save to blockchain If the product has warranty
+      
+        
+        
         
     }
     

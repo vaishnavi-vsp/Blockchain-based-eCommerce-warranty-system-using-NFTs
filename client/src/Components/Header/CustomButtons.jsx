@@ -71,7 +71,7 @@ const CustomButtons = () => {
     return (
         <Box className={classes.wrapper} >
             {
-                account ? <Profile account={account} setAccount={setAccount} /> : 
+                account.account ? <Profile account={account.account} setAccount={setAccount} /> : 
                 <Link>
                     <Button className={classes.login} variant="contained" onClick={() => openDialog() }>Login</Button>
                 </Link>
