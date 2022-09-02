@@ -58,7 +58,6 @@ const MyOrders = () => {
         const response = await axios.get(
           `http://localhost:8000/order/${user_id}`
         );
-        console.log(response.data.data)
         setcartItems(response.data.data);
        
       } catch (err) {

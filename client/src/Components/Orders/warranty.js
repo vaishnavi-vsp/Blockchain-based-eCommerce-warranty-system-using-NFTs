@@ -162,6 +162,7 @@ const Warrantydetails = ({ match }) => {
   const [warrantyPeriod, SetwarrantyPeriod] = useState();
   const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png';
   const [open, setOpen] = React.useState(false);
+  const [openToast,setOpenToast] = useState(false);
   const handleOpen = () => {
       setOpen(true);
   };
@@ -192,10 +193,10 @@ const Warrantydetails = ({ match }) => {
     //  Kamal's Function :- Trasnfer the NFT
 
     // End before calling Toast function, It redirects to myorders page after Timeout
-    toast.success('Product Listed successfully!');
+    setOpenToast(true);
     setTimeout(() => {
       window.location.href="/myorders"
-    }, 2000)
+    }, 1000)
 
   }
 
@@ -206,7 +207,6 @@ const Warrantydetails = ({ match }) => {
           `http://localhost:8000/order/get/${match.params.id}`
         );
         const allValidUsers = await axios.get(`http://localhost:8000/user_address`);
-        console.log(allValidUsers);
        
         const new_options =[]
         for(let i=0;i<allValidUsers.data.length;i++){
@@ -217,7 +217,6 @@ const Warrantydetails = ({ match }) => {
           
         }
         setOptions(new_options);
-
         SetDate(format(new Date(response.data.order.ordered_at), 'yyyy/MM/dd kk:mm:ss'));
         SetwarrantyPeriod(format(new Date(response.data.order.warranty_period), 'yyyy/MM/dd kk:mm:ss'))
         setOrder(response.data.order);
@@ -249,7 +248,7 @@ const Warrantydetails = ({ match }) => {
               <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ margin: '30px 0' }}>Serial Number: <span>{order._id}</span></Typography>
               <Typography className={classes.mainTitle}>{product.shortTitle}</Typography>
               <Typography >{product.longTitle}</Typography>
-              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Seller:${product.sold_by}
+              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Seller:{product.sold_by}
                 <span><img src={fassured} style={{ width: 50, marginLeft: 10 }} alt="" /></span>
               </Typography>
               <Typography style={{ margin: '20px 0' }}>
@@ -292,11 +291,16 @@ const Warrantydetails = ({ match }) => {
                 {user}
               </div>
               <Button variant="contained" color="primary" style={{marginTop:'20px',margin:'auto',position:'absolute', top:'75%',left:'42%'}} onClick={TransgerNFT}>Send</Button>
+              {openToast ?<>
+                <Typography component="h6" variant="h6" align="center" style={{marginTop:'100px', color:"green"}}>NFT Successfully Transfered!</Typography>
+              </>:<></>}
+              
               </div>
           </Modal>
          
           <Card className={classes.purchasingHistory}>
             <div>
+              
               <Typography className={classes.mainTitle} style={{ marginBottom: 30 }}>Purchasing Details</Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Order Number: <span style={{ fontWeight: 450, color: '#878787' }}>{order._id}</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Ordered at: <span style={{ fontWeight: 450, color: '#878787' }}>{date}</span></Typography>
@@ -318,10 +322,11 @@ const Warrantydetails = ({ match }) => {
             </div>
             <div>
               <Typography className={classes.mainTitle} style={{ marginBottom: 30 }}>Warranty Card</Typography>
+              
               {order.status == 'ACTIVE' ? <>
                 <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warrant Status: <span className={classes.warrantyStatus}>ACTIVE</span></Typography>
               </> : <>
-                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warrant Status: <span className={classes.warrantyStatus}>ACTIVE</span></Typography>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warrant Status: <span className={classes.warrantyStatusRed}>EXPIRED</span></Typography>
                 
               </>}
 

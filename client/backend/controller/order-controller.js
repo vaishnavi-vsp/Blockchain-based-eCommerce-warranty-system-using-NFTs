@@ -33,7 +33,7 @@ export const addOrder = async(req,res) =>{
             // Adding hh:mm:ss
             let times = waranty_period.time.split(":");
 
-            var days_period = moment().add({days:waranty_period.days,months:waranty_period.months,years:waranty_period.years,hours:parseInt(times[0]),minutes:parseInt(times[1]),seconds:parseInt(times[2])}).format();;
+            var days_period = moment().add({days:waranty_period.days,months:waranty_period.months,years:waranty_period.years,hours:parseInt(times[0]),minutes:parseInt(times[1]),seconds:parseInt(times[2])}).utcOffset("+05:30").format();
             console.log("Days Period :",days_period)
 
             order1.nft_image = order_nft.url;
@@ -49,7 +49,12 @@ export const addOrder = async(req,res) =>{
             order1.waranty_period = null;
             order1.owner = null;
         }
-        order1.transfers = product.transfers;
+        if(product.soulbound){
+            order1.transfers = 0;
+        }
+        else{
+            order1.transfers = 1;
+        }
         
         const newOrder = new order(order1);
         await newOrder.save();
@@ -69,11 +74,19 @@ export const addOrder = async(req,res) =>{
 export const getOrdersOfUser = async (request, response) => {
     try {
         let send_data = [];
-        const orders = await order.find({ 'user_id': request.params.id });
+        const orders = await order.find({ 'user_id': request.params.id }).sort({ordered_at: -1});
         for(let i=0;i<orders.length;i++){
             let product_id = orders[i].product_id;
             let product = await Product.findOne({ '_id': product_id });
             let data = orders[i]._doc;
+            let current_date = moment().utcOffset("+05:30").format();
+            if(current_date>=data.warranty_period && data['status'] == 'ACTIVE'){
+                data['status'] = 'EXPIRED';
+                // Update the data
+                console.log("Updating ... :",data._id)
+                let orderUpdate = await order.findByIdAndUpdate({_id: data._id},{status : 'EXPIRED'},{new:true});
+            }
+
             send_data.push({
                 "order":data,
                 ...product._doc
@@ -123,18 +136,11 @@ export const TransferWarranty = async(req,res) => {
 
 export const update_all_orders = async(req,res) => {
     try {
-        const orders = await order.find({});
+        const orders = await order.find({product_id:'1'});
         for(let i=0;i<orders.length;i++){
-            console.log(orders[i].product_id)
-            let product1 = await Product.findOne({'_id':orders[i].product_id});
-            console.log(product1._id)
-            if(product1.soulbound || !product1.hasWarranty){
-                let updateProduct = await order.findByIdAndUpdate({_id:orders[i]._id},{transfers:0});
-            }
-            else{
-                let updateProduct = await order.findByIdAndUpdate({_id:orders[i]._id},{transfers:1});
-            }
-        }return res.status(200).json({message: "Updated successfully"});
+            let updateProduct = await order.findByIdAndUpdate({_id:orders[i]._id},{warranty_period:moment().add({years:1}).format()});
+        }
+        return res.status(200).json({message: "Updated successfully"});
     } catch (error) {
         console.log(error);
         res.status(500).json({message:error.message});
