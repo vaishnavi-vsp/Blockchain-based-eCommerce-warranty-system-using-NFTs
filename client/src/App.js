@@ -100,6 +100,7 @@ function App() {
     // console.log(results)
     setContract(marketplace)
     setLoading(false)
+    console.log("Loading set to false")
   }
   useEffect(() => {
     
@@ -107,6 +108,7 @@ function App() {
   // console.log(context)
   
     initWeb32();
+    console.log("Ended with use effect")
   }, []);
 
   return (

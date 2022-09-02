@@ -2,9 +2,11 @@
 pragma solidity ^0.8.3;
 //0xe750c5EBA24D2aadfFf7840997E9947c470c4062 -old deployed address
 // 0x16adc5b4CDA6016ad862dE57540C38DC08D704c2 --recent old address
+// 0x2eA1d464a15b6d4EFF0e6656ca7B9Af85f49C097
 
 // import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 import "hardhat/console.sol";
 import 'base64-sol/base64.sol';
@@ -25,6 +27,8 @@ contract dMarket is ERC721URIStorage {
         string issue_time;
         string duration;
         bool isSoulbound;
+        string description;
+        string name;
         // warranty to be stored in mongodb
     }
     event CreateNFT(
@@ -49,11 +53,12 @@ contract dMarket is ERC721URIStorage {
         owner = payable(msg.sender);
     }
 
-    function createNFT(string memory _tokenURI, uint256 _transfers,string memory _issueTime ,string memory _duration,uint256 _serialNo,address _issuer,bool isSoulbound) public payable {
+    function createNFT(string memory _tokenURI, uint256 _transfers,string memory _issueTime ,string memory _duration,uint256 _serialNo,address _issuer,bool isSoulbound,string memory name,string memory description) public payable {
         require(msg.value == listingPrice, "You must pay the listing price");
+        nfts[tokenId] = NFT(tokenId, _transfers, payable(msg.sender), false,_issuer,_serialNo,_issueTime,_duration,isSoulbound,description,name);
         _safeMint(msg.sender, tokenId);
-        _setTokenURI(tokenId, formatTokenURI(_tokenURI));
-        nfts[tokenId] = NFT(tokenId, _transfers, payable(msg.sender), false,_issuer,_serialNo,_issueTime,_duration,isSoulbound);
+        _setTokenURI(tokenId, formatTokenURI(_tokenURI,description,name,_serialNo));
+        
         owner.transfer(msg.value);
         tokenId++;
         emit CreateNFT(tokenId - 1, _tokenURI, msg.sender, _transfers);
@@ -86,6 +91,18 @@ contract dMarket is ERC721URIStorage {
         nfts[_tokenId].transfers = _price;
         nfts[_tokenId].isForSale = true;
     }
+    
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal override virtual {
+        if(nfts[tokenId].isSoulbound){
+            require(from==address(0) || to ==address(0),"It cannot be transfered");
+        }
+    }
+
+
 
 
     function transferNFT(address _to, uint256 _tokenId) public {
@@ -119,15 +136,13 @@ contract dMarket is ERC721URIStorage {
     function getNFTCount() public view returns (uint256) {
         return tokenId - 1;
     }
-
-    function formatTokenURI(string memory _tokenURI)  public pure  returns(string memory){
+    // _tokenURI,description,name,_transfers,_issueTime,_duration,_serialNo
+    function formatTokenURI(string memory _tokenURI,string memory description,string memory name,uint256 _serialNo)  public pure  returns(string memory){
         return string(
             abi.encodePacked('data:application/json,',
                 bytes(
                     abi.encodePacked(
-                         '{"name":"',
-                                "SVG NFT 22", // You can add whatever name here
-                                '", "description":"An NFT based on SVG!", "attributes":"", "image":"',_tokenURI,'"}'
+                         '{"name":"',name,'", "description":"',description,'", "attributes":[{"trait_type": "serial_no","value":"',Strings.toString(_serialNo) ,'"}], "image":"',_tokenURI,'"}'
                     )
                 )
             )

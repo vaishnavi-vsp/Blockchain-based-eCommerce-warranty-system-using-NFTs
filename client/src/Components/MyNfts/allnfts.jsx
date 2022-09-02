@@ -14,13 +14,24 @@ export const Allnfts = ({contract,provider,account}) => {
   const [loading,setLoading] = useState(true)
   useEffect(async ()=>{
     var data = contract.filters.CreateNFT(null,null,account,null)
+    var transfered = contract.filters.Transfer(account,null,null)
+    
     const block = await provider.getBlockNumber()
     const results = await contract.queryFilter(data,block-1000)
+    const results2 = await contract.queryFilter(transfered,block-1000)
+    console.log("these are the transfered NFTS")
+    console.log(results2)
     console.log("Results from allNft")
     console.log(results)
+    const ids = await Promise.all(results2.map(async i=>{
+      i=i.args
+      const id = parseInt(i['tokenId']._hex,16)
+      return id
+    }))
     const purchases = await Promise.all(results.map(async i => {
       // fetch arguments from each result
       i = i.args
+      console.log(i)
       // get uri url from nft contract
       const id = parseInt(i['_tokenId']._hex,16)
       console.log("This is the id")
@@ -29,24 +40,35 @@ export const Allnfts = ({contract,provider,account}) => {
       console.log(ethers.utils.formatEther(i[0]))
       console.log(ethers.utils.formatEther(i[3]))
       const metaData = await contract.getNFTMetaData(id)
-      const uri = await contract.tokenURI(id)
+      const uri = i['_tokenURI']
       console.log("This is the meta data")
       console.log(metaData)
       console.log(uri)
+      var flag = true
+      for(var i=0;i<ids.length;i++){
+        if(ids[i]==id){
+          flag = false
+        }
+      }
 
       // use uri to fetch the nft metadata stored on ipfs 
       
       // get total price of item (item price + fee)
       // const totalPrice = await co.getTotalPrice(i.itemId)
       // define listed item object
-      let purchasedItem = {
-        uri,
-        order_at:metaData['_issueTime'],
-        expires_at:metaData['_duration'],
-        product:'product'
+      if(flag){
+        let purchasedItem = {
+          uri,
+          order_at:metaData['_issueTime'],
+          expires_at:metaData['_duration'],
+          product:'product'
+        }
+        return purchasedItem
       }
-      return purchasedItem
+      
     }))
+    console.log("These are the purchases")
+    console.log(purchases)
     setPurchases(purchases)
     setLoading(false)
   },[])
@@ -58,7 +80,9 @@ export const Allnfts = ({contract,provider,account}) => {
         <>
         {
           purchases.map((item,index)=>{
-            return <NftCard status='Active' product={item.product} start = {item.order_at} end ={item.expires_at} src={item.uri} />
+            if(item){
+              return <NftCard status='Active' product={item.product} start = {item.order_at} end ={item.expires_at} src={item.uri} />
+            }
           })
         }
          {/*  */}

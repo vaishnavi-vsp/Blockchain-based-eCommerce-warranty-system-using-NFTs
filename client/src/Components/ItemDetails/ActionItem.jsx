@@ -110,14 +110,17 @@ const ActionItem = ({ product,contract }) => {
             console.log("This product has warranty")
             console.log(resp.data)
             console.log(resp.data['newOrder']['ordered_at'])
+            console.log(resp.data['product']['description'])
             contract.createNFT(
                 resp.data['newOrder']['nft_image'], // tokenUri
                 resp.data['product']['transfers'], // transfers
-                resp.data['newOrder']['ordered_at'].split("T")[0], // issue time
-               resp.data['newOrder']['warranty_period'].split("T")[0], // duration
+                resp.data['newOrder']['ordered_at'].split("T")[0]+' '+resp.data['newOrder']['ordered_at'].split("T")[1], // issue time
+               resp.data['newOrder']['warranty_period'].split("T")[0]+" "+resp.data['newOrder']['ordered_at'].split("T")[1], // duration
                 parseInt(resp.data.newOrder['_id']), // serial no
                 "0xa491637217782Ed121B78f333ae16aD94fC4f197",//issuer
-                resp.data['product']['soulbound'] 
+                resp.data['product']['soulbound'],
+                resp.data['product']['shortTitle'],
+                resp.data['product']['description'] 
                 ,{value:"00000000000000000"}
             )
             // string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer

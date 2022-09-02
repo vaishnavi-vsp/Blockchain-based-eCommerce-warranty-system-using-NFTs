@@ -191,7 +191,7 @@ const Warrantydetails = ({ match }) => {
               </Typography>
             </Box>
             <Box className={classes.nft_component}>
-              <Typography style={{ textAlign: 'center' }} style={{ marginTop: '30px' }}>Your NFT </Typography>
+              <Typography style={{ textAlign: 'center', marginTop: '30px' }}> Your NFT </Typography>
               <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ margin: '30px 0', fontFamily: 'Monospace', display: 'flex', width: 320 }}>Hash : &nbsp;<div className={classes.hash_value}>{order.hash}</div></Typography>
               <img src={order.nft_image} className={classes.nft_image} alt="" />
               {order.rare ? <> <button className='nft-button'>Rare NFT</button></> : <></>}
