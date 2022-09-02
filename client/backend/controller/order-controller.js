@@ -49,6 +49,7 @@ export const addOrder = async(req,res) =>{
             order1.waranty_period = null;
             order1.owner = null;
         }
+        order1.transfers = product.transfers;
         
         const newOrder = new order(order1);
         await newOrder.save();
@@ -100,5 +101,42 @@ export const getOrderbyId = async(req,res) => {
         });
     } catch (error) {
         console.log(error);
+        response.status(500).json({message:error.message});
+    }
+}
+
+export const TransferWarranty = async(req,res) => {
+    try {
+        let order_id = req.body.order_id;
+        let sender_address = req.body.sender;
+        
+        const user1 = await user.findOne({ 'address': sender_address });
+        const order1 = await order.findOne({ '_id': order_id });
+        const TransferedOrder = await order.findByIdAndUpdate({_id: order_id},{user_id : user1._id},{new:true});
+        return res.status(200).json({message: "Updated successfully",updated:TransferedOrder});
+    
+    } catch (error) {
+        console.log(error);
+        response.status(500).json({message:error.message});
+    }
+}
+
+export const update_all_orders = async(req,res) => {
+    try {
+        const orders = await order.find({});
+        for(let i=0;i<orders.length;i++){
+            console.log(orders[i].product_id)
+            let product1 = await Product.findOne({'_id':orders[i].product_id});
+            console.log(product1._id)
+            if(product1.soulbound || !product1.hasWarranty){
+                let updateProduct = await order.findByIdAndUpdate({_id:orders[i]._id},{transfers:0});
+            }
+            else{
+                let updateProduct = await order.findByIdAndUpdate({_id:orders[i]._id},{transfers:1});
+            }
+        }return res.status(200).json({message: "Updated successfully"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:error.message});
     }
 }

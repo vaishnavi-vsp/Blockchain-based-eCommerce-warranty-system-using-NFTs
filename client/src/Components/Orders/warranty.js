@@ -13,6 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
+import toast, { Toaster } from 'react-hot-toast';
 
 const useStyle = makeStyles({
   component: {
@@ -152,6 +153,7 @@ const useStyle = makeStyles({
 const Warrantydetails = ({ match }) => {
 
   const classes = useStyle();
+
   const [order, setOrder] = useState();
   const [issue, SetIssue] = useState();
   const [product, SetProduct] = useState();
@@ -172,6 +174,30 @@ const Warrantydetails = ({ match }) => {
   const handleChange = (event) => {
     setUser(event.target.value);
   };
+
+  const TransgerNFT = async() => {
+    const current_user = localStorage.getItem("address");
+    const send_wallet_address = user;
+    const product_id = product._id;
+
+    const send_data = {
+      "order_id":match.params.id,
+      "sender":send_wallet_address
+    };
+
+    const resp = await axios.post(
+      `http://localhost:8000/transfer`,send_data
+    );
+
+    //  Kamal's Function :- Trasnfer the NFT
+
+    // End before calling Toast function, It redirects to myorders page after Timeout
+    toast.success('Product Listed successfully!');
+    setTimeout(() => {
+      window.location.href="/myorders"
+    }, 2000)
+
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -265,7 +291,7 @@ const Warrantydetails = ({ match }) => {
               <div className="display-wallet-address">
                 {user}
               </div>
-              <Button variant="contained" color="primary" style={{marginTop:'20px',margin:'auto',position:'absolute', top:'75%',left:'42%'}}>Send</Button>
+              <Button variant="contained" color="primary" style={{marginTop:'20px',margin:'auto',position:'absolute', top:'75%',left:'42%'}} onClick={TransgerNFT}>Send</Button>
               </div>
           </Modal>
          
@@ -276,7 +302,19 @@ const Warrantydetails = ({ match }) => {
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Ordered at: <span style={{ fontWeight: 450, color: '#878787' }}>{date}</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Issuer Name: <span style={{ fontWeight: 450, color: '#878787' }}>{issue.firstname}  {issue.lastname}</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Issuer EmailID: <span style={{ fontWeight: 450, color: '#878787' }}>{issue.email}</span></Typography>
-              <Button onClick={handleOpen} className={clsx(classes.button, classes.buyNow)} variant="contained"><SendIcon style={{marginRight:'5px'}}/>Transfer</Button>
+              {order.status == 'EXPIRED'? <>
+                <Button disabled onClick={handleOpen} className={clsx(classes.button, classes.buyNow)} variant="contained"><SendIcon style={{marginRight:'5px'}}/>Transfer</Button>
+                <Typography className="WarrantyError">The warranty has Expired</Typography>
+              </> : <>
+                {product.soulbound ? <>
+                  <Button disabled onClick={handleOpen} className={clsx(classes.button, classes.buyNow)} variant="contained"><SendIcon style={{marginRight:'5px'}}/>Transfer</Button>
+                  <Typography className="WarrantyError">The warranty is Soulbound.It cannot be transferred</Typography>
+                </>:<>
+                  <Button onClick={handleOpen} className={clsx(classes.button, classes.buyNow)} variant="contained"><SendIcon style={{marginRight:'5px'}}/>Transfer</Button>
+                </>}
+                
+              </>}
+              
             </div>
             <div>
               <Typography className={classes.mainTitle} style={{ marginBottom: 30 }}>Warranty Card</Typography>
@@ -288,8 +326,14 @@ const Warrantydetails = ({ match }) => {
               </>}
 
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warranty period: <span style={{ fontWeight: 450, color: '#878787' }}>{warrantyPeriod}</span></Typography>
-              <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Type of Warranty: <span style={{ fontWeight: 450, color: '#878787' }}>Transferrable</span></Typography>
-              <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Number of transfers: <span style={{ fontWeight: 450, color: '#878787' }}>{product.transfers}</span></Typography>
+              {product.soulbound ? <>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Type of Warranty: <span style={{ fontWeight: 450, color: '#878787' }}>Soulbound</span></Typography>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Number of transfers: <span style={{ fontWeight: 450, color: '#878787' }}>0</span></Typography>
+                </>:<>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Type of Warranty: <span style={{ fontWeight: 450, color: '#878787' }}>Transferrable</span></Typography>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Number of transfers: <span style={{ fontWeight: 450, color: '#878787' }}>{order.transfers}</span></Typography>
+              </>}
+             
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warranty details: <Link to={`${product.warranty_details}`} style={{ fontWeight: 450, color: 'blue' }}>{product.warranty_details.substring(0, 25)}</Link></Typography>
             </div>
 
