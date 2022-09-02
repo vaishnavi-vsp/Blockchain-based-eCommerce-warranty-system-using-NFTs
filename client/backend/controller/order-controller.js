@@ -1,11 +1,9 @@
 import Product from '../model/productSchema.js';
 import order from '../model/orderSchema.js';
 import user from '../model/userSchema.js';
-import moment from 'moment'
+import moment from 'moment-timezone';
 import bcrypt from "bcrypt";
-import 'moment/locale/it.js'
 
-moment.locale('it')
 
 
 export const addOrder = async(req,res) =>{
@@ -26,7 +24,7 @@ export const addOrder = async(req,res) =>{
                     updated_nfts.push(product.nfts[i]);
                 }
             }
-            console.log("Updated NFT :",updated_nfts);
+            console.log(" NFT Alloted :",order_nft);
             // const newProduct = await Product.findByIdAndUpdate({_id:product_id},{  nfts:updated_nfts},{new:true});
             const waranty_period = product.warranty_period;
 
@@ -57,6 +55,7 @@ export const addOrder = async(req,res) =>{
         }
         
         const newOrder = new order(order1);
+        console.log("New order :",newOrder);
         await newOrder.save();
         console.log("Created Order successfully");
         res.send({
@@ -79,8 +78,8 @@ export const getOrdersOfUser = async (request, response) => {
             let product_id = orders[i].product_id;
             let product = await Product.findOne({ '_id': product_id });
             let data = orders[i]._doc;
-            let current_date = moment().utcOffset("+05:30").format();
-            if(current_date>=data.warranty_period && data['status'] == 'ACTIVE'){
+            
+            if(moment().isAfter(data["warranty_period"])&& data['status'] == 'ACTIVE'){
                 data['status'] = 'EXPIRED';
                 // Update the data
                 console.log("Updating ... :",data._id)

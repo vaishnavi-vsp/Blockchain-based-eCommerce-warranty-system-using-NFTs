@@ -1,8 +1,6 @@
 import mongoose from "mongoose"
-import moment from 'moment'
-import 'moment/locale/it.js'
+import moment from 'moment-timezone';
 
-moment.locale('it')
 export const OrderSchema=mongoose.Schema({
     product_id: String,
     sold_by:String,
@@ -14,7 +12,7 @@ export const OrderSchema=mongoose.Schema({
     transfers:Number,
     ordered_at: {
         type:Date,
-        default:moment().utcOffset("+05:30").format()
+        default:moment().format()
     },
     warranty_period:{
         type:Date,
