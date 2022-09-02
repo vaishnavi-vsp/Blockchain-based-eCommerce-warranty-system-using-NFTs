@@ -150,10 +150,11 @@ const useStyle = makeStyles({
   }
 });
 
-const Warrantydetails = ({ match }) => {
+const Warrantydetails = ({ match,contract,account }) => {
 
   const classes = useStyle();
-
+  console.log("contract from warranty details")
+  console.log(contract)
   const [order, setOrder] = useState();
   const [issue, SetIssue] = useState();
   const [product, SetProduct] = useState();
@@ -176,7 +177,7 @@ const Warrantydetails = ({ match }) => {
     setUser(event.target.value);
   };
 
-  const TransgerNFT = async() => {
+  const TransgerNFT = async(account) => {
     const current_user = localStorage.getItem("address");
     const send_wallet_address = user;
     const product_id = product._id;
@@ -191,12 +192,17 @@ const Warrantydetails = ({ match }) => {
     );
 
     //  Kamal's Function :- Trasnfer the NFT
-
+    console.log("this is the function for transfering NFT")
+    console.log(resp)
+    console.log("this is the senders wallet address")
+    console.log(send_wallet_address)
+    await contract.transferNFT(send_wallet_address,1)
     // End before calling Toast function, It redirects to myorders page after Timeout
     setOpenToast(true);
-    setTimeout(() => {
-      window.location.href="/myorders"
-    }, 1000)
+    
+    // setTimeout(() => {
+    //   window.location.href="/myorders"
+    // }, 1000)
 
   }
 
@@ -290,7 +296,7 @@ const Warrantydetails = ({ match }) => {
               <div className="display-wallet-address">
                 {user}
               </div>
-              <Button variant="contained" color="primary" style={{marginTop:'20px',margin:'auto',position:'absolute', top:'75%',left:'42%'}} onClick={TransgerNFT}>Send</Button>
+              <Button variant="contained" color="primary" style={{marginTop:'20px',margin:'auto',position:'absolute', top:'75%',left:'42%'}} onClick={()=>TransgerNFT(account)}>Send</Button>
               {openToast ?<>
                 <Typography component="h6" variant="h6" align="center" style={{marginTop:'100px', color:"green"}}>NFT Successfully Transfered!</Typography>
               </>:<></>}

@@ -45,23 +45,20 @@ export const Allnfts = ({contract,provider,account}) => {
       console.log(metaData)
       console.log(uri)
       var flag = true
-      for(var i=0;i<ids.length;i++){
-        if(ids[i]==id){
+      for(var j=0;j<ids.length;j++){
+        if(ids[j]==id){
           flag = false
         }
       }
-
-      // use uri to fetch the nft metadata stored on ipfs 
-      
-      // get total price of item (item price + fee)
-      // const totalPrice = await co.getTotalPrice(i.itemId)
-      // define listed item object
+      console.log("This is the data finally")
+      console.log(i['_tokenURI'])
+      console.log(i['duration'])
       if(flag){
         let purchasedItem = {
           uri,
-          order_at:metaData['_issueTime'],
-          expires_at:metaData['_duration'],
-          product:'product'
+          order_at:i.issue_time,
+          expires_at:i.duration,
+          product:i.name
         }
         return purchasedItem
       }

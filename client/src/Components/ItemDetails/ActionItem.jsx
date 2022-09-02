@@ -104,23 +104,30 @@ const ActionItem = ({ product,contract }) => {
         
         const resp = await axios.post('http://localhost:8000/order/add',data);
         const resp2 = await axios.post('http://localhost:8000/challenge/update',points);
+        const rarirty = resp.data['newOrder']['rare'] ? 'Rare':'Common'
         if(product.hasWarranty){
             console.log("This product has warranty")
             console.log(resp.data)
             console.log(resp.data['newOrder']['ordered_at'])
             console.log(resp.data['product']['description'])
-            contract.createNFT(
+            await contract.createNFT(
                 resp.data['newOrder']['nft_image'], // tokenUri
                 resp.data['product']['transfers'], // transfers
-                resp.data['newOrder']['ordered_at'].split("T")[0]+' '+resp.data['newOrder']['ordered_at'].split("T")[1], // issue time
-               resp.data['newOrder']['warranty_period'].split("T")[0]+" "+resp.data['newOrder']['ordered_at'].split("T")[1], // duration
+                resp.data['newOrder']['ordered_at'].split("T")[0]+' '+resp.data['newOrder']['ordered_at'].split("T")[1].substring(0,5) , // issue time
+               resp.data['newOrder']['warranty_period'].split("T")[0]+" "+resp.data['newOrder']['ordered_at'].split("T")[1].substring(0,5), // duration
                 parseInt(resp.data.newOrder['_id']), // serial no
                 "0xa491637217782Ed121B78f333ae16aD94fC4f197",//issuer
                 resp.data['product']['soulbound'],
                 resp.data['product']['shortTitle'],
-                resp.data['product']['description'] 
+                resp.data['product']['description'],
+                rarirty 
                 ,{value:"00000000000000000"}
             )
+            console.log("This is the token id that is to be saved")
+            
+            const tokenId = await contract.getNFTCount()
+            const tokenIdInt = parseInt(tokenId._hex,16) //use this variable
+            console.log(tokenIdInt)
             // string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer
            
         

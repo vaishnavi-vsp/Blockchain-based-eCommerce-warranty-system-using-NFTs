@@ -130,7 +130,7 @@ function App() {
               <AuthRoute exact path="/myprofile" component={MyProfile} />
               <Route exact path="/checkout" component={Checkout} />
               <Route exact path="/myorders" component={MyOrders} />
-              <Route exact path="/warranty/:id" component={Warrantydetails} />
+              <Route exact path="/warranty/:id" render={({match}) => (<Warrantydetails match={match} contract={contract} account={account123} />)} />
               <Route exact path="/admin/addProduct" component={AddProduct} />
               <Route exact path="/admin/allProducts" component={AllProducts} />
               <Route exact path='/nftCards' render={({match}) => (<Allnfts contract={contract} provider={provider} account={account123} />  )}/>

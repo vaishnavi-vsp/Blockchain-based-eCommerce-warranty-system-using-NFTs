@@ -51,7 +51,7 @@ contract dMarket is ERC721URIStorage {
         owner = payable(msg.sender);
     }
 
-    function createNFT(string memory _tokenURI, uint256 _transfers,string memory _issueTime ,string memory _duration,uint256 _serialNo,address _issuer,bool isSoulbound,string memory name,string memory description,string memory _rarity) public payable {
+    function createNFT(string memory _tokenURI, uint256 _transfers,string memory _issueTime ,string memory _duration,uint256 _serialNo,address _issuer,bool isSoulbound,string memory name,string memory description,string memory _rarity) public payable returns(uint256) {
         require(msg.value == listingPrice, "You must pay the listing price");
         nfts[tokenId] = NFT(tokenId, payable(msg.sender), false,isSoulbound);
         _safeMint(msg.sender, tokenId);
@@ -60,34 +60,35 @@ contract dMarket is ERC721URIStorage {
         owner.transfer(msg.value);
         tokenId++;
         emit CreateNFT(tokenId - 1, _tokenURI, msg.sender, _transfers,_issuer,_serialNo,_issueTime,_duration,description,name,_rarity);
+        return tokenId-1;
     }
 
-    function buyNFT(uint256 _tokenId) public payable {
-        require(_exists(_tokenId), "NFT does not exist");
-        require(nfts[_tokenId].isForSale, "NFT is not for sale");
-        // require(
-        //     msg.value == nfts[_tokenId].price,
-        //     "Price must be equal to the price of the token"
-        // );
-        require(
-            nfts[_tokenId].owner != msg.sender,
-            "You can not buy your own NFT.!"
-        );
-        _transfer(nfts[_tokenId].owner, msg.sender, _tokenId);
-        nfts[_tokenId].owner.transfer(msg.value);
-        nfts[_tokenId].owner = payable(msg.sender);
-        nfts[_tokenId].isForSale = false;
-        emit BuyNFT(msg.sender, _tokenId);
-    }
+    // function buyNFT(uint256 _tokenId) public payable {
+    //     require(_exists(_tokenId), "NFT does not exist");
+    //     require(nfts[_tokenId].isForSale, "NFT is not for sale");
+    //     // require(
+    //     //     msg.value == nfts[_tokenId].price,
+    //     //     "Price must be equal to the price of the token"
+    //     // );
+    //     require(
+    //         nfts[_tokenId].owner != msg.sender,
+    //         "You can not buy your own NFT.!"
+    //     );
+    //     _transfer(nfts[_tokenId].owner, msg.sender, _tokenId);
+    //     nfts[_tokenId].owner.transfer(msg.value);
+    //     nfts[_tokenId].owner = payable(msg.sender);
+    //     nfts[_tokenId].isForSale = false;
+    //     emit BuyNFT(msg.sender, _tokenId);
+    // }
 
-    function markNFTForSale(uint256 _tokenId) public {
-        require(_exists(_tokenId), "NFT does not exist");
-        require(
-            nfts[_tokenId].owner == msg.sender,
-            "You can not mark others NFT for sale.!"
-        );
-        nfts[_tokenId].isForSale = true;
-    }
+    // function markNFTForSale(uint256 _tokenId) public {
+    //     require(_exists(_tokenId), "NFT does not exist");
+    //     require(
+    //         nfts[_tokenId].owner == msg.sender,
+    //         "You can not mark others NFT for sale.!"
+    //     );
+    //     nfts[_tokenId].isForSale = true;
+    // }
     
     function _beforeTokenTransfer(
         address from,
@@ -107,10 +108,12 @@ contract dMarket is ERC721URIStorage {
             nfts[_tokenId].owner == msg.sender,
             "NFT does not exists or you dont have permission to transfer.!"
         );
-        _transfer(nfts[_tokenId].owner, _to, _tokenId);
+        safeTransferFrom(nfts[_tokenId].owner, _to, _tokenId);
         nfts[_tokenId].owner = payable(_to);
         emit TransferNFT(msg.sender, _to, _tokenId);
     }
+
+    
     
   
 
