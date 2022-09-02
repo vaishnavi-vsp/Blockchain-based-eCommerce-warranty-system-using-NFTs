@@ -33,7 +33,7 @@ export const addOrder = async(req,res) =>{
             // Adding hh:mm:ss
             let times = waranty_period.time.split(":");
 
-            var days_period = moment().add({days:waranty_period.days,months:waranty_period.months,years:waranty_period.years,hours:parseInt(times[0]),minutes:parseInt(times[1]),seconds:parseInt(times[2])}).format();;
+            var days_period = moment().add({days:waranty_period.days,months:waranty_period.months,years:waranty_period.years,hours:parseInt(times[0]),minutes:parseInt(times[1]),seconds:parseInt(times[2])}).utcOffset("+05:30").format();
             console.log("Days Period :",days_period)
 
             order1.nft_image = order_nft.url;
@@ -48,6 +48,12 @@ export const addOrder = async(req,res) =>{
             order1.rare = false;
             order1.waranty_period = null;
             order1.owner = null;
+        }
+        if(product.soulbound){
+            order1.transfers = 0;
+        }
+        else{
+            order1.transfers = 1;
         }
         
         const newOrder = new order(order1);
@@ -68,11 +74,19 @@ export const addOrder = async(req,res) =>{
 export const getOrdersOfUser = async (request, response) => {
     try {
         let send_data = [];
-        const orders = await order.find({ 'user_id': request.params.id });
+        const orders = await order.find({ 'user_id': request.params.id }).sort({ordered_at: -1});
         for(let i=0;i<orders.length;i++){
             let product_id = orders[i].product_id;
             let product = await Product.findOne({ '_id': product_id });
             let data = orders[i]._doc;
+            let current_date = moment().utcOffset("+05:30").format();
+            if(current_date>=data.warranty_period && data['status'] == 'ACTIVE'){
+                data['status'] = 'EXPIRED';
+                // Update the data
+                console.log("Updating ... :",data._id)
+                let orderUpdate = await order.findByIdAndUpdate({_id: data._id},{status : 'EXPIRED'},{new:true});
+            }
+
             send_data.push({
                 "order":data,
                 ...product._doc
@@ -100,5 +114,35 @@ export const getOrderbyId = async(req,res) => {
         });
     } catch (error) {
         console.log(error);
+        response.status(500).json({message:error.message});
+    }
+}
+
+export const TransferWarranty = async(req,res) => {
+    try {
+        let order_id = req.body.order_id;
+        let sender_address = req.body.sender;
+        
+        const user1 = await user.findOne({ 'address': sender_address });
+        const order1 = await order.findOne({ '_id': order_id });
+        const TransferedOrder = await order.findByIdAndUpdate({_id: order_id},{user_id : user1._id},{new:true});
+        return res.status(200).json({message: "Updated successfully",updated:TransferedOrder});
+    
+    } catch (error) {
+        console.log(error);
+        response.status(500).json({message:error.message});
+    }
+}
+
+export const update_all_orders = async(req,res) => {
+    try {
+        const orders = await order.find({product_id:'1'});
+        for(let i=0;i<orders.length;i++){
+            let updateProduct = await order.findByIdAndUpdate({_id:orders[i]._id},{warranty_period:moment().add({years:1}).format()});
+        }
+        return res.status(200).json({message: "Updated successfully"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:error.message});
     }
 }

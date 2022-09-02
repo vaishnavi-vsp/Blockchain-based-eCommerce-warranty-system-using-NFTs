@@ -136,16 +136,17 @@ export default function AddProduct() {
         }
         if(checked){
             send_data['warranty_details'] = details;
-            send_data['transfers'] = parseInt(transfer);
         }else{
             send_data['warranty_details'] = null;
-            send_data['transfers'] = 0;
+            
         }
         if(radiovalue == "soulbound"){
             send_data['soulbound'] = true
+            send_data['transfers'] = 0;
         }
         else {
             send_data['soulbound']= false
+            send_data['transfers'] = 1;
         }
         console.log(send_data);
         const response = await axios.post(`http://localhost:8000/product`,send_data);
@@ -274,7 +275,7 @@ export default function AddProduct() {
                         {radiovalue=="soulbound" ?<>
                         <TextField id="filled-basic" disabled label="Number of Transfer" variant="filled" className="textInput" defaultValue="0"></TextField>
                         </>:<>
-                        <TextField id="filled-basic" required label="Number of Transfer" variant="filled" className="textInput" defaultValue="0" onChange={transferHandler}></TextField>
+                        <TextField id="filled-basic" disabled label="Number of Transfer" variant="filled" className="textInput" defaultValue="1" onChange={transferHandler}></TextField>
                         </>}
                     </div>
                         :

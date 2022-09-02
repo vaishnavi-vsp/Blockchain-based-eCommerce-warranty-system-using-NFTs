@@ -54,10 +54,10 @@ const MyOrders = () => {
   useEffect(() => {
     const getData = async () => {
       try {
+        const user_id = JSON.parse(localStorage.getItem("user"))._id;
         const response = await axios.get(
-          `http://localhost:8000/order/62dd2b8111c9525364586018`
+          `http://localhost:8000/order/${user_id}`
         );
-        console.log(response.data.data)
         setcartItems(response.data.data);
        
       } catch (err) {

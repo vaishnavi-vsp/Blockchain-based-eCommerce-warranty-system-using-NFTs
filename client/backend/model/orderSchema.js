@@ -11,6 +11,7 @@ export const OrderSchema=mongoose.Schema({
     nft_image:String,
     hash:String,
     owner:String,
+    transfers:Number,
     ordered_at: {
         type:Date,
         default:moment().utcOffset("+05:30").format()
