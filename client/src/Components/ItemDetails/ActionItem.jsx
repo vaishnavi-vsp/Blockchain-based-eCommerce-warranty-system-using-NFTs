@@ -5,6 +5,10 @@ import clsx from 'clsx';
 import { LoginContext } from '../../context/ContextProvider';
 // import { initialState, reducer } from '../../reducers/reducer';
 import { addToCart } from '../../redux/actions/cartActions';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import './style.css';
@@ -151,7 +155,13 @@ const ActionItem = ({ product,contract }) => {
                <div className="container_modal" >
                <div className="confirmation-text">
                     Do you confirm the order ?
-                    </div>
+                </div>
+                <div style={{marginLeft:'20px'}}>
+                    <p>Get added discount of 6%</p>
+                <FormGroup>
+                    <FormControlLabel control={<Checkbox />} label="Redeem 200 Points" />  
+                </FormGroup>
+                </div>
                     <div className="button-container">
                     <button 
                         className="cancel-button" onClick={handleClose}>
