@@ -17,25 +17,24 @@ contract dMarket is ERC721URIStorage {
     uint256 listingPrice = 0.00 ether;
 
     struct NFT {
-        uint256 tokenId;
-        uint256 transfers;
+        uint256 tokenId;        
         address payable owner;
         bool isForSale;
-
-        address issuer;
-        uint256 order_serial_number;
-        string issue_time;
-        string duration;
         bool isSoulbound;
-        string description;
-        string name;
         // warranty to be stored in mongodb
     }
     event CreateNFT(
         uint256 indexed _tokenId,
         string _tokenURI,
         address indexed _owner,
-        uint256 _price
+        uint256 transfers,
+        address issuer,
+        uint256 order_serial_number,
+        string issue_time,
+        string duration,
+        string description,
+        string name,
+        string rarity
     );
     event TransferNFT(
         address indexed _from,
@@ -44,8 +43,7 @@ contract dMarket is ERC721URIStorage {
     );
     event BuyNFT(
         address indexed _buyer,
-        uint256 indexed _tokenId,
-        uint256 _price
+        uint256 indexed _tokenId
     );
     mapping(uint256 => NFT) public nfts;
 
@@ -53,15 +51,15 @@ contract dMarket is ERC721URIStorage {
         owner = payable(msg.sender);
     }
 
-    function createNFT(string memory _tokenURI, uint256 _transfers,string memory _issueTime ,string memory _duration,uint256 _serialNo,address _issuer,bool isSoulbound,string memory name,string memory description) public payable {
+    function createNFT(string memory _tokenURI, uint256 _transfers,string memory _issueTime ,string memory _duration,uint256 _serialNo,address _issuer,bool isSoulbound,string memory name,string memory description,string memory _rarity) public payable {
         require(msg.value == listingPrice, "You must pay the listing price");
-        nfts[tokenId] = NFT(tokenId, _transfers, payable(msg.sender), false,_issuer,_serialNo,_issueTime,_duration,isSoulbound,description,name);
+        nfts[tokenId] = NFT(tokenId, payable(msg.sender), false,isSoulbound);
         _safeMint(msg.sender, tokenId);
-        _setTokenURI(tokenId, formatTokenURI(_tokenURI,description,name,_serialNo));
+        _setTokenURI(tokenId, formatTokenURI(_tokenURI,description,name,_serialNo,_rarity));
         
         owner.transfer(msg.value);
         tokenId++;
-        emit CreateNFT(tokenId - 1, _tokenURI, msg.sender, _transfers);
+        emit CreateNFT(tokenId - 1, _tokenURI, msg.sender, _transfers,_issuer,_serialNo,_issueTime,_duration,description,name,_rarity);
     }
 
     function buyNFT(uint256 _tokenId) public payable {
@@ -79,16 +77,15 @@ contract dMarket is ERC721URIStorage {
         nfts[_tokenId].owner.transfer(msg.value);
         nfts[_tokenId].owner = payable(msg.sender);
         nfts[_tokenId].isForSale = false;
-        emit BuyNFT(msg.sender, _tokenId, nfts[_tokenId].transfers);
+        emit BuyNFT(msg.sender, _tokenId);
     }
 
-    function markNFTForSale(uint256 _tokenId, uint256 _price) public {
+    function markNFTForSale(uint256 _tokenId) public {
         require(_exists(_tokenId), "NFT does not exist");
         require(
             nfts[_tokenId].owner == msg.sender,
             "You can not mark others NFT for sale.!"
         );
-        nfts[_tokenId].transfers = _price;
         nfts[_tokenId].isForSale = true;
     }
     
@@ -117,7 +114,7 @@ contract dMarket is ERC721URIStorage {
     
   
 
-    function getNFTMetaData(uint256 _tokenId) public view returns( uint256 _price,string memory _issueTime ,string memory _duration,uint256 _serialNo,address _issuer) {
+    function getNFTMetaData(uint256 _tokenId) public view returns( uint256 _price,address _owner ,bool forSale,bool soulBound) {
     //     struct NFT {
     //     uint256 tokenId;
     //     uint256 price;
@@ -130,19 +127,24 @@ contract dMarket is ERC721URIStorage {
     //     uint256 duration;
     //     // warranty to be stored in mongodb
     // }
-        return (nfts[_tokenId].transfers,nfts[_tokenId].issue_time,nfts[_tokenId].duration,nfts[_tokenId].order_serial_number,nfts[_tokenId].issuer);
+
+    // uint256 tokenId;        
+    //     address payable owner;
+    //     bool isForSale;
+    //     bool isSoulbound;
+        return (nfts[_tokenId].tokenId,nfts[_tokenId].owner,nfts[_tokenId].isForSale,nfts[_tokenId].isSoulbound);
     }
 
     function getNFTCount() public view returns (uint256) {
         return tokenId - 1;
     }
     // _tokenURI,description,name,_transfers,_issueTime,_duration,_serialNo
-    function formatTokenURI(string memory _tokenURI,string memory description,string memory name,uint256 _serialNo)  public pure  returns(string memory){
+    function formatTokenURI(string memory _tokenURI,string memory description,string memory name,uint256 _serialNo,string memory _rarity)  public pure  returns(string memory){
         return string(
             abi.encodePacked('data:application/json,',
                 bytes(
                     abi.encodePacked(
-                         '{"name":"',name,'", "description":"',description,'", "attributes":[{"trait_type": "serial_no","value":"',Strings.toString(_serialNo) ,'"}], "image":"',_tokenURI,'"}'
+                         '{"name":"',name,'", "description":"',description,'", "attributes":[{"trait_type": "serial_no","value":"',Strings.toString(_serialNo) ,'"},{"trait_type": "Rarity","value":"',_rarity ,'"}], "image":"',_tokenURI,'"}'
                     )
                 )
             )

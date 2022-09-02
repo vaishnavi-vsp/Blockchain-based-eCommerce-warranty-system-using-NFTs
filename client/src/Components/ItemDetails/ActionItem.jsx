@@ -2,7 +2,6 @@ import { useState, useContext, useReducer, useEffect } from 'react';
 import { Button, Box, makeStyles } from '@material-ui/core';
 import { ShoppingCart as Cart, FlashOn as Flash } from '@material-ui/icons';
 import clsx from 'clsx';
-import { useHistory } from 'react-router-dom';
 import { LoginContext } from '../../context/ContextProvider';
 // import { initialState, reducer } from '../../reducers/reducer';
 import { addToCart } from '../../redux/actions/cartActions';
@@ -44,7 +43,6 @@ const useStyle = makeStyles(theme => ({
 
 const ActionItem = ({ product,contract }) => {
     const classes = useStyle();
-    const history = useHistory();
     const { account } = useContext(LoginContext);
     const [points,setPoints] = useState(0);
     const [open, setOpen] = useState(false);
@@ -75,7 +73,7 @@ const ActionItem = ({ product,contract }) => {
 
     const addItemToCart = () => {
         dispatch(addToCart(product._id, quantity));
-        history.push('/cart');
+        window.location.href="/cart";
     }
     const NavtoOrders = () => {
         window.location.href="/myorders";

@@ -72,9 +72,7 @@ const CustomButtons = () => {
         <Box className={classes.wrapper} >
             {
                 account.account ? <Profile account={account.account} setAccount={setAccount} /> : 
-                <Link>
                     <Button className={classes.login} variant="contained" onClick={() => openDialog() }>Login</Button>
-                </Link>
             }
             
             { (JSON.parse(localStorage.getItem("user")) !=null) ? <>
@@ -92,9 +90,10 @@ const CustomButtons = () => {
                 </Badge>
             </Link>
             </>:<>
-            <Link >
-                <Typography style={{ marginTop: 2 }}>More</Typography>
+            <Link to="/">
+            <Typography style={{ marginTop: 2 }}>More</Typography>
             </Link>
+            
             <Link to='/cart' className={classes.container}>
                 <Badge badgeContent={cartItems?.length} color="secondary">
                     <ShoppingCart />
