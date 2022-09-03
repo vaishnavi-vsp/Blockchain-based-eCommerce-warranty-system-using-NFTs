@@ -13,10 +13,12 @@ export const addOrder = async(req,res) =>{
         const redeem = req.body.redeem;
 
         let product = await Product.findOne({ '_id': product_id });
-        const user1 = await user.findOne({ '_id': req.body.user_id });
-        let updateUser = await user.findByIdAndUpdate({_id:req.body.user_id},{points:user1.points-parseInt(redeem)},{new:true});
+        let user1 = await user.findOne({ '_id': req.body.user_id });
+        if(user1.points >= redeem){
+            user1 = await user.findByIdAndUpdate({_id:req.body.user_id},{points:user1.points-parseInt(redeem)},{new:true});
+        }
 
-        console.log("The updated user :",updateUser)
+        console.log("The updated user :",user1)
         if(product.hasWarranty){
             const rndInt = Math.floor(Math.random() * product.nfts.length)
             const updated_nfts = [];
@@ -57,7 +59,6 @@ export const addOrder = async(req,res) =>{
         else{
             order1.transfers = 1;
         }
-        
         const newOrder = new order(order1);
         console.log("New order :",newOrder);
         await newOrder.save();
@@ -67,7 +68,7 @@ export const addOrder = async(req,res) =>{
             message: "Product Order successfully!",
             newOrder,
             product,
-            updateUser,
+            user1,
         });
     } catch (error) {
         console.log(error);

@@ -120,8 +120,8 @@ const ActionItem = ({ product,contract }) => {
         const resp2 = await axios.post('http://localhost:8000/challenge/update',points);
         const rarirty = resp.data['newOrder']['rare'] ? 'Rare':'Common';
 
-        localStorage.setItem("user",JSON.stringify(resp.data['updateUser']));
-        
+        localStorage.setItem("user",JSON.stringify(resp.data['user1']));
+
         if(product.hasWarranty){
             await contract.createNFT(
                 resp.data['newOrder']['nft_image'], // tokenUri
