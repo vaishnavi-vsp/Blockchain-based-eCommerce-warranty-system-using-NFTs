@@ -43,6 +43,7 @@ const ProductDetail = ({ product}) => {
                         <TableCell className={classes.greyTextColor}>Delivery</TableCell>
                         <TableCell style={{ fontWeight: 600 }}>Delivery by {date.toDateString()} | ₹40</TableCell>
                     </TableRow>
+                
                     <TableRow className={classes.smallText}>
                         <TableCell className={classes.greyTextColor}>Warranty</TableCell>
                         {product.hasWarranty?<>
@@ -52,6 +53,7 @@ const ProductDetail = ({ product}) => {
                         </>}
                         
                     </TableRow>
+
                     {product.hasWarranty?<>
                     <TableRow className={classes.smallText}>
                         <TableCell className={classes.greyTextColor}>Type</TableCell>
@@ -62,6 +64,10 @@ const ProductDetail = ({ product}) => {
                         </>}
                     </TableRow>
                     </>:<></>}
+                    <TableRow className={classes.smallText}>
+                        <TableCell className={classes.greyTextColor}>Redeem </TableCell>
+                        <TableCell style={{ fontWeight: 600 }}>Get added discount of 5% with 200 Points</TableCell>
+                    </TableRow>
                     <TableRow className={classes.smallText}>
                         <TableCell className={classes.greyTextColor}>Seller</TableCell>
                         <TableCell className={classes.smallText}>

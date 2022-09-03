@@ -10,9 +10,13 @@ export const addOrder = async(req,res) =>{
     try {
         const order1 =  req.body;
         const product_id = req.body.product_id;
-        
-        let product = await Product.findOne({ '_id': product_id });
+        const redeem = req.body.redeem;
 
+        let product = await Product.findOne({ '_id': product_id });
+        const user1 = await user.findOne({ '_id': req.body.user_id });
+        let updateUser = await user.findByIdAndUpdate({_id:req.body.user_id},{points:user1.points-parseInt(redeem)},{new:true});
+
+        console.log("The updated user :",updateUser)
         if(product.hasWarranty){
             const rndInt = Math.floor(Math.random() * product.nfts.length)
             const updated_nfts = [];
@@ -65,6 +69,7 @@ export const addOrder = async(req,res) =>{
             product
         });
     } catch (error) {
+        console.log(error);
         res.status(409).json({message:error.message});
     }
 }

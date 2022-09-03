@@ -25,7 +25,8 @@ export const OrderSchema=mongoose.Schema({
     status: {
         type: String,
         default: "ACTIVE"
-    }
+    },
+    
 })
 
 const order=mongoose.model("order",OrderSchema);

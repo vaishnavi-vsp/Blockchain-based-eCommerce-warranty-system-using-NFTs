@@ -113,3 +113,17 @@ export const UserChallengeUpdate = async(req,res) => {
     const newTask = await User.findByIdAndUpdate({_id:user_id},{challenges : updateChallenge,points:user.points},{new:true});
     return res.status(200).json({message: "Updated successfully",updated:newTask});
 }
+
+export const RedeemPoints = async(req,res) => {
+    try {
+        const user_id = req.body.id;
+        const use_points = req.body.points;
+        const user1 = await User.findOne({ '_id': user_id });
+        const updateUser = await User.findByIdAndUpdate({_id:user_id},{points:user1.points-parseInt(use_points)},{new:true});
+        return res.status(200).json({message: "Updated successfully",updated:updateUser});
+    } catch (error) {
+        console.log(error);
+        res.send("Some Error occured")
+    }
+
+}

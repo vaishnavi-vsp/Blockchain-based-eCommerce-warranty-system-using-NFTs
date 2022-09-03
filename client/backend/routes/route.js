@@ -3,7 +3,7 @@ import { userSignUp, userLogIn,UserById,TransferableUsers } from '../controller/
 import { addItemInCart } from '../controller/cart-controller.js';
 import { uploadFile } from '../controller/ipfs-uploads.js';
 import { getProductById, getProductsByCategory, addProduct,getAdminProducts,updateProduct} from '../controller/product-controller.js';
-import { addChallenge, getChallenges, getUserChallenges, UserattemptChallenge,UserChallengeUpdate} from '../controller/challenge-controller.js';
+import { addChallenge, getChallenges, getUserChallenges, UserattemptChallenge,UserChallengeUpdate, RedeemPoints} from '../controller/challenge-controller.js';
 import { addOrder, getOrdersOfUser,getOrderbyId,TransferWarranty,update_all_orders} from '../controller/order-controller.js';
 import auth from '../middleware/auth.js'
 
@@ -35,6 +35,7 @@ router.get('/challenge/all',getChallenges);
 router.post('/challenge/user',getUserChallenges);
 router.post('/challenge/attempt',UserattemptChallenge);
 router.post('/challenge/update',UserChallengeUpdate);
+router.post('/redeem',RedeemPoints);
 
 router.post('/order/add',addOrder);
 router.get('/order/:id',getOrdersOfUser);

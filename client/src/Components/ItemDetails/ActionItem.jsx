@@ -50,6 +50,9 @@ const ActionItem = ({ product,contract }) => {
     const { account } = useContext(LoginContext);
     const [points,setPoints] = useState(0);
     const [open, setOpen] = useState(false);
+    const [checked, setChecked] = useState(false);
+    
+    const earned_points = JSON.parse(localStorage.getItem("user")).points;
     console.log("This is from the contracts action")
     console.log(contract)
     const handleOpen = () => {
@@ -72,9 +75,12 @@ const ActionItem = ({ product,contract }) => {
 
     const buyNow = async () => {
        handleOpen();
-       
     }
 
+    const handleCheckbox = (event) => {
+        setChecked(event.target.checked);
+    };
+    
     const addItemToCart = () => {
         dispatch(addToCart(product._id, quantity));
         window.location.href="/cart";
@@ -84,9 +90,7 @@ const ActionItem = ({ product,contract }) => {
     }
     const placeOrder = async() => {
         handleClose();
-        handleOpenNotification();
-        // string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer
-        contract.createNFT("1",11,"1222",10,1,"0xa491637217782Ed121B78f333ae16aD94fC4f197",{value:"10000000000000000"})
+        
         let current_user = JSON.parse(localStorage.getItem('user'));
         let address = localStorage.getItem('address')
 
@@ -95,13 +99,20 @@ const ActionItem = ({ product,contract }) => {
             "sold_by":product.seller_name,
             "user_id" :current_user._id,
             "view_warranty": product.hasWarranty,
-            "address":address
+            "address":address,
         };
         const points = {
             "id":current_user._id,
             "product_id":product._id,
             "mark":1
         }
+        if (checked) {
+            data["redeem"] = 300
+        }
+        else{
+            data["redeem"] = 0
+        }
+
         const resp = await axios.post('http://localhost:8000/order/add',data);
         const resp2 = await axios.post('http://localhost:8000/challenge/update',points);
         setPoints(resp2.data.points);
@@ -110,24 +121,8 @@ const ActionItem = ({ product,contract }) => {
         // We only save to blockchain If the product has warranty
 
         if(product.hasWarranty){
-            // You can use the response generated from order add
-            // JSON object -> resp.data.newOrder
-            // resp.data.newOrder = 
-                // {
-                //     "ordered_at": "2022-08-30T11:02:36.000Z",
-                //     "warranty_period": "2023-08-30T11:06:17.000Z",
-                //     "rare": false,
-                //     "status": "ACTIVE",
-                //     "_id": "630def2982a61b11606e487f",
-                //     "product_id": "9",
-                //     "sold_by": "62dd2b8111c9525364586018",
-                //     "user_id": "62d182d74c0e810ba0a71ed6",
-                //     "view_warranty": true,
-                //     "nft_image": "https://i.postimg.cc/NGWyKzyV/5.png",
-                //     "hash": "94b623503a13ff98c09040e63555a0d16f32fec609db86d232d9d7f22a99e581",
-                //     "owner": "$2b$10$lFl2GaoQIxYY.czSkBBtReFFfzaps6EDmmpetvW.Hz0pO0Ma5vzti",
-                //     "__v": 0
-                // }
+            // string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer
+            contract.createNFT("1",11,"1222",10,1,"0xa491637217782Ed121B78f333ae16aD94fC4f197",{value:"10000000000000000"})
             
             const saving_nft = {
                 "owner_wallet_address" : address,
@@ -137,11 +132,10 @@ const ActionItem = ({ product,contract }) => {
                 "is_soulbound" :resp.data.product.soulbound,
                 "number_of_transfers" :resp.data.product.transfers
             }  // Hopefully these are all the required fields
-
             console.log(saving_nft);
-            
         }
-        
+        handleOpenNotification();
+         
     }
     
     return (
@@ -156,12 +150,13 @@ const ActionItem = ({ product,contract }) => {
                <div className="confirmation-text">
                     Do you confirm the order ?
                 </div>
-                <div style={{marginLeft:'20px'}}>
-                    <p>Get added discount of 6%</p>
-                <FormGroup>
-                    <FormControlLabel control={<Checkbox />} label="Redeem 200 Points" />  
-                </FormGroup>
-                </div>
+                {earned_points <200 ?<></>:<>
+                    <div style={{marginLeft:'30px',marginBottom:'30px'}}>
+                    <FormGroup>
+                        <FormControlLabel control={<Checkbox checked={checked} onChange={handleCheckbox}/>} label="Redeem 200 Points" />  
+                    </FormGroup>
+                    </div>
+                </>}
                     <div className="button-container">
                     <button 
                         className="cancel-button" onClick={handleClose}>
@@ -182,7 +177,8 @@ const ActionItem = ({ product,contract }) => {
             >
                <div className="earned_points" onClick={NavtoOrders}>
                     <h3>You earned Points!</h3>
-                <img src={won} width='250'/>
+                    <img src={won} width='250'/>
+                    {product.hasWarranty ? <h5>Please confirm your transaction on blockchain</h5>:<></>}
                 </div>
             </Modal>
 
