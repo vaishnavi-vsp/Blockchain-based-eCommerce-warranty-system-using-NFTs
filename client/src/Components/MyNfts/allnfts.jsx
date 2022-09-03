@@ -1,19 +1,93 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NftCard } from './nftcard'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { ethers } from 'ethers';
+import { useState } from 'react';
 
-export const Allnfts = () => {
+
+export const Allnfts = ({contract,provider,account}) => {
+  console.log("This is the contract from all NFTS")
+  console.log(contract)
+  const [purchases,setPurchases] = useState([])
+  const [loading,setLoading] = useState(true)
+  useEffect(async ()=>{
+    var data = contract.filters.CreateNFT(null,null,account,null)
+    var transfered = contract.filters.Transfer(account,null,null)
+    
+    const block = await provider.getBlockNumber()
+    const results = await contract.queryFilter(data,block-1000)
+    const results2 = await contract.queryFilter(transfered,block-1000)
+    console.log("these are the transfered NFTS")
+    console.log(results2)
+    console.log("Results from allNft")
+    console.log(results)
+    const ids = await Promise.all(results2.map(async i=>{
+      i=i.args
+      const id = parseInt(i['tokenId']._hex,16)
+      return id
+    }))
+    const purchases = await Promise.all(results.map(async i => {
+      // fetch arguments from each result
+      i = i.args
+      console.log(i)
+      // get uri url from nft contract
+      const id = parseInt(i['_tokenId']._hex,16)
+      console.log("This is the id")
+      console.log(id)
+      console.log("ethers")
+      console.log(ethers.utils.formatEther(i[0]))
+      console.log(ethers.utils.formatEther(i[3]))
+      const metaData = await contract.getNFTMetaData(id)
+      const uri = i['_tokenURI']
+      console.log("This is the meta data")
+      console.log(metaData)
+      console.log(uri)
+      var flag = true
+      for(var j=0;j<ids.length;j++){
+        if(ids[j]==id){
+          flag = false
+        }
+      }
+      console.log("This is the data finally")
+      console.log(i['_tokenURI'])
+      console.log(i['duration'])
+      if(flag){
+        let purchasedItem = {
+          uri,
+          order_at:i.issue_time,
+          expires_at:i.duration,
+          product:i.name
+        }
+        return purchasedItem
+      }
+      
+    }))
+    console.log("These are the purchases")
+    console.log(purchases)
+    setPurchases(purchases)
+    setLoading(false)
+  },[])
   return (
+    
     <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'center'}}>
-        <NftCard status='Active' product='product 1' start = '10-12-2022 12:30' end = '11-12-2022 13:30' src="https://images.wsj.net/im-491398?width=700&height=699" />
-        <NftCard status='Active' product='product 2' start = '10-12-2022 12:30' end = '11-12-2022 13:30' src="https://images.wsj.net/im-491398?width=700&height=699" />
-        <NftCard status='Active' product='product 3' start = '10-12-2022 12:30' end = '11-12-2022 13:30' src="https://images.wsj.net/im-491398?width=700&height=699" />
-        <NftCard status='Active' product='product 4' start = '10-12-2022 12:30' end = '11-12-2022 13:30' src="https://images.wsj.net/im-491398?width=700&height=699" />
-        <NftCard status='Active' product='product 5' start = '10-12-2022 12:30' end = '11-12-2022 13:30' src="https://images.wsj.net/im-491398?width=700&height=699" />
-        <NftCard status='Active' product='product 6' start = '10-12-2022 12:30' end = '11-12-2022 13:30' src="https://images.wsj.net/im-491398?width=700&height=699" />
-        <NftCard status='Active' product='product 7' start = '10-12-2022 12:30' end = '11-12-2022 13:30' src="https://images.wsj.net/im-491398?width=700&height=699" />
+      {
+        loading?"Please wait loading":
+        <>
+        {
+          purchases.map((item,index)=>{
+            if(item){
+              return <NftCard status='Active' product={item.product} start = {item.order_at} end ={item.expires_at} src={item.uri} />
+            }
+          })
+        }
+         {/*  */}
+        
+        </>
+       
+      }
+        
         
     </div>
     

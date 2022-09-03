@@ -26,7 +26,10 @@ export const OrderSchema=mongoose.Schema({
         type: String,
         default: "ACTIVE"
     },
-    
+    tokenID: {
+        type:Number,
+        default: -1
+    }
 })
 
 const order=mongoose.model("order",OrderSchema);

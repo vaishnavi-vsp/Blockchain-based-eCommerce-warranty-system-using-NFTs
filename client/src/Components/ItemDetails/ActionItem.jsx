@@ -89,11 +89,11 @@ const ActionItem = ({ product,contract }) => {
         window.location.href="/myorders";
     }
     const placeOrder = async() => {
+       
         handleClose();
         
         let current_user = JSON.parse(localStorage.getItem('user'));
         let address = localStorage.getItem('address')
-
         const data = {
             "product_id": product._id,
             "sold_by":product.seller_name,
@@ -101,6 +101,9 @@ const ActionItem = ({ product,contract }) => {
             "view_warranty": product.hasWarranty,
             "address":address,
         };
+        console.log(product)
+        console.log("This is the data")
+        console.log(data)
         const points = {
             "id":current_user._id,
             "product_id":product._id,
@@ -115,27 +118,32 @@ const ActionItem = ({ product,contract }) => {
 
         const resp = await axios.post('http://localhost:8000/order/add',data);
         const resp2 = await axios.post('http://localhost:8000/challenge/update',points);
-        setPoints(resp2.data.points);
-        
-        // Kamal's function - Save NFT metadata to blockchain
-        // We only save to blockchain If the product has warranty
+        const rarirty = resp.data['newOrder']['rare'] ? 'Rare':'Common';
 
+        localStorage.setItem("user",JSON.stringify(resp.data['updateUser']));
+        
         if(product.hasWarranty){
-            // string memory _tokenURI, uint256 _price,string memory _issueTime ,uint256 _duration,uint256 _serialNo,address _issuer
-            contract.createNFT("1",11,"1222",10,1,"0xa491637217782Ed121B78f333ae16aD94fC4f197",{value:"10000000000000000"})
-            
-            const saving_nft = {
-                "owner_wallet_address" : address,
-                "nft_image" : resp.data.newOrder.nft_image,
-                "warranty_period" :resp.data.newOrder.warranty_period,
-                "product_id" : product._id,
-                "is_soulbound" :resp.data.product.soulbound,
-                "number_of_transfers" :resp.data.product.transfers
-            }  // Hopefully these are all the required fields
-            console.log(saving_nft);
+            await contract.createNFT(
+                resp.data['newOrder']['nft_image'], // tokenUri
+                resp.data['product']['transfers'], // transfers
+                resp.data['newOrder']['ordered_at'].split("T")[0]+' '+resp.data['newOrder']['ordered_at'].split("T")[1].substring(0,5) , // issue time
+               resp.data['newOrder']['warranty_period'].split("T")[0]+" "+resp.data['newOrder']['ordered_at'].split("T")[1].substring(0,5), // duration
+                parseInt(resp.data.newOrder['_id']), // serial no
+                "0xa491637217782Ed121B78f333ae16aD94fC4f197",//issuer
+                resp.data['product']['soulbound'],
+                resp.data['product']['shortTitle'],
+                resp.data['product']['description'],
+                rarirty 
+                ,{value:"00000000000000000"}
+            )
+           
+            const tokenId = await contract.getNFTCount()
+            const tokenIdInt = parseInt(tokenId._hex,16) //use this variable
+            await axios.post('http://localhost:8000/add/token',{"token":tokenIdInt,"order_id":resp.data['newOrder']["_id"]});   
         }
         handleOpenNotification();
-         
+        setPoints(resp2.data.points);
+        
     }
     
     return (
@@ -178,7 +186,7 @@ const ActionItem = ({ product,contract }) => {
                <div className="earned_points" onClick={NavtoOrders}>
                     <h3>You earned Points!</h3>
                     <img src={won} width='250'/>
-                    {product.hasWarranty ? <h5>Please confirm your transaction on blockchain</h5>:<></>}
+                    {product.hasWarranty ? <h5>Transaction added to blockchain</h5>:<></>}
                 </div>
             </Modal>
 

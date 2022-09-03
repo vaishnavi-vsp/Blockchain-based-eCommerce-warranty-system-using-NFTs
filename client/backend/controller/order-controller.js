@@ -66,11 +66,12 @@ export const addOrder = async(req,res) =>{
             success: true,
             message: "Product Order successfully!",
             newOrder,
-            product
+            product,
+            updateUser,
         });
     } catch (error) {
         console.log(error);
-        res.status(409).json({message:error.message});
+        res.status(203).json({message:error.message});
     }
 }
 
@@ -145,6 +146,20 @@ export const update_all_orders = async(req,res) => {
             let updateProduct = await order.findByIdAndUpdate({_id:orders[i]._id},{warranty_period:moment().add({years:1}).format()});
         }
         return res.status(200).json({message: "Updated successfully"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:error.message});
+    }
+}
+
+export const addTokenID = async(req,res) => {
+    try {
+        let tokenID = req.body.token;
+        let orderID = req.body.order_id;
+        console.log(req.body);
+        let updateOrder = await order.findByIdAndUpdate({_id:orderID},{tokenID:parseInt(tokenID)},{new:true});
+        console.log("Updated Order :",updateOrder);
+        return res.status(200).json({message: "Token ID Added"});
     } catch (error) {
         console.log(error);
         res.status(500).json({message:error.message});

@@ -4,7 +4,7 @@ import { addItemInCart } from '../controller/cart-controller.js';
 import { uploadFile } from '../controller/ipfs-uploads.js';
 import { getProductById, getProductsByCategory, addProduct,getAdminProducts,updateProduct} from '../controller/product-controller.js';
 import { addChallenge, getChallenges, getUserChallenges, UserattemptChallenge,UserChallengeUpdate, RedeemPoints} from '../controller/challenge-controller.js';
-import { addOrder, getOrdersOfUser,getOrderbyId,TransferWarranty,update_all_orders} from '../controller/order-controller.js';
+import { addOrder, getOrdersOfUser,getOrderbyId,TransferWarranty,update_all_orders,addTokenID} from '../controller/order-controller.js';
 import auth from '../middleware/auth.js'
 
 import multer from 'multer';
@@ -40,6 +40,8 @@ router.post('/redeem',RedeemPoints);
 router.post('/order/add',addOrder);
 router.get('/order/:id',getOrdersOfUser);
 router.get('/order/get/:id',getOrderbyId);
+router.post('/add/token',addTokenID);
+
 router.post('/transfer',TransferWarranty)
 router.post('/update_all_orders',update_all_orders);
 

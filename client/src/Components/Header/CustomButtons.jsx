@@ -71,10 +71,8 @@ const CustomButtons = () => {
     return (
         <Box className={classes.wrapper} >
             {
-                account ? <Profile account={account} setAccount={setAccount} /> : 
-                
-                <Button className={classes.login} variant="contained" onClick={() => openDialog() }>Login</Button>
-                
+                account.account ? <Profile account={account.account} setAccount={setAccount} /> : 
+                    <Button className={classes.login} variant="contained" onClick={() => openDialog() }>Login</Button>
             }
             
             { (JSON.parse(localStorage.getItem("user")) !=null) ? <>
