@@ -14,6 +14,7 @@ import Checkout from "./Components/AdminPanel/Checkout";
 import Warrantydetails from "./Components/Orders/warranty";
 import AllProducts from "./Components/AdminPanel/AllProducts";
 import { Box } from "@material-ui/core";
+import CircularProgress from '@mui/material/CircularProgress';
 import Web3Modal from "web3modal";
 import Web3 from "web3";
 import { useEffect,useState,useContext } from "react";
@@ -114,7 +115,9 @@ function App() {
   return (
     <TemplateProvider>
       {
-        loading ? "please wait loading":
+        loading ? <Box sx={{ display: 'flex' }} style={{margin:'80px',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
+        <CircularProgress />
+      </Box>:
         <ContextProvider>
         <BrowserRouter>
           <Header />

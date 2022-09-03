@@ -56,7 +56,7 @@ const attempt = async(challenge_id) =>{
   
 const Challenges = () => {
     const classes = useStyles();
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

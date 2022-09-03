@@ -21,6 +21,7 @@ const ChallengeBoard = () => {
               `http://localhost:8000/user/${JSON.parse(localStorage.getItem("user"))._id}`
             );
             setUser(response.data);
+            localStorage.setItem("user",JSON.stringify(response.data))
            
           } catch (err) {
             setUser(null);

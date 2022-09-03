@@ -5,7 +5,17 @@ import { Leaderboard } from '../../assets/leaderboard';
 export default function Board() {
 
     const [period, setPeriod] = useState(0);
-
+    const user = JSON.parse(localStorage.getItem('user'));
+    Leaderboard.push(
+        {
+            name: user.username,
+            location: "India",
+            score: user.points,
+            img: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+            dt: "2022-01-21",
+            badge: 'https://i.postimg.cc/RZ90bhZC/bronze.png'
+        }
+    );
     const handleClick = (e) => {
 
         setPeriod(e.target.dataset.id)

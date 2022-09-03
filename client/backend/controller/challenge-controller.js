@@ -55,6 +55,7 @@ export const getUserChallenges = async(req,res) => {
             }
             send_data.push(data);
         }
+        console.log(send_data);
         return res.status(200).json({data:send_data});
         
     } catch (error) {
