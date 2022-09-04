@@ -32,8 +32,7 @@ const Home = ({account,initWeb32}) => {
     useEffect(() => {
         const getData = async () => {
           // await initWeb32(contxt)
-          console.log("v hje ghgjtgbtig ")
-          console.log(contxt)
+          console.log("Context :",contxt)
           console.log(account)
           try {
             const response = await axios.post(

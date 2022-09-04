@@ -59,7 +59,7 @@ const CustomButtons = () => {
     const [ open, setOpen ] = useState(false);
     const { account, setAccount } = useContext(LoginContext);
     console.log("This is the current account")
-    console.log(account)
+    console.log("In header ",account)
     
     const cartDetails = useSelector(state => state.cart);
     const { cartItems } = cartDetails;
@@ -71,7 +71,7 @@ const CustomButtons = () => {
     return (
         <Box className={classes.wrapper} >
             {
-                account ? <Profile account={account} setAccount={setAccount} /> : 
+                account.account ? <Profile account={account.account} setAccount={setAccount} /> : 
                     <Button className={classes.login} variant="contained" onClick={() => openDialog() }>Login</Button>
             }
             

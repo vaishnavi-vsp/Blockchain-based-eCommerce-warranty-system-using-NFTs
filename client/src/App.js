@@ -56,7 +56,7 @@ function App() {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       setAccount(accounts[0])
       console.log("These are the accounts")
-      console.log(account123)
+      console.log("Account :",account123)
       
       
       const provider = new ethers.providers.Web3Provider(window.ethereum)

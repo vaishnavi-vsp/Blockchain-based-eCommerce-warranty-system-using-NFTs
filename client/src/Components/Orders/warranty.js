@@ -351,7 +351,7 @@ const Warrantydetails = ({ match,contract,account }) => {
           </Card>
           <Card className={classes.warrantyDeatils}>
             <Typography className={classes.mainTitle} style={{ marginBottom: 30 }}>The complete warranty details :</Typography>
-            <iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://sss6.sendbig.com/api/Files/download/5368414/02b0a8d3-8d18-5edd-c81f-d5fdad956d12/0" title="warranty details" className={classes.pdf_frame}></iframe>
+            <iframe src="https://coral-lenette-86.tiiny.site/" title="warranty details" className={classes.pdf_frame}></iframe>
           </Card>
         </>
       }
