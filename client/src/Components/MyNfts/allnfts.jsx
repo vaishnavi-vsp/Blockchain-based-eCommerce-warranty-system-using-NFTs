@@ -82,8 +82,9 @@ export const Allnfts = ({contract,provider,account}) => {
     }))
     console.log(receivedIds)
     for(var j=0;j<receivedIds.length;j++){
-      console.log(receivedIds[j],j)
+      
       if(receivedIds[j]){
+        console.log(receivedIds[j],j)
         const response = await axios.get(
           `http://localhost:8000/order/token/${receivedIds[j]-1}`
         );
