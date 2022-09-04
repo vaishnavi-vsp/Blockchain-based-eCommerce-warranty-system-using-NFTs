@@ -181,3 +181,23 @@ export const DeleteOrder = async(req,res) => {
         res.status(500).json({message:error.message});
     }
 }
+
+export const getOrderByTokenId = async(req,res)=>{
+    try{
+        let tokenId = req.params.tokenId
+        console.log(tokenId)
+        // const allOrders = await order.find({});
+        // console.log(allOrders)
+        let orders = await order.findOne({'tokenID':parseInt(tokenId)})
+        let product = await Product.findOne({'_id':orders.product_id});
+        console.log("Order by token Id",orders)
+
+        return res.json({
+            order:orders,
+            product
+        })
+    }catch (error){
+        console.log(error)
+        res.status(500).json({message:error.message});
+    }
+}

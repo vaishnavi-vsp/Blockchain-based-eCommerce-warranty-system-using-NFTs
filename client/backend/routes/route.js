@@ -42,6 +42,7 @@ router.get('/order/:id',getOrdersOfUser);
 router.get('/order/get/:id',getOrderbyId);
 router.post('/add/token',addTokenID);
 router.get('/delete',DeleteOrder);
+router.get('/')
 
 router.post('/transfer',TransferWarranty)
 router.post('/update_all_orders',update_all_orders);
