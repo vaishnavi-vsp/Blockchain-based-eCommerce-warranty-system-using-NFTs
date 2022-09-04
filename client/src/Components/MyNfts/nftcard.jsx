@@ -2,9 +2,9 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './nftcss.css'
+import { Link } from "react-router-dom";
 
-
-export const NftCard = ({product,start,end,status,src}) => {
+export const NftCard = ({product,start,end,status,src,id}) => {
   return (
     <Card className='nohover'  style={{ width: '18rem' , display:'block',marginTop:'5rem',textAlign:'center',pointerEvents:'none'}}>
       <div style={{height:'10rem'}}>
@@ -23,7 +23,7 @@ export const NftCard = ({product,start,end,status,src}) => {
            
           
         </Card.Text>
-        <Button style={{marginTop:'8%',pointerEvents:'all' ,cursor:'pointer'}}  variant="primary">View warranty</Button>
+        <Link to={`/warranty/${id}`}> <Button style={{marginTop:'8%',pointerEvents:'all' ,cursor:'pointer'}}  variant="primary">View warranty</Button></Link>
       </Card.Body>
     </Card>
   )

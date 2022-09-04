@@ -95,7 +95,8 @@ export const Allnfts = ({contract,provider,account}) => {
           uri:order['nft_image'] ,
           order_at:order['ordered_at'].split("T")[0] +" "+ order['ordered_at'].split("T")[1].substring(0,5),
           expires_at:order['warranty_period'].split("T")[0] +" "+ order['warranty_period'].split("T")[1].substring(0,5),
-          product:product['shortTitle']
+          product:product['shortTitle'],
+          id :order['_id']
         }
         purchases.push(purchasedItem)
       }
@@ -124,7 +125,7 @@ export const Allnfts = ({contract,provider,account}) => {
         {
           purchases.map((item,index)=>{
             if(item){
-              return <NftCard status='Active' product={item.product} start = {item.order_at} end ={item.expires_at} src={item.uri} />
+              return <NftCard status='Active' product={item.product} start = {item.order_at} end ={item.expires_at} src={item.uri} id={item.id}/>
             }
           })
         }
