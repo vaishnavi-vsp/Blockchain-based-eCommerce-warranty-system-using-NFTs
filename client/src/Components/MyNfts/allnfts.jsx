@@ -5,6 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { ethers } from 'ethers';
 import { useState } from 'react';
+import { Box } from "@material-ui/core";
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 
 
 export const Allnfts = ({contract,provider,account}) => {
@@ -73,7 +76,12 @@ export const Allnfts = ({contract,provider,account}) => {
     
     <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'center'}}>
       {
-        loading?"Please wait loading":
+        loading?
+        <Box sx={{ display: 'flex' }} style={{margin:'80px',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
+        <CircularProgress />
+        <Typography component="h4" variant="h6" align="center" margin='10px'>Connecting to MetaMask</Typography>
+        </Box>
+        :
         <>
         {
           purchases.map((item,index)=>{
@@ -87,8 +95,6 @@ export const Allnfts = ({contract,provider,account}) => {
         </>
        
       }
-        
-        
     </div>
     
   )

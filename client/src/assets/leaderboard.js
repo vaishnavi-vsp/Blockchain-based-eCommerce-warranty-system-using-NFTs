@@ -38,5 +38,13 @@ export const Leaderboard = [
         img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
         dt: "2022-01-22",
         badge: 'https://i.postimg.cc/RZ90bhZC/bronze.png'
+    },
+    {
+        name: "KrutikaBhatt",
+        location: "India",
+        score: 200,
+        img: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+        dt: "2022-01-21",
+        badge: 'https://i.postimg.cc/RZ90bhZC/bronze.png'
     }
 ]

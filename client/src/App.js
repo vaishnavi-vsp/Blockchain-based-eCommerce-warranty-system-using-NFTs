@@ -118,7 +118,7 @@ function App() {
       {
         loading ? <Box sx={{ display: 'flex' }} style={{margin:'80px',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
         <CircularProgress />
-        <Typography component="h4" variant="h6" align="center" margin='10px'>Waiting for Metamask</Typography>
+        <Typography component="h4" variant="h6" align="center" margin='10px'>Loading ...</Typography>
       </Box>:
         <ContextProvider>
         <BrowserRouter>

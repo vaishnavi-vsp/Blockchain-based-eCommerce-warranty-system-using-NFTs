@@ -146,6 +146,22 @@ const Challenges = () => {
                 </GridItem>
                 <GridItem xs={2} sm={4} md={4}>
                 <Card>
+                    <CardHeader color="primary" stats icon>
+                    <CardIcon color="primary"  style={{padding:'5px'}}>
+                        <img src={task5} width="70"/>
+                    </CardIcon>
+                    <p className={classes.cardCategory}>Referral 7 friends</p>
+                    <h3 className={classes.cardTitle}>+100 <small>points</small></h3>
+                    </CardHeader>
+                    <CardFooter stats>
+                    <Box sx={{ width: '100%' }} className="custom_button">
+                        <LinearProgressWithLabel value={80} />
+                    </Box>
+                    </CardFooter>
+                </Card>
+                </GridItem>
+                <GridItem xs={2} sm={4} md={4}>
+                <Card>
                     <CardHeader color="danger" stats icon>
                     <CardIcon color="danger" style={{padding:'5px'}}>
                         <img src={task8} width="70"/>

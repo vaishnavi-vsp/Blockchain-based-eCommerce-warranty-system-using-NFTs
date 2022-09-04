@@ -63,7 +63,7 @@ const Profile = ({ account, setAccount }) => {
                     <Typography className={classes.logout}>Balance :  {localStorage.getItem("balance")} Matic</Typography>
                 </MenuItem>
                 <MenuItem onClick = {()=>{showOrders()}}>
-                    <Typography className={classes.logout}>My orders</Typography>
+                    <Typography className={classes.logout}>My NFTs</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => { handleClose(); logout();}}>
                     <PowerSettingsNew fontSize='small' color='primary'/> 
