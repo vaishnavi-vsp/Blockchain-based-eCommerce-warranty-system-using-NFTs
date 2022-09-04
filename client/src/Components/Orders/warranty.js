@@ -177,26 +177,29 @@ const Warrantydetails = ({ match,contract,account }) => {
     setUser(event.target.value);
   };
 
-  const TransgerNFT = async(account) => {
+  const TransgerNFT = async(account,order) => {
     const current_user = localStorage.getItem("address");
     const send_wallet_address = user;
     const product_id = product._id;
-
+    console.log("This is the order while transferiing nft")
+    console.log(order)
     const send_data = {
       "order_id":match.params.id,
       "sender":send_wallet_address
     };
 
-    const resp = await axios.post(
-      `http://localhost:8000/transfer`,send_data
-    );
+    // const resp = await axios.post(
+    //   `http://localhost:8000/transfer`,send_data
+    // );
 
     //  Kamal's Function :- Trasnfer the NFT
     console.log("this is the function for transfering NFT")
-    console.log(resp)
+    // console.log(resp)
+    var ordered_at = order['ordered_at'].split("T")[0] + order['ordered_at'].split("T")[1].substring(0,5)
+    var warranty_period = order['warranty_period'].split("T")[0] + order['warranty_period'].split("T")[1].substring(0,5)
     console.log("this is the senders wallet address")
-    console.log(send_wallet_address)
-    await contract.transferNFT(send_wallet_address,1)
+    console.log(send_wallet_address,order['tokenID']+1,ordered_at,warrantyPeriod)
+    await contract.transferNFT(send_wallet_address,order['tokenID']+1)
     // End before calling Toast function, It redirects to myorders page after Timeout
     setOpenToast(true);
     
@@ -213,7 +216,8 @@ const Warrantydetails = ({ match,contract,account }) => {
           `http://localhost:8000/order/get/${match.params.id}`
         );
         const allValidUsers = await axios.get(`http://localhost:8000/user_address`);
-       
+       console.log("This is the response")
+       console.log(response)
         const new_options =[]
         for(let i=0;i<allValidUsers.data.length;i++){
           new_options.push({
@@ -296,7 +300,7 @@ const Warrantydetails = ({ match,contract,account }) => {
               <div className="display-wallet-address">
                 {user}
               </div>
-              <Button variant="contained" color="primary" style={{marginTop:'20px',margin:'auto',position:'absolute', top:'75%',left:'42%'}} onClick={()=>TransgerNFT(account)}>Send</Button>
+              <Button variant="contained" color="primary" style={{marginTop:'20px',margin:'auto',position:'absolute', top:'75%',left:'42%'}} onClick={()=>TransgerNFT(account,order)}>Send</Button>
               {openToast ?<>
                 <Typography component="h6" variant="h6" align="center" style={{marginTop:'100px', color:"green"}}>NFT Successfully Transfered!</Typography>
               </>:<></>}

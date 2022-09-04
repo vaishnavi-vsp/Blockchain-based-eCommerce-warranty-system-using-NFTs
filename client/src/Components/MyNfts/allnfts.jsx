@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { ethers } from 'ethers';
 import { useState } from 'react';
+import axios from 'axios';
 
 
 export const Allnfts = ({contract,provider,account}) => {
@@ -64,6 +65,42 @@ export const Allnfts = ({contract,provider,account}) => {
       }
       
     }))
+    var received = contract.filters.Transfer(null,account,null)
+    const results3 = await contract.queryFilter(received,block-1000)
+    console.log("this is the result of nfts sent to me")
+    console.log(results3)
+    const receivedIds = await Promise.all(results3.map(async i=>{
+      i=i.args
+      if(i['from']!='0x0000000000000000000000000000000000000000'){
+        const id = parseInt(i['tokenId']._hex,16)
+        return id
+      }
+      
+    }))
+    console.log(receivedIds)
+    for(var j=0;j<receivedIds.length;j++){
+      console.log(receivedIds[j],j)
+      if(receivedIds[j]){
+        const response = await axios.get(
+          `http://localhost:8000/order/token/${receivedIds[j]-1}`
+        );
+        
+        let order = response['data']['order']
+        let product = response['data']['product']
+        let purchasedItem = {
+          uri:order['nft_image'] ,
+          order_at:order['ordered_at'].split("T")[0] +" "+ order['ordered_at'].split("T")[1].substring(0,5),
+          expires_at:order['warranty_period'].split("T")[0] +" "+ order['warranty_period'].split("T")[1].substring(0,5),
+          product:product['shortTitle']
+        }
+        purchases.push(purchasedItem)
+      }
+      
+    }
+    
+    // console.log("this is the response")
+    // console.log(response)
+    
     console.log("These are the purchases")
     console.log(purchases)
     setPurchases(purchases)
