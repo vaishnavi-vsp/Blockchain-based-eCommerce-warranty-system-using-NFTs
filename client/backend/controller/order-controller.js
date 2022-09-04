@@ -3,7 +3,7 @@ import order from '../model/orderSchema.js';
 import user from '../model/userSchema.js';
 import moment from 'moment-timezone';
 import bcrypt from "bcrypt";
-
+import mongoose from 'mongoose';
 
 
 export const addOrder = async(req,res) =>{
@@ -30,7 +30,6 @@ export const addOrder = async(req,res) =>{
                     updated_nfts.push(product.nfts[i]);
                 }
             }
-            console.log(" NFT Alloted :",order_nft);
             // const newProduct = await Product.findByIdAndUpdate({_id:product_id},{  nfts:updated_nfts},{new:true});
             const waranty_period = product.warranty_period;
 
@@ -38,8 +37,7 @@ export const addOrder = async(req,res) =>{
             let times = waranty_period.time.split(":");
 
             var days_period = moment().add({days:waranty_period.days,months:waranty_period.months,years:waranty_period.years,hours:parseInt(times[0]),minutes:parseInt(times[1]),seconds:parseInt(times[2])}).utcOffset("+05:30").format();
-            console.log("Days Period :",days_period)
-
+  
             order1.nft_image = order_nft.url;
             order1.hash = order_nft.hash;
             order1.rare = JSON.parse(JSON.stringify(product.nfts[rndInt])).rare;
@@ -161,6 +159,23 @@ export const addTokenID = async(req,res) => {
         let updateOrder = await order.findByIdAndUpdate({_id:orderID},{tokenID:parseInt(tokenID)},{new:true});
         console.log("Updated Order :",updateOrder);
         return res.status(200).json({message: "Token ID Added"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:error.message});
+    }
+}
+
+export const DeleteOrder = async(req,res) => {
+    try {
+        const orders = await order.find({});
+        for (let i=0;i<orders.length;i++){
+            let id = orders[i]._id;
+            if(!mongoose.Types.ObjectId.isValid(id)){
+                return res.status(404).send(`No post with this id - ${id}`);
+            }
+            await order.findByIdAndRemove(id);
+        }      
+        res.json({ message: "Post deleted successfully." });
     } catch (error) {
         console.log(error);
         res.status(500).json({message:error.message});

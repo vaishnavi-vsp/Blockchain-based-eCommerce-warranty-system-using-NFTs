@@ -18,6 +18,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Web3Modal from "web3modal";
 import Web3 from "web3";
 import { useEffect,useState,useContext } from "react";
+import Typography from '@mui/material/Typography';
 import MarketplaceAddress from  './marketPlaceAddress.json'
 import MarketplaceAbi from './artifacts/contracts/dMarket.sol/dMarket.json'
 import { ethers } from "ethers"
@@ -117,6 +118,7 @@ function App() {
       {
         loading ? <Box sx={{ display: 'flex' }} style={{margin:'80px',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
         <CircularProgress />
+        <Typography component="h4" variant="h6" align="center" margin='10px'>Waiting for Metamask</Typography>
       </Box>:
         <ContextProvider>
         <BrowserRouter>

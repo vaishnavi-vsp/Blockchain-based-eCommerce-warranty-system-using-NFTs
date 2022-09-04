@@ -8,7 +8,6 @@ export const OrderSchema=mongoose.Schema({
     view_warranty: Boolean,
     nft_image:String,
     hash:String,
-    owner:String,
     transfers:Number,
     ordered_at: {
         type:Date,
