@@ -7,10 +7,14 @@ import './nftcss.css'
 export const NftCard = ({product,start,end,status,src}) => {
   return (
     <Card className='nohover'  style={{ width: '18rem' , display:'block',marginTop:'5rem',textAlign:'center',pointerEvents:'none'}}>
-        
-      <Card.Img style={{width:'10rem',borderRadius:'10px',marginBottom:"5px",textAlign: "center" }} variant="top" src={src} />
+      <div style={{height:'10rem'}}>
+        <Card.Img style={{width:'10rem',borderRadius:'10px',marginBottom:"5px",textAlign: "center" }} variant="top" src={src} />
+      </div>
       <Card.Body>
+        <div style={{height:"3rem"}}>
         <Card.Title style={{fontWeight:'bold',fontSize:'1rem'}}> {product} </Card.Title>
+        </div>
+        
         <hr className='style-six' />
         <Card.Text style={{textAlign:'left'}}>
             <p className='text-para'><strong>Order at: </strong>{start}</p>
