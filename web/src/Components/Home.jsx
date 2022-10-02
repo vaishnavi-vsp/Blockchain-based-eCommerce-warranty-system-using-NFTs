@@ -2,7 +2,7 @@ import { Box, makeStyles } from '@material-ui/core';
 import CircularProgress from '@mui/material/CircularProgress';
 import NavBar from './Home/NarBar';
 import Slide from './Home/Slide';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SliderHome from "./Slider";
 import  FlashDeals from '../Components/Home/subcomponents/flashDeals/FlashDeals'
 import TopCategory from '../Components/Home/subcomponents/top/TopCate';
@@ -10,6 +10,8 @@ import NewArrivals from '../Components/Home/subcomponents/newarrivals/NewArrival
 import Discount from '../Components/Home/subcomponents/discount/Discount'; 
 import "./Home.css";
 import axios from 'axios';
+import { LoginContext } from '../context/ContextProvider';
+
 
 
 const useStyle = makeStyles({
@@ -19,15 +21,19 @@ const useStyle = makeStyles({
     }
 })
 
-const Home = () => {
+const Home = ({account,initWeb32}) => {
     const classes = useStyle();
 
     const [dealsData, setdealsData] = useState(null);
     const [flashData, setflashData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const contxt = useContext(LoginContext)
 
     useEffect(() => {
         const getData = async () => {
+          // await initWeb32(contxt)
+          console.log("Context :",contxt)
+          console.log(account)
           try {
             const response = await axios.post(
               `http://localhost:8000/allProduct`,{"category":"DayDeals"}
@@ -37,6 +43,7 @@ const Home = () => {
             setflashData(flashresp.data);
             console.log(response.data);
             console.log(flashresp.data)
+            
           } catch (err) {
             setdealsData(null);
             setflashData(null);

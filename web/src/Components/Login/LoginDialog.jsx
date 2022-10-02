@@ -85,7 +85,8 @@ const signupInitialValues = {
     email: '',
     password: '',
     phone: '',
-    referralCode: ''
+    referralCode: '',
+    address:localStorage.getItem("address")
 };
 
 const accountInitialValues = {
@@ -127,7 +128,7 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
         else {
             showError(false);
             handleClose();
-            setAccount(response.data.username);
+            setAccount({account:response.data.username});
         }
     }
 
@@ -135,7 +136,7 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
         let response = await authenticateSignup(signup);
         if (!response) return;
         handleClose();
-        setAccount(signup.username);
+        setAccount({account:signup.username});
     }
 
     const toggleSignup = () => {

@@ -1,5 +1,5 @@
 async function main() {
-  const contract = await ethers.getContractFactory("Warranty");
+  const contract = await ethers.getContractFactory("dMarket");
   const dMarketContract = await contract.deploy();
   await dMarketContract.deployed();
   return dMarketContract;

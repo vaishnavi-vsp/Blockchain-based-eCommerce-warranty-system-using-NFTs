@@ -57,17 +57,20 @@ const data = {
 }
 
 
-const DetailView = ({ history, match }) => {
+const DetailView = ({ match ,contract}) => {
+
     const classes = useStyles();
     const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png'
     const [ product, setProduct ] = useState(data);
     const [ loading, setLoading ] = useState(true);
     const { id } = useParams();
 
-
+ 
     const dispatch = useDispatch();
     
     useEffect(() => {
+        // console.log("Contract from detailed view")
+        // console.log(contract)
         if(product && match.params.id !== product._id && product._id=='') 
             dispatch(getProductDetails(match.params.id));
     }, [dispatch, product, match, loading]);
@@ -90,7 +93,7 @@ const DetailView = ({ history, match }) => {
             { product && Object.keys(product).length &&
                 <Grid container className={classes.container}> 
                     <Grid item lg={4} md={4} sm={8} xs={12}>
-                        <ActionItem product={product} />
+                        <ActionItem contract={contract} product={product} />
                     </Grid>
                     <Grid item lg={8} md={8} sm={8} xs={12} className={classes.rightContainer}>
                         <Typography>{product.longTitle}</Typography>
@@ -103,7 +106,7 @@ const DetailView = ({ history, match }) => {
                             <span className={classes.greyTextColor}><strike>₹{product.mrp}</strike></span>&nbsp;&nbsp;&nbsp;
                             <span style={{color: '#388E3C'}}>{product.discount} off</span>
                         </Typography>
-                        <ProductDetail product={product} />
+                        <ProductDetail  product={product} />
                     </Grid>
                 </Grid>
             }   

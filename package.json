@@ -19,5 +19,8 @@
     "hardhat": "^2.6.4",
     "ipfs-http-client": "49.0.4",
     "web3": "^1.5.3"
+  },
+  "dependencies": {
+    "base64-sol": "^1.0.1"
   }
 }

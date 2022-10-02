@@ -21,6 +21,11 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import toast, { Toaster } from 'react-hot-toast';
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+
 import './style.css';
 import "./nprogress.css";
 
@@ -38,6 +43,12 @@ export default function AddProduct() {
     const [cat,setCat] = useState('');
     const [ details,setDetails] = useState('');
     const [radiovalue, setradioValue] = React.useState('soulbound');
+    const [year,setYear] = useState(1);
+    const [month,setMonth] = useState(0);
+    const [day, setDay] = useState(0);
+    const [time, setTime] = React.useState(dayjs());
+    const [transfer, setTransfer] = useState(0);
+    
 
     const handleRadioChange = (event) => {
         setradioValue(event.target.value);
@@ -78,10 +89,26 @@ export default function AddProduct() {
     const deatilsChangeHandler = (event) => {
         setDetails(event.target.value);
     };
+
+    const yearHandler = (event) => {
+        setYear(event.target.value);
+    };
     
+    const monthHandler = (event) => {
+        setMonth(event.target.value);
+    };
+
+    const dayHandler = (event) => {
+        setDay(event.target.value);
+    };
+
     const handleUpload = (event) => {
         setFile(event.target.value);
     };
+
+    const transferHandler = (event) => {
+        setTransfer(event.target.value)
+    }
 
     const formSubmitHandler = async (event) => {
         event.preventDefault();
@@ -96,16 +123,32 @@ export default function AddProduct() {
             "tagline":tag,
             "category":cat,
             "hasWarranty":checked,
-            "price":final_price,
+            "price":Math.floor(final_price),
             "cover":file,
-            "created_by":"62dd2b8111c9525364586018"
+            "created_by":"62dd2b8111c9525364586018",
+            "seller_name":JSON.parse(localStorage.getItem("user")).username,
+            "warranty_period":{
+                years:parseInt(year),
+                months:parseInt(month),
+                days:parseInt(day),
+                time:time.format('h:mm:ss')
+            }
         }
         if(checked){
             send_data['warranty_details'] = details;
         }else{
             send_data['warranty_details'] = null;
+            
         }
-     
+        if(radiovalue == "soulbound"){
+            send_data['soulbound'] = true
+            send_data['transfers'] = 0;
+        }
+        else {
+            send_data['soulbound']= false
+            send_data['transfers'] = 1;
+        }
+        console.log(send_data);
         const response = await axios.post(`http://localhost:8000/product`,send_data);
         if(response.data.success){
           console.log('success');
@@ -187,7 +230,7 @@ export default function AddProduct() {
                     </div>
                     <FormControlLabel control={<Checkbox checked={checked} onChange={handleCheckbox}/>} label="Product has warranty" className="textInput"/>
                     {checked?
-                    <div> 
+                    <div className="list_in_row"> 
                         <TextField id="filled-basic" required label="Warranty Details URL" variant="filled" className="textInput" onChange={deatilsChangeHandler}></TextField>
                         <FormControl className="textInput">
                         <FormLabel id="demo-row-radio-buttons-group-label">Type of Warranty</FormLabel>
@@ -204,12 +247,37 @@ export default function AddProduct() {
                             
                         </RadioGroup>
                         </FormControl>
+                        <div style={{margin:'1em',width:'100%'}}>
+                        <InputLabel id="demo-simple-select-label" style={{marginBottom:'5px'}}>Expiry Date</InputLabel>
+                        <FormControl className="list_in_row" style={{display:'block',marginBottom:'12px'}}>
+                        <TextField id="filled-basic" required label="Years" variant="outlined" style={{margin:'6px',marginLeft:'0'}} onChange={yearHandler}></TextField>
+                        <TextField id="filled-basic" required label="Months" variant="outlined" style={{margin:'6px'}} onChange={monthHandler}></TextField>
+                        <TextField id="filled-basic" required label="Days" variant="outlined" style={{margin:'6px'}} onChange={dayHandler}></TextField>
+                        </FormControl>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} >
+                            <TimePicker 
+                                ampm={false}
+                                openTo="hours"
+                                views={['hours', 'minutes', 'seconds']}
+                                inputFormat="HH:mm:ss"
+                                mask="__:__:__"
+                                label="Time"
+                                value={time}
+                                onChange={(newValue) => {
+                                    setTime(newValue);
+                                }}
+                                renderInput={(params) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>
+                        
+                        </div>
+                        
                         {radiovalue=="soulbound" ?<>
                         <TextField id="filled-basic" disabled label="Number of Transfer" variant="filled" className="textInput" defaultValue="0"></TextField>
                         </>:<>
-                        <TextField id="filled-basic" required label="Number of Transfer" variant="filled" className="textInput" defaultValue="0"></TextField>
+                        <TextField id="filled-basic" disabled label="Number of Transfer" variant="filled" className="textInput" defaultValue="1" onChange={transferHandler}></TextField>
                         </>}
-                        </div>
+                    </div>
                         :
                         <></>
                     }

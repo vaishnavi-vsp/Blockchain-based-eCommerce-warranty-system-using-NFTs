@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.4.4",
     "@mui/styled-engine-sc": "^5.4.2",
+    "@mui/x-date-pickers": "^5.0.0-beta.7",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
@@ -24,6 +25,8 @@
     "chart.js": "^3.8.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.29.1",
+    "dayjs": "^1.11.5",
+    "ethers": "^5.7.0",
     "nprogress": "^0.2.0",
     "perfect-scrollbar": "1.5.1",
     "react": "^17.0.2",
@@ -45,7 +48,9 @@
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "web3": "^1.7.5",
+    "web3modal": "^1.9.8"
   },
   "scripts": {
     "start": "react-scripts start",

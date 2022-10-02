@@ -1,5 +1,6 @@
 import { Card, makeStyles, Box, Typography, Button } from '@material-ui/core';
 import clsx from 'clsx';
+import { format } from 'date-fns'
 import { Link } from "react-router-dom";
 
 const useStyle = makeStyles({
@@ -46,7 +47,7 @@ const useStyle = makeStyles({
 const CartItem = ({item}) => {
     const classes = useStyle();
     const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png';
-    const order_id = item.order._id;
+    console.log(item);
     return (
         <Card className={classes.component}>
             <Box className={classes.leftComponent}>
@@ -54,8 +55,8 @@ const CartItem = ({item}) => {
             </Box>
             <Box className={classes.mid}>
                 <Typography>{item.longTitle}</Typography>
-                <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Brought on : {}</Typography>
-                <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Seller:RetailNet
+                <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Brought on : {format(new Date(item.order.ordered_at), 'yyyy/MM/dd kk:mm:ss')}</Typography>
+                <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Seller: {item.order.sold_by}
                     <span><img src={fassured} style={{ width: 50, marginLeft: 10 }} alt="" /></span>
                 </Typography>
                 <Typography style={{margin: '20px 0'}}>
@@ -63,7 +64,10 @@ const CartItem = ({item}) => {
                     <span className={classes.greyTextColor}><strike>₹{item.mrp}</strike></span>&nbsp;&nbsp;&nbsp;
                     <span style={{ color: '#388E3C' }}>{item.discount} off</span>
                 </Typography>
-                <Link to={`/warranty/${item.order._id}`}> <Button className={classes.remove} >View Warranty Card</Button></Link>
+                {item.order.view_warranty ? <>
+                    <Link to={`/warranty/${item.order._id}`}> <Button className={classes.remove} >View Warranty Card</Button></Link>
+                </>:<></>}
+                
             </Box>
         </Card>
     )

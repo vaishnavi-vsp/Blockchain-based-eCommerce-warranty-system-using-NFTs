@@ -58,7 +58,9 @@ const CustomButtons = () => {
     const classes = useStyle();
     const [ open, setOpen ] = useState(false);
     const { account, setAccount } = useContext(LoginContext);
-
+    console.log("This is the current account")
+    console.log("In header ",account)
+    
     const cartDetails = useSelector(state => state.cart);
     const { cartItems } = cartDetails;
 
@@ -69,10 +71,8 @@ const CustomButtons = () => {
     return (
         <Box className={classes.wrapper} >
             {
-                account ? <Profile account={account} setAccount={setAccount} /> : 
-                <Link>
+                account.account ? <Profile account={account.account} setAccount={setAccount} /> : 
                     <Button className={classes.login} variant="contained" onClick={() => openDialog() }>Login</Button>
-                </Link>
             }
             
             { (JSON.parse(localStorage.getItem("user")) !=null) ? <>
@@ -90,9 +90,10 @@ const CustomButtons = () => {
                 </Badge>
             </Link>
             </>:<>
-            <Link >
-                <Typography style={{ marginTop: 2 }}>More</Typography>
+            <Link to="/myorders">
+            <Typography style={{ marginTop: 2 }}>Orders</Typography>
             </Link>
+            
             <Link to='/cart' className={classes.container}>
                 <Badge badgeContent={cartItems?.length} color="secondary">
                     <ShoppingCart />

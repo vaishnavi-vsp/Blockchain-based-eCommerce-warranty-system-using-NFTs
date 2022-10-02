@@ -3,9 +3,17 @@ import { format } from 'date-fns'
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import SendIcon from '@mui/icons-material/Send';
+import Modal from '@material-ui/core/Modal';
 import './style.css';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import toast, { Toaster } from 'react-hot-toast';
 
 const useStyle = makeStyles({
   component: {
@@ -24,7 +32,14 @@ const useStyle = makeStyles({
     marginTop: 0,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    padding: '20px 50px'
+  },
+  transferWarranty: {
+    borderTop: '1px solid #f0f0f0',
+    borderRadius: 0,
+    margin: 80,
+    marginTop: 0,
+    marginBottom:20,
     padding: '20px 50px'
   },
   leftComponent: {
@@ -90,7 +105,7 @@ const useStyle = makeStyles({
     overflowX: 'scroll',
     fontFamily: 'Monospace',
     marginBottom: '10px',
-
+    marginRight:'20px'
   },
   warrantyStatus: {
     fontWeight: 450,
@@ -123,12 +138,23 @@ const useStyle = makeStyles({
     textAlign: 'center',
     width: '-webkit-fill-available',
     height: 500,
+  },
+  button: {
+    width: '46%',
+    borderRadius: 2,
+    height: 50
+  },
+  buyNow:{
+      background: '#c9184a',
+      color: '#FFF'
   }
 });
 
-const Warrantydetails = ({ match }) => {
+const Warrantydetails = ({ match,contract,account }) => {
 
   const classes = useStyle();
+  console.log("contract from warranty details")
+  console.log(contract)
   const [order, setOrder] = useState();
   const [issue, SetIssue] = useState();
   const [product, SetProduct] = useState();
@@ -136,13 +162,71 @@ const Warrantydetails = ({ match }) => {
   const [date, SetDate] = useState();
   const [warrantyPeriod, SetwarrantyPeriod] = useState();
   const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png';
+  const [open, setOpen] = React.useState(false);
+  const [openToast,setOpenToast] = useState(false);
+  const handleOpen = () => {
+      setOpen(true);
+  };
+  const handleClose = () => {
+      setOpen(false);
+  };
+
+  const [user, setUser] = useState();
+  const [options,setOptions] = useState([])
+  const handleChange = (event) => {
+    setUser(event.target.value);
+  };
+
+  const TransgerNFT = async(account,order) => {
+    const current_user = localStorage.getItem("address");
+    const send_wallet_address = user;
+    const product_id = product._id;
+    console.log("This is the order while transferiing nft")
+    console.log(order)
+    const send_data = {
+      "order_id":match.params.id,
+      "sender":send_wallet_address
+    };
+
+    // const resp = await axios.post(
+    //   `http://localhost:8000/transfer`,send_data
+    // );
+
+    //  Kamal's Function :- Trasnfer the NFT
+    console.log("this is the function for transfering NFT")
+    // console.log(resp)
+    var ordered_at = order['ordered_at'].split("T")[0] + order['ordered_at'].split("T")[1].substring(0,5)
+    var warranty_period = order['warranty_period'].split("T")[0] + order['warranty_period'].split("T")[1].substring(0,5)
+    console.log("this is the senders wallet address")
+    console.log(send_wallet_address,order['tokenID']+1,ordered_at,warrantyPeriod)
+    await contract.transferNFT(send_wallet_address,order['tokenID']+1)
+    // End before calling Toast function, It redirects to myorders page after Timeout
+    setOpenToast(true);
+    
+    // setTimeout(() => {
+    //   window.location.href="/myorders"
+    // }, 1000)
+
+  }
+
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await axios.get(
           `http://localhost:8000/order/get/${match.params.id}`
         );
-        console.log(response)
+        const allValidUsers = await axios.get(`http://localhost:8000/user_address`);
+       console.log("This is the response")
+       console.log(response)
+        const new_options =[]
+        for(let i=0;i<allValidUsers.data.length;i++){
+          new_options.push({
+            'value' :allValidUsers.data[i].wallet_address,
+            'label' :allValidUsers.data[i].username
+          })
+          
+        }
+        setOptions(new_options);
         SetDate(format(new Date(response.data.order.ordered_at), 'yyyy/MM/dd kk:mm:ss'));
         SetwarrantyPeriod(format(new Date(response.data.order.warranty_period), 'yyyy/MM/dd kk:mm:ss'))
         setOrder(response.data.order);
@@ -174,7 +258,7 @@ const Warrantydetails = ({ match }) => {
               <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ margin: '30px 0' }}>Serial Number: <span>{order._id}</span></Typography>
               <Typography className={classes.mainTitle}>{product.shortTitle}</Typography>
               <Typography >{product.longTitle}</Typography>
-              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Seller:RetailNet
+              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ marginTop: 10 }}>Seller:{product.sold_by}
                 <span><img src={fassured} style={{ width: 50, marginLeft: 10 }} alt="" /></span>
               </Typography>
               <Typography style={{ margin: '20px 0' }}>
@@ -184,40 +268,94 @@ const Warrantydetails = ({ match }) => {
               </Typography>
             </Box>
             <Box className={classes.nft_component}>
-              <Typography style={{ textAlign: 'center' }} style={{ marginTop: '30px' }}>Your NFT </Typography>
-              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ margin: '30px 0', fontFamily: 'Monospace', display: 'flex', width: 320 }}>Hash : &nbsp;<div className={classes.hash_value}>{order.nft_image}</div></Typography>
-              <img src={`https://ipfs.infura.io/ipfs/${order.nft_image}`} className={classes.nft_image} alt="" />
+              <Typography style={{ textAlign: 'center', marginTop: '30px' }}> Your NFT </Typography>
+              <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{ margin: '30px 0', fontFamily: 'Monospace', display: 'flex', width: 320 }}>Hash : &nbsp;<div className={classes.hash_value}>{order.hash}</div></Typography>
+              <img src={order.nft_image} className={classes.nft_image} alt="" />
               {order.rare ? <> <button className='nft-button'>Rare NFT</button></> : <></>}
 
             </Box>
-
           </Card>
+
+          {/* Modal */}
+          <Modal
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={open}
+                onClose={handleClose}
+            >
+                <div className="NFT-transfer-modal" >
+                <Typography component="h4" variant="h6" align="center" style={{margin:'15px'}}>Transfer NFT</Typography>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Sender User Name</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Sender Wallet Address"
+                    onChange={handleChange}
+                  >
+                    {options.map(({ value, label }, index) => <MenuItem value={value} >{label}</MenuItem>)}
+                  </Select>
+              </FormControl>
+              <InputLabel style={{marginTop:'15px',marginBottom:'5px'}}>Wallet Address</InputLabel>
+              <div className="display-wallet-address">
+                {user}
+              </div>
+              <Button variant="contained" color="primary" style={{marginTop:'20px',margin:'auto',position:'absolute', top:'75%',left:'42%'}} onClick={()=>TransgerNFT(account,order)}>Send</Button>
+              {openToast ?<>
+                <Typography component="h6" variant="h6" align="center" style={{marginTop:'100px', color:"green"}}>NFT Successfully Transfered!</Typography>
+              </>:<></>}
+              
+              </div>
+          </Modal>
+         
           <Card className={classes.purchasingHistory}>
             <div>
+              
               <Typography className={classes.mainTitle} style={{ marginBottom: 30 }}>Purchasing Details</Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Order Number: <span style={{ fontWeight: 450, color: '#878787' }}>{order._id}</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Ordered at: <span style={{ fontWeight: 450, color: '#878787' }}>{date}</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Issuer Name: <span style={{ fontWeight: 450, color: '#878787' }}>{issue.firstname}  {issue.lastname}</span></Typography>
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Issuer EmailID: <span style={{ fontWeight: 450, color: '#878787' }}>{issue.email}</span></Typography>
+              {order.status == 'EXPIRED'? <>
+                <Button disabled onClick={handleOpen} className={clsx(classes.button, classes.buyNow)} variant="contained"><SendIcon style={{marginRight:'5px'}}/>Transfer</Button>
+                <Typography className="WarrantyError">The warranty has Expired</Typography>
+              </> : <>
+                {product.soulbound ? <>
+                  <Button disabled onClick={handleOpen} className={clsx(classes.button, classes.buyNow)} variant="contained"><SendIcon style={{marginRight:'5px'}}/>Transfer</Button>
+                  <Typography className="WarrantyError">The warranty is Soulbound.It cannot be transferred</Typography>
+                </>:<>
+                  <Button onClick={handleOpen} className={clsx(classes.button, classes.buyNow)} variant="contained"><SendIcon style={{marginRight:'5px'}}/>Transfer</Button>
+                </>}
+                
+              </>}
+              
             </div>
             <div>
               <Typography className={classes.mainTitle} style={{ marginBottom: 30 }}>Warranty Card</Typography>
+              
               {order.status == 'ACTIVE' ? <>
                 <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warrant Status: <span className={classes.warrantyStatus}>ACTIVE</span></Typography>
               </> : <>
-                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warrant Status: <span className={classes.warrantyStatus}>ACTIVE</span></Typography>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warrant Status: <span className={classes.warrantyStatusRed}>EXPIRED</span></Typography>
                 
               </>}
 
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warranty period: <span style={{ fontWeight: 450, color: '#878787' }}>{warrantyPeriod}</span></Typography>
-              <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Number of transfers: <span style={{ fontWeight: 450, color: '#878787' }}>{product.transfers}</span></Typography>
+              {product.soulbound ? <>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Type of Warranty: <span style={{ fontWeight: 450, color: '#878787' }}>Soulbound</span></Typography>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Number of transfers: <span style={{ fontWeight: 450, color: '#878787' }}>0</span></Typography>
+                </>:<>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Type of Warranty: <span style={{ fontWeight: 450, color: '#878787' }}>Transferrable</span></Typography>
+                <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Number of transfers: <span style={{ fontWeight: 450, color: '#878787' }}>{order.transfers}</span></Typography>
+              </>}
+             
               <Typography className={clsx(classes.purchasingText)} style={{ margin: '20px 0', fontWeight: 600, color: 'rgb(56 54 54 / 87%)' }}>Warranty details: <Link to={`${product.warranty_details}`} style={{ fontWeight: 450, color: 'blue' }}>{product.warranty_details.substring(0, 25)}</Link></Typography>
             </div>
 
           </Card>
           <Card className={classes.warrantyDeatils}>
             <Typography className={classes.mainTitle} style={{ marginBottom: 30 }}>The complete warranty details :</Typography>
-            <iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://sss6.sendbig.com/api/Files/download/5368414/02b0a8d3-8d18-5edd-c81f-d5fdad956d12/0" title="warranty details" className={classes.pdf_frame}></iframe>
+            <iframe src="https://coral-lenette-86.tiiny.site/" title="warranty details" className={classes.pdf_frame}></iframe>
           </Card>
         </>
       }

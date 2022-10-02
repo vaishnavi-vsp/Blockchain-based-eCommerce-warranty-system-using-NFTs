@@ -5,7 +5,7 @@ import { Leaderboard } from '../../assets/leaderboard';
 export default function Board() {
 
     const [period, setPeriod] = useState(0);
-
+    const user = JSON.parse(localStorage.getItem('user'));
     const handleClick = (e) => {
 
         setPeriod(e.target.dataset.id)

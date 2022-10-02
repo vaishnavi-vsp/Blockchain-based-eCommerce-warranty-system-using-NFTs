@@ -112,6 +112,7 @@ The web application can be viewed at http://localhost:3000/
 You can watch the project demonstration video uploaded <a href="https://drive.google.com/file/d/17yCQ-Ldqeu5kGN5Rtmpw3yPakunkQ2IT/view?usp=sharing">here</a>
 
 ### Team Members 
-1. <a href="https://github.com/vaishnavi-vsp">Vaishanvi Patil</a>
-2. <a href="https://github.com/KrutikaBhatt">Krutika Bhatt </a>
-3. <a href="https://github.com/kamalrohra"> Kamal Rohra </a>
+1. <a href="https://github.com/KrutikaBhatt">Krutika Bhatt </a>
+2. <a href="https://github.com/kamalrohra"> Kamal Rohra </a>
+3. <a href="https://github.com/vaishnavi-vsp">Vaishanvi Patil</a>
+

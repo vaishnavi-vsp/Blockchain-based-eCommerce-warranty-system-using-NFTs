@@ -23,7 +23,7 @@ const useStyle = makeStyles({
     }
 });
 
-const ProductDetail = ({ product }) => {
+const ProductDetail = ({ product}) => {
     const classes = useStyle();
     const adURL = 'https://rukminim1.flixcart.com/lockin/774/185/images/CCO__PP_2019-07-14.png?q=50';
     const date = new Date(new Date().getTime()+(5*24*60*60*1000));
@@ -43,14 +43,35 @@ const ProductDetail = ({ product }) => {
                         <TableCell className={classes.greyTextColor}>Delivery</TableCell>
                         <TableCell style={{ fontWeight: 600 }}>Delivery by {date.toDateString()} | ₹40</TableCell>
                     </TableRow>
+                
                     <TableRow className={classes.smallText}>
                         <TableCell className={classes.greyTextColor}>Warranty</TableCell>
-                        <TableCell>No Warranty</TableCell>
+                        {product.hasWarranty?<>
+                            <TableCell>{product.warranty_period.years} Years, {product.warranty_period.months} Months, {product.warranty_period.time}</TableCell>
+                        </>:<>
+                            <TableCell>No Warranty</TableCell>
+                        </>}
+                        
+                    </TableRow>
+
+                    {product.hasWarranty?<>
+                    <TableRow className={classes.smallText}>
+                        <TableCell className={classes.greyTextColor}>Type</TableCell>
+                        {product.soulbound?<>
+                            <TableCell><span  style={{ fontWeight: 600 }}>Soulbound </span>Non-Transferable</TableCell>
+                        </>:<>
+                        <TableCell><span  style={{ fontWeight: 600 }}>Transferable </span>Number of Transfers :{product.transfers}</TableCell>
+                        </>}
+                    </TableRow>
+                    </>:<></>}
+                    <TableRow className={classes.smallText}>
+                        <TableCell className={classes.greyTextColor}>Redeem </TableCell>
+                        <TableCell style={{ fontWeight: 600 }}>Get added discount of 5% with 200 Points</TableCell>
                     </TableRow>
                     <TableRow className={classes.smallText}>
                         <TableCell className={classes.greyTextColor}>Seller</TableCell>
                         <TableCell className={classes.smallText}>
-                            <span style={{ color: '#2874f0' }}>SuperComNet</span>
+                            <span style={{ color: '#2874f0' }}>{product.seller_name}</span>
                             <Typography>GST invoice available</Typography>
                             <Typography>View more sellers starting from ₹329</Typography>
                         </TableCell>
