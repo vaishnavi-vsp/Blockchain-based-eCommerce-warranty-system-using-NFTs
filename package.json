@@ -1,7 +1,7 @@
 {
-  "name": "hardhat-boilerplate",
+  "name": "bitlords-flipkart",
   "version": "1.0.0",
-  "description": "hardhat and ethersjs boilerplate for ethereum development",
+  "description": "blockchain based warranty system for Ecommerce",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
