@@ -80,31 +80,38 @@ A user of this smart contract can query the blockchain for the warranty NFTs und
 * Usage of SoulBound NFT
 * Adding any engagement/gamification construct to the loyalty program 
 * Warranty card is sent to user's mobile via SMS (twilio) and Email Address (Nodemailer)
+
+### Setup the Metamask and Polygon RPC
+##### The Smart Contracts are deployed on Polygon Matic
+1. Install metamask extension from <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"> here</a>
+2. Setup your RPC Network
+
+<img src="https://i.postimg.cc/N0CPS74v/Whats-App-Image-2022-10-03-at-22-51-55.jpg" width="40%"/>
+3. Add this RPC URL to your network - https://polygon-mumbai.g.alchemy.com/v2/Lya1zODZhjVryus4ZdFvXo2nxNee-4eq
+
 ### Installation Steps:
+##### You need to clone the code file using github or download the zip folder from github desktop
 
-1. Compile and deploy contract
-
-```shell
-npm install
-npx hardhat node
-npx hardhat compile
-npx hardhat deploy (or) npx hardhat run scripts/deployContract.js --network polygonTest
-npx hardhat test
-```
-2. Copy deployed contract address and replace contract address in ```client/src/blockchain.js``` with newly deployed address and then run react app in ```client``` directory
 
 ```shell
-cd client
-npm install
-npm start
+git clone https://github.com/vaishnavi-vsp/Blockchain-based-eCommerce-warranty-system-using-NFTs
+cd Blockchain-based-eCommerce-warranty-system-using-NFTs
 ```
 
-2. Start the React Frontend
-
+1. Configure using setup.bat
+Open your terminal/Command Prompt and run the following file
 ```shell
-cd web
-npm install
-npm start 
+setup.bat
+
+  OR
+  
+Click on the setup.bat file
+```
+
+
+2. Using Node commands
+```shell
+npm install && npm run clientinstall && npm run serverinstall && npm run dev
 ```
 The web application can be viewed at http://localhost:3000/
 
