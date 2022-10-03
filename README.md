@@ -80,8 +80,19 @@ A user of this smart contract can query the blockchain for the warranty NFTs und
 * Usage of SoulBound NFT
 * Adding any engagement/gamification construct to the loyalty program 
 * Warranty card is sent to user's mobile via SMS (twilio) and Email Address (Nodemailer)
+
+### Setup the Metamask and Polygon RPC
+##### The Smart Contracts are deployed on Polygon Matic
+1. Install metamask extension from <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"> here</a>
+2. Setup your RPC Network
+
+<img src="https://i.postimg.cc/N0CPS74v/Whats-App-Image-2022-10-03-at-22-51-55.jpg" width="40%"/>
+3. Add this RPC URL to your network - https://polygon-mumbai.g.alchemy.com/v2/Lya1zODZhjVryus4ZdFvXo2nxNee-4eq
+
 ### Installation Steps:
-You need to clone the code file using github or download the zip folder from github desktop
+##### You need to clone the code file using github or download the zip folder from github desktop
+
+
 ```shell
 git clone https://github.com/vaishnavi-vsp/Blockchain-based-eCommerce-warranty-system-using-NFTs
 cd Blockchain-based-eCommerce-warranty-system-using-NFTs
@@ -91,8 +102,12 @@ cd Blockchain-based-eCommerce-warranty-system-using-NFTs
 Open your terminal/Command Prompt and run the following file
 ```shell
 setup.bat
+
+  OR
+  
+Click on the setup.bat file
 ```
-OR ELSE, just click on the setup.bat for installations and starting the server
+
 
 2. Using Node commands
 ```shell
