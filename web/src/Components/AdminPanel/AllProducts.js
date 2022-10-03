@@ -5,10 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { textAlign } from "@mui/system";
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Box, makeStyles } from '@material-ui/core';
+import { Box} from '@material-ui/core';
 import Grid from '@mui/material/Grid';
 
 export default function AllProducts() {
@@ -23,7 +22,6 @@ export default function AllProducts() {
             );
             
             setData(response.data.data);
-            console.log(response.data);
           } catch (err) {
             setData(null);
            

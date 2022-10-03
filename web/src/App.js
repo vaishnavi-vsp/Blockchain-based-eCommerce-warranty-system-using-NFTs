@@ -17,15 +17,13 @@ import { Box } from "@material-ui/core";
 import CircularProgress from '@mui/material/CircularProgress';
 import Web3Modal from "web3modal";
 import Web3 from "web3";
-import { useEffect,useState,useContext } from "react";
+import { useEffect,useState} from "react";
 import Typography from '@mui/material/Typography';
 import MarketplaceAddress from  './marketPlaceAddress.json'
 import MarketplaceAbi from './artifacts/contracts/dMarket.sol/dMarket.json'
 import { ethers } from "ethers"
 import AuthRoute from './service/authRoute.js'
 import { Allnfts } from "./Components/MyNfts/allnfts";
-import { NftCard } from "./Components/MyNfts/nftcard";
-
 function App() {
   const [account123, setAccount] = useState(null)
   const [contract,setContract] = useState(null)
@@ -52,19 +50,13 @@ function App() {
   };
 
   const initWeb32 = async()=>{
-    
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       setAccount(accounts[0])
-      console.log("These are the accounts")
-      console.log("Account :",account123)
-      
       
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       setProvider(provider)
       let balance = ethers.utils.formatEther((await provider.getBalance(accounts[0])))
       let network = (await provider.getNetwork()).name 
-      console.log("This is the block number")
-      console.log(await provider.getBlockNumber())
       const block = await provider.getBlockNumber()
       const signer = provider.getSigner()
       localStorage.setItem("address",accounts[0]);
@@ -80,37 +72,16 @@ function App() {
       })
 
       await loadContracts(signer,accounts[0],block)
-   
-
   }
 
   const loadContracts = async(signer,account,block)=>{
     
     const marketplace = new ethers.Contract(MarketplaceAddress.address,MarketplaceAbi.abi,signer)
-    console.log(marketplace)
-    // console.log("This is the acount being passed")
-    // console.log(account)
-    // if(context && !context.account.marketplace){
-    //   context.updateMarketplace(marketplace)
-    //   console.log("Update marketplace ran")
-    // }
-    
-   
-    // var data = marketplace.filters.CreateNFT(null,null,account,null)
-    // const results = await marketplace.queryFilter(data,block-1000)
-    console.log("This is the data we are printing")
-    // console.log(results)
     setContract(marketplace)
     setLoading(false)
-    console.log("Loading set to false")
   }
   useEffect(() => {
-    
-  // console.log("This is the context")
-  // console.log(context)
-  
     initWeb32();
-    console.log("Ended with use effect")
   }, []);
 
   return (
@@ -127,9 +98,7 @@ function App() {
             <Switch>
               <Route exact path="/" render={() => (<Home account={account123} contract={contract} initWeb32={initWeb32} />)}  />
               <Route exact path="/cart" component={Cart} />
-              {/* <Route exact path= '/product/:id' component={Product} /> */}
               <Route exact path="/product/:id" render={({match}) => (<DetailView match={match} contract={contract} />  )} />
-              {/* <Route exact path="/product/:id"  component={DetailView} /> */}
               <Route exact path="/leaderboard" component={LeaderBoard} />
               <AuthRoute exact path="/challengeboard" component={ChallengeBoard} />
               <AuthRoute exact path="/myprofile" component={MyProfile} />

@@ -161,6 +161,7 @@ export default function AddProduct() {
           toast.success('Product Listed successfully!')
         }else{
           console.log('error');
+          console.log(transfer)
         }
     };
 
