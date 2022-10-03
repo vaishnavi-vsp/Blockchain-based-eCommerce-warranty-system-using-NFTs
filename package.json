@@ -4,7 +4,13 @@
   "description": "hardhat and ethersjs boilerplate for ethereum development",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd web && npm start",
+    "server": "cd web/support && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "clientinstall": "cd web && npm install",
+    "serverinstall": "cd web/support && npm install",
+    "start": "npm install && npm run clientinstall && npm run serverinstall && npm run dev"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +23,7 @@
     "chai": "^4.3.4",
     "ethers": "^5.4.7",
     "hardhat": "^2.6.4",
+    "concurrently": "^7.4.0",
     "ipfs-http-client": "49.0.4",
     "web3": "^1.5.3"
   },
