@@ -81,30 +81,22 @@ A user of this smart contract can query the blockchain for the warranty NFTs und
 * Adding any engagement/gamification construct to the loyalty program 
 * Warranty card is sent to user's mobile via SMS (twilio) and Email Address (Nodemailer)
 ### Installation Steps:
-
-1. Compile and deploy contract
-
+You need to clone the code file using github or download the zip folder from github desktop
 ```shell
-npm install
-npx hardhat node
-npx hardhat compile
-npx hardhat deploy (or) npx hardhat run scripts/deployContract.js --network polygonTest
-npx hardhat test
-```
-2. Copy deployed contract address and replace contract address in ```client/src/blockchain.js``` with newly deployed address and then run react app in ```client``` directory
-
-```shell
-cd client
-npm install
-npm start
+git clone https://github.com/vaishnavi-vsp/Blockchain-based-eCommerce-warranty-system-using-NFTs
+cd Blockchain-based-eCommerce-warranty-system-using-NFTs
 ```
 
-2. Start the React Frontend
-
+1. Configure using setup.bat
+Open your terminal/Command Prompt and run the following file
 ```shell
-cd web
-npm install
-npm start 
+setup.bat
+```
+OR ELSE, just click on the setup.bat for installations and starting the server
+
+2. Using Node commands
+```shell
+npm install && npm run clientinstall && npm run serverinstall && npm run dev
 ```
 The web application can be viewed at http://localhost:3000/
 
