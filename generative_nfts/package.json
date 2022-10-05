@@ -20,15 +20,19 @@
     "update_info": "node utils/update_info.js",
     "preview_gif": "node utils/preview_gif.js",
     "generate_metadata": "node utils/generate_metadata.js",
-    "upload": "node ipfs-upload.js"
+    "upload": "node ipfs-upload.js",
+    "generate_logo": "node utils/logo.js"
   },
   "author": "Krutika Bhatt",
   "license": "MIT",
   "dependencies": {
+    "canny-edge-detector": "^1.0.0",
     "canvas": "^2.8.0",
     "express": "^4.18.1",
     "fs": "0.0.1-security",
     "gif-encoder-2": "^1.0.5",
+    "gm": "^1.25.0",
+    "images": "^3.2.4",
     "ipfs-api": "^26.1.2",
     "remove.bg": "^1.3.0",
     "sha1": "^1.1.1"

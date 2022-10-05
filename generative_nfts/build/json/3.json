@@ -2,17 +2,17 @@
   "name": "Your Collection #3",
   "description": "Remember to replace this description",
   "image": "ipfs://NewUriToReplace/3.png",
-  "dna": "9f674bb33216aa3947071fadd4ddb4086eb30cee",
+  "dna": "0d9de62938b2b31c822099f85d27167952d6f19c",
   "edition": 3,
-  "date": 1661701222374,
+  "date": 1664954308247,
   "attributes": [
     {
       "trait_type": "backgroundcopy",
-      "value": "13"
+      "value": "11"
     },
     {
       "trait_type": "base",
-      "value": "img1"
+      "value": "img"
     }
   ],
   "compiler": "HashLips Art Engine"

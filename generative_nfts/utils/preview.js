@@ -2,7 +2,7 @@ const basePath = process.cwd();
 const fs = require("fs");
 const { createCanvas, loadImage } = require("canvas");
 const buildDir = `${basePath}/build`;
-
+var gm = require('gm');
 const { preview } = require(`${basePath}/src/config.js`);
 
 // read json data

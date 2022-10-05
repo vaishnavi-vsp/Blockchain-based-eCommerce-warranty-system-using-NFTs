@@ -3,9 +3,9 @@
     "name": "Your Collection #1",
     "description": "Remember to replace this description",
     "image": "ipfs://NewUriToReplace/1.png",
-    "dna": "9b322770ed76aa35c64bd715d677eb05c582b17a",
+    "dna": "125ba24bcbba66ce840d247751cdad2763006c57",
     "edition": 1,
-    "date": 1661701221698,
+    "date": 1664954306894,
     "attributes": [
       {
         "trait_type": "backgroundcopy",
@@ -13,7 +13,7 @@
       },
       {
         "trait_type": "base",
-        "value": "img"
+        "value": "img2"
       }
     ],
     "compiler": "HashLips Art Engine"
@@ -22,13 +22,13 @@
     "name": "Your Collection #2",
     "description": "Remember to replace this description",
     "image": "ipfs://NewUriToReplace/2.png",
-    "dna": "b898e82648a81a1ddd420e1cb2ca5b86c3d8be85",
+    "dna": "015e40208791ae9f7fd927314e5ce889adf9adc8",
     "edition": 2,
-    "date": 1661701222001,
+    "date": 1664954307301,
     "attributes": [
       {
         "trait_type": "backgroundcopy",
-        "value": "13"
+        "value": "10"
       },
       {
         "trait_type": "base",
@@ -41,32 +41,13 @@
     "name": "Your Collection #3",
     "description": "Remember to replace this description",
     "image": "ipfs://NewUriToReplace/3.png",
-    "dna": "9f674bb33216aa3947071fadd4ddb4086eb30cee",
+    "dna": "0d9de62938b2b31c822099f85d27167952d6f19c",
     "edition": 3,
-    "date": 1661701222374,
+    "date": 1664954308247,
     "attributes": [
       {
         "trait_type": "backgroundcopy",
-        "value": "13"
-      },
-      {
-        "trait_type": "base",
-        "value": "img1"
-      }
-    ],
-    "compiler": "HashLips Art Engine"
-  },
-  {
-    "name": "Your Collection #4",
-    "description": "Remember to replace this description",
-    "image": "ipfs://NewUriToReplace/4.png",
-    "dna": "f35767b6925abe2ce7985d241f508138a128dbba",
-    "edition": 4,
-    "date": 1661701222915,
-    "attributes": [
-      {
-        "trait_type": "backgroundcopy",
-        "value": "4"
+        "value": "11"
       },
       {
         "trait_type": "base",
@@ -76,20 +57,39 @@
     "compiler": "HashLips Art Engine"
   },
   {
-    "name": "Your Collection #5",
+    "name": "Your Collection #4",
     "description": "Remember to replace this description",
-    "image": "ipfs://NewUriToReplace/5.png",
-    "dna": "6cd57bf7949bdb61f720b406d8d57da12b6f1037",
-    "edition": 5,
-    "date": 1661701223451,
+    "image": "ipfs://NewUriToReplace/4.png",
+    "dna": "5b63edda4ab528359b434652697c1f2777744068",
+    "edition": 4,
+    "date": 1664954309189,
     "attributes": [
       {
         "trait_type": "backgroundcopy",
-        "value": "9"
+        "value": "4"
       },
       {
         "trait_type": "base",
         "value": "img1"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Your Collection #5",
+    "description": "Remember to replace this description",
+    "image": "ipfs://NewUriToReplace/5.png",
+    "dna": "b41d843cd74e0de168f20d68bcfe2f9e753d21a8",
+    "edition": 5,
+    "date": 1664954309856,
+    "attributes": [
+      {
+        "trait_type": "backgroundcopy",
+        "value": "5"
+      },
+      {
+        "trait_type": "base",
+        "value": "img"
       }
     ],
     "compiler": "HashLips Art Engine"

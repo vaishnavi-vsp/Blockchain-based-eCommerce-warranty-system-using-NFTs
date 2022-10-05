@@ -8,6 +8,7 @@ const { format, pixelFormat } = require(`${basePath}/src/config.js`);
 const console = require("console");
 const canvas = createCanvas(format.width, format.height);
 const ctx = canvas.getContext("2d");
+var gm = require('gm');
 
 const buildSetup = () => {
   if (fs.existsSync(buildDir)) {
