@@ -4,7 +4,6 @@ pragma solidity ^0.8.3;
 // 0x16adc5b4CDA6016ad862dE57540C38DC08D704c2 --recent old address
 // 0x2eA1d464a15b6d4EFF0e6656ca7B9Af85f49C097
 
-// import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
@@ -21,7 +20,6 @@ contract dMarket is ERC721URIStorage {
         address payable owner;
         bool isForSale;
         bool isSoulbound;
-        // warranty to be stored in mongodb
     }
     event CreateNFT(
         uint256 indexed _tokenId,
@@ -62,33 +60,6 @@ contract dMarket is ERC721URIStorage {
         emit CreateNFT(tokenId - 1, _tokenURI, msg.sender, _transfers,_issuer,_serialNo,_issueTime,_duration,description,name,_rarity);
         return tokenId-1;
     }
-
-    // function buyNFT(uint256 _tokenId) public payable {
-    //     require(_exists(_tokenId), "NFT does not exist");
-    //     require(nfts[_tokenId].isForSale, "NFT is not for sale");
-    //     // require(
-    //     //     msg.value == nfts[_tokenId].price,
-    //     //     "Price must be equal to the price of the token"
-    //     // );
-    //     require(
-    //         nfts[_tokenId].owner != msg.sender,
-    //         "You can not buy your own NFT.!"
-    //     );
-    //     _transfer(nfts[_tokenId].owner, msg.sender, _tokenId);
-    //     nfts[_tokenId].owner.transfer(msg.value);
-    //     nfts[_tokenId].owner = payable(msg.sender);
-    //     nfts[_tokenId].isForSale = false;
-    //     emit BuyNFT(msg.sender, _tokenId);
-    // }
-
-    // function markNFTForSale(uint256 _tokenId) public {
-    //     require(_exists(_tokenId), "NFT does not exist");
-    //     require(
-    //         nfts[_tokenId].owner == msg.sender,
-    //         "You can not mark others NFT for sale.!"
-    //     );
-    //     nfts[_tokenId].isForSale = true;
-    // }
     
     function _beforeTokenTransfer(
         address from,
@@ -100,9 +71,6 @@ contract dMarket is ERC721URIStorage {
         }
     }
 
-
-
-
     function transferNFT(address _to, uint256 _tokenId) public {
         require(
             nfts[_tokenId].owner == msg.sender,
@@ -113,28 +81,7 @@ contract dMarket is ERC721URIStorage {
         emit TransferNFT(msg.sender, _to, _tokenId);
     }
 
-    
-    
-  
-
     function getNFTMetaData(uint256 _tokenId) public view returns( uint256 _price,address _owner ,bool forSale,bool soulBound) {
-    //     struct NFT {
-    //     uint256 tokenId;
-    //     uint256 price;
-    //     address payable owner;
-    //     bool isForSale;
-
-    //     address issuer;
-    //     uint256 order_serial_number;
-    //     string issue_time;
-    //     uint256 duration;
-    //     // warranty to be stored in mongodb
-    // }
-
-    // uint256 tokenId;        
-    //     address payable owner;
-    //     bool isForSale;
-    //     bool isSoulbound;
         return (nfts[_tokenId].tokenId,nfts[_tokenId].owner,nfts[_tokenId].isForSale,nfts[_tokenId].isSoulbound);
     }
 
