@@ -2,18 +2,22 @@
   "name": "Your Collection #1",
   "description": "Remember to replace this description",
   "image": "ipfs://NewUriToReplace/1.png",
-  "dna": "125ba24bcbba66ce840d247751cdad2763006c57",
   "edition": 1,
-  "date": 1664954306894,
   "attributes": [
-    {
-      "trait_type": "backgroundcopy",
-      "value": "9"
-    },
-    {
-      "trait_type": "base",
-      "value": "img2"
-    }
+    [
+      {
+        "trait_type": "average color",
+        "value": "rgb(155,33,33)"
+      },
+      {
+        "trait_type": "What is this?",
+        "value": "NOT a Rare Color Base"
+      },
+      {
+        "trait_type": "date",
+        "value": 1737
+      }
+    ]
   ],
   "compiler": "HashLips Art Engine"
 }

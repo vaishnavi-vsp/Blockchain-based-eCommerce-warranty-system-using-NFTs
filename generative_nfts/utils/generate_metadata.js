@@ -70,12 +70,12 @@ const addRarity = () => {
   let rgb = imgdata.data;
   let newRgb = { r: 0, g: 0, b: 0 };
   const tolerance = 15;
-  const rareColorBase = "NOT a Hot Dog";
+  const rareColorBase = "NOT a Rare Color Base";
   const rareColor = [
-    { name: "Hot Dog", rgb: { r: 192, g: 158, b: 131 } },
-    { name: "Hot Dog", rgb: { r: 128, g: 134, b: 90 } },
-    { name: "Hot Dog", rgb: { r: 113, g: 65, b: 179 } },
-    { name: "Hot Dog", rgb: { r: 162, g: 108, b: 67 } },
+    { name: "Rare Color Base", rgb: { r: 192, g: 158, b: 131 } },
+    { name: "Rare Color Base", rgb: { r: 128, g: 134, b: 90 } },
+    { name: "Rare Color Base", rgb: { r: 113, g: 65, b: 179 } },
+    { name: "Rare Color Base", rgb: { r: 162, g: 108, b: 67 } },
   ];
 
   while ((i += 10 * 4) < rgb.length) {

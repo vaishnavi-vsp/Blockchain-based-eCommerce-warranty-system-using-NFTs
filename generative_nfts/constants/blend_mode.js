@@ -25,6 +25,9 @@ const MODE = {
   saturation: "saturation",
   color: "color",
   luminosity: "luminosity",
+  zoom: "zoom",
+  cannyEdge: "cannyEdge",
+  threshold: "thresholding"
 };
 
 module.exports = {
