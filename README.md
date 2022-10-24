@@ -1,5 +1,5 @@
 # ECommerce warranty system using NFTs
-#### Submitted as a solution for Flipkart Grid 4.0 Software Development Challenge
+### Runner up for Flipkart Grid 4.0 Software Development Challenge 2023
 
 <div align="center">
 <img align="center" src="https://i.postimg.cc/qvRtwLnt/Cap1.png" width="700">
